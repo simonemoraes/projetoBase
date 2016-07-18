@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #B2DFDB;
+    /*    background-color: yellow;*/
+}
+
+
+/* Comum a todas as paginas */
+/* cabeçalho e rodapé */
+#id_header {
+    height: 3%;
+    /*    background-image: url(../img/figura_1.jpg);*/
+    background-color: #B2DFDB;
+
+}
+
+#navPrincipal {
+    min-height: 5%;
+    margin-bottom: 2%;
+}
+
+#id_containerFluid {
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-bottom: 18px;
+    padding-top: 17px;
+    /*    font-size: 18px;*/
+}
+
+#id_ulNavbar {
+    float: right;           
+}
+
+.navbar-default {
+    /*    background-color: #E3F2FD;*/
+    color: #fff;
+    background-color: rgba(0,0,0,0.5);
+    transform: translate(0%, 0%);
+    transition: 0.3s;
+    border-color: #B2DFDB;
+    border-radius: 0;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: #0D47A1;
+}
+
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a:hover {
+
+    background-color: #f8f8f8;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+    font-size: 28px;
+}
+
+.mensagemAlert {
+    text-align: center;
+}
+
+#id_sectionIndex, #id_sectionRegistroConsumo, #id_sectionRegistroTarifas {
+    height: 68%;
+    min-height: max-content;
+    /*    background-color: red;*/
+}
+
+#footer {
+
+    background-color: #B2DFDB;
+}
+
+#id_textMuted_footer {
+    text-align: center;
+    margin: 2% 0 2%;
+}
+
+/* Fim - cabeçalho e rodapé */
+
+/* Pagina Index */
+#id_sectionIndex {
+    background-color: #26A69A;
+}
+
+#id_containerIndex {
+    height: 100%;
+}
+
+#id_div_index {
+    color: #fff;
+    background-color: rgba(0,0,0,0.5);
+    padding: 40px;
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.3s;
+    text-align: center;
+}
+
+/* Fim - Pagina Index */
+
+/* Pagina Sobre */
+#id_sectionSobre {
+    background-color: red;
+}
+/* Fim - Pagina Sobre */
+
+/* Fim - Pagina Contato */
+#id_sectionContato {
+    background-color: yellow;
+}
+/* Fim - Pagina Contato */
+
+@media screen and (max-width: 768px) {
+    #id_containerFluid {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+    #id_sectionIndex {
+        height: 76%;
+    }
+}
+
+@media screen and (max-width: 1200px) { 
+    #id_sectionIndex {
+        height: 76%;
+    }
+}
+
+
+
