@@ -48,10 +48,17 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
-$db['default']['database'] = '';
+$db['default']['hostname'] = 'ruianderson.com.br';
+$db['default']['username'] = 'ruiand_root';
+$db['default']['password'] = '42301886';
+$db['default']['database'] = 'ruiand_pjtbase';
+
+//$db['default']['hostname'] = 'localhost';
+//$db['default']['username'] = '';
+//$db['default']['password'] = '';
+//$db['default']['database'] = '';
+
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
