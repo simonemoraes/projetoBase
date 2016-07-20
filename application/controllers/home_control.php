@@ -17,5 +17,14 @@ class Home_control extends CI_Controller {
     public function produtos() {
        $this->load->template("produtos.php", "", $this->dadosmenu);
     }
+    
+    public function servicos() {
+        $this->load->template("servicos.php", "", $this->dadosmenu);
+    }
+    
+    public function planos() {
+       $this->load->template("planos.php", "", $this->dadosmenu);
+    }
+    
 
 }

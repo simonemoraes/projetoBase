@@ -43,6 +43,8 @@ $route['404_override'] = '';
 $route['home'] = "home_control";
 
 $route['Produtos'] = "home_control/produtos";
+$route['Servicos'] = "home_control/servicos";
+$route['Planos'] = "home_control/planos";
 
 
 /* End of file routes.php */
