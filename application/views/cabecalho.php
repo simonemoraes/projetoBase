@@ -31,7 +31,7 @@
 
                                 <li><a href="<?= base_url() ?>">Home</a></li>
                                 <?php foreach ($menus as $menu) : ?>
-                                    <li><a href="<?= base_url("index.php/" . $menu['descricao']) ?>"><?= $menu['descricao'] ?></a></li>
+                                    <li><a href="<?= base_url( $menu['link']) ?>"><?= $menu['descricao'] ?></a></li>
                                 <?php endforeach ?>
                                 <li><a href="<?= base_url() ?>">Sobre</a></li>
                                 <li><a href="<?= base_url() ?>">Contato</a></li>                       
