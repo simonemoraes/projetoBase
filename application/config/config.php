@@ -18,6 +18,8 @@
 */
 $config['base_url'] = 'http://localhost:8080/projetobase';
 
+//$config['base_url'] = 'http://pjtbase.ruianderson.com.br';
+
 /*
 |--------------------------------------------------------------------------
 | Index File

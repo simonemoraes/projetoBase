@@ -46,6 +46,8 @@ $route['produtos'] = "home_control/produtos";
 $route['servicos'] = "home_control/servicos";
 $route['planos'] = "home_control/planos";
 
+$route['painel_menu'] = "painel_control/menu";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
