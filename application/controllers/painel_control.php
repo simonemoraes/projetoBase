@@ -12,7 +12,7 @@ class Painel_control extends CI_Controller {
 
         $dados['titulo_site'] = 'Titulo site';
 
-        $this->load->view('adm/v_painel', $dados);
+        $this->load->view('adm/v_painel.php', $dados);
     }
 
     public function ativar($id_menu) {

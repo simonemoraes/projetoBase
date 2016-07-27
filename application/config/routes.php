@@ -38,13 +38,8 @@
 |
 */
 
-$route['default_controller'] = "home_control";
+$route['default_controller'] = "painel_control/menu";
 $route['404_override'] = '';
-$route['home'] = "home_control";
-
-$route['produtos'] = "home_control/produtos";
-$route['servicos'] = "home_control/servicos";
-$route['planos'] = "home_control/planos";
 
 $route['painel_menu'] = "painel_control/menu";
 

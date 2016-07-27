@@ -15,11 +15,31 @@
         <link rel="stylesheet" href="<?= base_url("css/estilo_painel.css") ?>">
         <link rel="stylesheet" href="<?= base_url("css/bootstrap.min.css") ?>">
 
+        <style>
+            #id_panel_h3_VPanel {
+                text-align: center;
+                font-size: 22px;
+            }
+
+            .botaoFerramenta {
+                /*                margin-right: -4px;*/
+                /*                border-radius: 0px;*/
+            }
+
+
+            .input-group-lg>.form-control, .input-group-lg>.input-group-btn>.btn {
+                /*                border-radius: 0;*/
+            }
+
+        </style>
+
+
     </head>
 
     <body>
 
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <!-- Inicio - Navbar -->
+        <nav class="navbar navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -42,10 +62,10 @@
                         </li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
-                </div><!--/.nav-collapse -->
+                </div>
             </div>
         </nav>
-
+        <!-- Fim - Navbar -->
 
 
         <section id="id_sectionBodyPainel">
@@ -54,45 +74,63 @@
 
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Controle do Menu</h3>
+                        <h3 class="panel-title" id="id_panel_h3_VPanel">Controle do Menu</h3>
                     </div>
-                    <div class="panel-body">
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <label for="exampleInputName2">Titulo do site</label>
-                                <input type="text" class="form-control" id="titulo_site" value="<?= $titulo_site ?>">
+
+                    <div style="border-bottom: 1px solid #337ab7; background-color: #EEEEEE; padding: 5px;">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+
+                                <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+
+                                <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Excluir" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+
+                                <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Visualizar" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                </button>
+
                             </div>
 
-                            <button type="submit" class="btn btn-warning">Alterar</button>
-                        </form>
-                        <br/>
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>Menu</th>
-                                    <th>Link</th>
-                                    <th>Ação</th>
-                                </tr>
-                                <?php foreach ($menu as $objmenu) : ?>
-                                    <tr id="<?= "menu_" . $objmenu['id'] ?>">
-                                        <td><?= $objmenu['descricao'] ?></td>
-                                        <td><?= $objmenu['link'] ?></td>
+                            <div class="col-md-2">
+                                <div class="dropdown ">
+                                    <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Selecione
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#">Código</a></li>
+                                        <li><a href="#">Descrição</a></li>
+                                        <li><a href="#">Email</a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
 
-                                        <td>
-                                            <a id="btn<?= $objmenu["id"] ?>" itemid= "<?= base_url("painel_control/ativar/" . $objmenu["id"]) ?>"  
-                                               class="scp_btn btn <?= $objmenu["status"] == 0 ? "btn-primary" : "btn-success" ?>" role="button">
-                                                <?= $objmenu["status"] == 0 ? "Ativar" : "Desativar" ?>
-                                            </a>
+                            <div class="col-md-4">
+                                <div class="input-group input-group-lg" style= "margin-right: 4px;">
+                                    <input type="text" class="form-control" aria-label="" placeholder="Buscar">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Excluir" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
-                                        </td>
-
-
-                                    </tr>
-                                <?php endforeach ?>
-
-
-                            </table>
                         </div>
+
+                    </div>
+
+                    <div class="panel-body">
+
                     </div>
                 </div>
 
