@@ -81,9 +81,9 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
+                                <a href="script:;" class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                </button>
+                                </a>
 
                                 <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -130,7 +130,8 @@
                     </div>
 
                     <div class="panel-body">
-
+                        
+                            <?php echo $conteudo; ?>
                     </div>
                 </div>
 

@@ -7,12 +7,14 @@ class Painel_control extends CI_Controller {
     }
 
     public function menu() {
+        
+        $conteudo_painel = $this->load->view('adm/testerui.php',"",TRUE);
+        
+        $dados['paginaok'] = $this->obj_gen->retornaPagina($conteudo_painel);
 
-        $dados['menu'] = $this->menu_model->listaMenus(1);
-
-        $dados['titulo_site'] = 'Titulo site';
-
-        $this->load->view('adm/v_painel.php', $dados);
+        $this->load->view('adm/v_clientes.php',$dados);
+        
+        
     }
 
     public function ativar($id_menu) {
