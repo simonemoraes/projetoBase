@@ -14,19 +14,19 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="script:;" class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
+                        <a href="script:;" onclick="<?= $funcao_especifica['btn_novo'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
 
-                        <a href="script:;" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
+                        <a href="script:;" onclick="<?= $funcao_especifica['btn_editar'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
 
-                        <a href="script:;" class="btn btn-default btn-lg botaoFerramenta" title="Excluir" aria-label="Left Align">
+                        <a href="script:;" onclick="<?= $funcao_especifica['btn_excluir'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Excluir" aria-label="Left Align">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </a>
 
-                        <a href="script:;" class="btn btn-default btn-lg botaoFerramenta" title="Visualizar" aria-label="Left Align">
+                        <a href="script:;" onclick="<?= $funcao_especifica['btn_excluir'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Visualizar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </a>
 
@@ -73,3 +73,4 @@
 <!-- /.container -->
 
 <?php $this->load->view('includes/rodape.php') ?>
+
