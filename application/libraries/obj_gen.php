@@ -11,9 +11,10 @@ class Obj_gen extends CI_Loader {
         $this->ci = &get_instance();
     }
 
-    function retornaPagina($html) {
+    function retornaPagina($html, $info_painel = array()) {
         
         $dados['conteudo'] = $html;
+        $dados['painel']= $info_painel;
         
         $pagina = $this->ci->load->view('layout/v_painel', $dados, true);
 
