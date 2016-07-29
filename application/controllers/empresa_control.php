@@ -12,9 +12,11 @@ class Empresa_control extends CI_Controller {
         
         $dados_painel = array('titulo' => 'Empresas');
         
+        $endereco = base_url('empresa/cadastrar');
+        
         $funcao_jS = array(
             'js_tela' => "js/empresa/empresa.js",
-            'btn_novo' => "cadastrarEmpresa('empresa/cadastrar')",
+            'btn_novo' => "cadastrarEmpresa('$endereco')",
             'btn_editar' => "editarEmpresa('empresa/editar')",
             'btn_excluir' => "excluirEmpresa('empresa/excluir')",
             'btn_visualizar' => "visualizarEmpresa('empresa/visualizar')"
