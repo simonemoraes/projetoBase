@@ -1,20 +1,24 @@
 @charset "UTF-8";
 
-#id_sectionBodyPainel{
-    /*    margin-top: 70px;*/
-}
 
 #id_panel_h3_VPanel {
-   // text-align: center;
+    /*  text-align: center;*/
     font-size: 22px;
 }
 
-.botaoFerramenta {
-    /*                margin-right: -4px;*/
-    /*                border-radius: 0px;*/
+#navBar {
+    border-radius: 0;
 }
 
-
-.input-group-lg>.form-control, .input-group-lg>.input-group-btn>.btn {
-    /*                border-radius: 0;*/
+#id_divFerramenta {
+    border-bottom: 1px solid #337ab7; 
+    background-color: #EEEEEE; 
+    padding: 5px;
 }
+
+#id_formGroup {
+    height: 46px;
+    border-radius: 6px;
+    font-size: 18px;
+}
+

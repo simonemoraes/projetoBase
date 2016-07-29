@@ -10,7 +10,7 @@
                 <h3 class="panel-title" id="id_panel_h3_VPanel"><?= $painel['titulo'] ?></h3>
             </div>
 
-            <div style="border-bottom: 1px solid #337ab7; background-color: #EEEEEE; padding: 5px;">
+            <div id="id_divFerramenta">
 
                 <div class="row">
                     <div class="col-md-6">
@@ -33,18 +33,12 @@
                     </div>
 
                     <div class="col-md-2">
-                        <div class="dropdown ">
-                            <button class="btn btn-default dropdown-toggle btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Selecione
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">Código</a></li>
-                                <li><a href="#">Descrição</a></li>
-                                <li><a href="#">Email</a></li>
-
-                            </ul>
-                        </div>
+                        <select class="form-control" id="id_formGroup">
+                            <option>Selecione...</option>
+                            <option name="codigo" value="codigo">Código</option>
+                            <option name="descricao" value="descricao">Descrição</option>
+                            <option name="email" value="email">Email</option>
+                        </select>
                     </div>
 
                     <div class="col-md-4">
@@ -73,7 +67,7 @@
 <!-- /.container -->
 
 <!-- Janela Modal Generica -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

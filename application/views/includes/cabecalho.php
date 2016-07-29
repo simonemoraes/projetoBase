@@ -12,7 +12,7 @@
         <title>SGS - Sistema Gestor de Seguros</title>
 
 
-        <link rel="stylesheet" href="<?= base_url("css/estilo_painel.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("css/estilo_painel.css") ?>" media="all">
         <link rel="stylesheet" href="<?= base_url("css/bootstrap.min.css") ?>">
 
 
@@ -22,7 +22,7 @@
     <body>
 
         <!-- Inicio - Navbar -->
-        <nav class="navbar navbar-inverse">
+        <nav style="" class="navbar navbar-inverse" id="navBar">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
