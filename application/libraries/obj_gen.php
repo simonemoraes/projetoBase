@@ -19,5 +19,25 @@ class Obj_gen extends CI_Loader {
 
         return $pagina;
     }
+    
+    function criaChaveprimaria($tipo = ""){
+        
+        $chave = "";
+        // Essa informação vem por parametro ou Sessão.
+        $chave_do_usuario = 'XDSVT';
+        
+        if(empty($tipo)){
+            
+            list($dia,$mes,$ano) = explode('/', date('d/m/Y'));
+            
+            $chave = $ano . $mes . $dia;
+            
+            $chave = $chave . $chave_do_usuario . md5(rand(10000000, 99999999));
+            
+            $chave = substr($chave,0,20);
+        }
+        
+        return strtoupper($chave);
+    }
 
 }
