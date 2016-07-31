@@ -14,30 +14,27 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="script:;"  id="btn_painel_novo" data-target="#exampleModal"  class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
+                        <button <?php echo $painel['estado_btn_novo']; ?>  id="btn_painel_novo" data-target="#exampleModal"  class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </a>
+                        </button>
 
-                        <a href="script:;" onclick="<?= $funcao_especifica['btn_editar'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
+                        <button <?php echo $painel['estado_btn_editar']; ?> id="btn_painel_editar" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </a>
+                        </button>
 
-                        <a href="script:;" onclick="<?= $funcao_especifica['btn_excluir'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Excluir" aria-label="Left Align">
+                        <button <?php echo $painel['estado_btn_excluir']; ?> id="btn_painel_excluir" class="btn btn-default btn-lg botaoFerramenta" title="Excluir" aria-label="Left Align">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </a>
+                        </button>
 
-                        <a href="script:;" onclick="<?= $funcao_especifica['btn_excluir'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Visualizar" aria-label="Left Align">
+                        <button <?php echo $painel['estado_btn_visualizar']; ?> id="btn_painel_visualizar" class="btn btn-default btn-lg botaoFerramenta" title="Visualizar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                        </a>
+                        </button>
 
                     </div>
 
                     <div class="col-md-2">
                         <select class="form-control" id="id_formGroup">
-                            <option>Selecione...</option>
-                            <option name="codigo" value="codigo">Código</option>
-                            <option name="descricao" value="descricao">Descrição</option>
-                            <option name="email" value="email">Email</option>
+                            <?php echo $painel['opcoes']; ?> 
                         </select>
                     </div>
 

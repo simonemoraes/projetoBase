@@ -9,23 +9,28 @@ class Empresa_control extends CI_Controller {
     }
 
     public function index() {
-        
+
         $empresa['lista_empresa'] = $this->empresa_model->retornaEmpresas();
 
         $html_grid_empresa = $this->load->view('empresa/grid_empresa.php', $empresa, TRUE);
         $html_form_empresa = $this->load->view('empresa/form_empresa.php', "", TRUE);
+        $html_opcoes_empresa = $this->load->view('empresa/opcao_pesquisa.php', "", TRUE);
 
-        $dados_painel = array('titulo' => 'Empresas');
+        $dados_painel = array(
+            'titulo' => 'Empresas',
+            'opcoes' => $html_opcoes_empresa,
+            'estado_btn_novo' => "",
+            'estado_btn_editar' => "disabled=''",
+            'estado_btn_excluir' => "disabled=''",
+            'estado_btn_visualizar' => "disabled=''"
+        );
 
-        $endereco = base_url('empresa/cadastrar');
+
         $link_fechar = base_url('empresa');
-        // Obeto para o preenchmento dos componentes do painel
+
+        // Obeto para injeção de js  especifico.
         $obj_jS = array(
-            'js_tela' => "js/empresa/empresa.js",
-            'btn_novo' => "cadastrarEmpresa('$endereco')",
-            'btn_editar' => "editarEmpresa('empresa/editar')",
-            'btn_excluir' => "excluirEmpresa('empresa/excluir')",
-            'btn_visualizar' => "visualizarEmpresa('empresa/visualizar')"
+            'js_tela' => "js/empresa/empresa.js"
         );
 
 
@@ -36,7 +41,7 @@ class Empresa_control extends CI_Controller {
             'titulo_modal' => 'Cadastro de Empresas',
             'btn_cadastrar' => 'Salvar',
             'acao' => $endereco_salvar,
-            'fechar'=> $link_fechar,
+            'fechar' => $link_fechar,
             'formulario' => $html_form_empresa
         );
 

@@ -4,7 +4,7 @@
     <table class="table table-bordered">
         <thead>
             <tr class="info" >
-                <th style="text-align: center">#</th>
+                <th style="text-align: center"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></th>
                 <th style="text-align: center">Codigo</th>
                 <th style="text-align: center">Razão Social</th>
                 <th style="text-align: center">Responsável</th>
@@ -14,14 +14,8 @@
         <tbody>
             <?php foreach ($lista_empresa as $empresa) : ?>
                 <tr>
-                    <td>
-                        <div class="checkbox" style="text-align: center">
-                            <label>
-                                <input class="esp_chk" id="<?= $empresa["ukey"] ?>" type="checkbox" value="">
-
-                            </label>
-                        </div>
-
+                    <td style="text-align: center">
+                        <input name="empresa[]" itemid="000" class="esp_chk" id="<?= $empresa["ukey"] ?>" type="checkbox" value="">
                     </td>
                     <td><?= $empresa["codigo"] ?></td>
                     <td><?= $empresa["razao_social"] ?></td>

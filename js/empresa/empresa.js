@@ -13,6 +13,15 @@ $(document).ready(function () {
         salvarEmpresa(url);
     });
 
+
+    // Esse enevento faz uma chamada para função assincrona para abrir a edição da empresa
+    $("#btn_painel_editar").click(function () {
+        var ukey_empresa = $("input[type=checkbox][name = 'empresa[]']:checked").attr("id");
+        alert(ukey_empresa);
+    });
+
+
+
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
         limpaCampos();
@@ -26,8 +35,8 @@ $(document).ready(function () {
         window.location.href = url;
 
     });
-    
-    
+
+
     // Evento para o botão fechar EM CIMA NO modal
     // Faz um refresh na pagina do grid
     $("#btn_modal_fechar").click(function () {
@@ -41,10 +50,21 @@ $(document).ready(function () {
     $(".esp_chk").click(function () {
 
         var id_clicado = $(this).attr("id");
+        var itemid_clicado = $(this).attr("itemid");
 
-        $(".esp_chk").prop("checked", false);
+        if (id_clicado === itemid_clicado) {
 
-        $("#" + id_clicado).prop("checked", true);
+            $(this).prop("checked", false);
+            $(".esp_chk").attr("itemid", "00000");
+            desabilitaBotoes();
+
+        } else {
+            $(".esp_chk").attr("itemid", "00000");
+            $(this).attr("itemid", id_clicado);
+            $(".esp_chk").prop("checked", false);
+            $(this).prop("checked", true);
+            habilitaBotoes();
+        }
 
 
     });
@@ -52,6 +72,20 @@ $(document).ready(function () {
 
 
 });
+
+function habilitaBotoes(){
+    $("#btn_painel_editar").removeAttr('disabled');
+    $("#btn_painel_excluir").removeAttr('disabled');
+    $("#btn_painel_visualizar").removeAttr('disabled');
+   
+}
+
+function desabilitaBotoes(){
+    $("#btn_painel_editar").attr('disabled',"disabled");
+    $("#btn_painel_excluir").attr('disabled',"disabled");
+    $("#btn_painel_visualizar").attr('disabled',"disabled");
+   
+}
 
 // Função que chama a janela modal
 function abrirCadastro() {
@@ -66,24 +100,7 @@ function abrirCadastro() {
 
 }
 
-function editarEmpresa(endereco) {
 
-    alert(endereco);
-
-}
-
-
-function excluirEmpresa(endereco) {
-
-    alert(endereco);
-
-}
-
-function visualizarEmpresa(endereco) {
-
-    alert(endereco);
-
-}
 
 // Função para enviar dados para control salvar.
 // Envio de forma assincrona
