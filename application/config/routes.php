@@ -45,6 +45,7 @@ $route['default_controller'] = "principal_control";
 $route['404_override'] = '';
 
 $route['empresa'] = "empresa_control";
+$route['empresa/salvar'] = "empresa_control/salvar";
 
 
 

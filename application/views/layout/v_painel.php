@@ -14,7 +14,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="script:;"  id="modalteste" data-target="#exampleModal" onclick="<?= $funcao_especifica['btn_novo'] ?>" class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
+                        <a href="script:;"  id="btn_painel_novo" data-target="#exampleModal"  class="btn btn-default btn-lg botaoFerramenta" title="Novo" aria-label="Left Align">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
 
@@ -67,29 +67,45 @@
 <!-- /.container -->
 
 <!-- Janela Modal Generica -->
-<div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<div  class="modal fade" id="modal_cadastro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                <a id="btn_modal_fechar" href="<?php echo $modal['fechar'] ?>" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+                <h4 class="modal-title" id="exampleModalLabel"><?php echo $modal['titulo_modal']; ?></h4>
             </div>
+
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="control-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
+
+                <div style="display: none" id="msg_error" class="alert alert-danger  alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p><strong>Erro ao gravar registro... tente novamente</strong></p>
+                </div>
+
+                <div style="display: none" id="msg_sucesso" class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p><strong>Registro salvo com sucesso</h2></strong></p>
+                </div>
+                <?php echo $modal['formulario']; ?>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button style="float: left" id="btn_painel_limpar" type="button" class="btn btn-warning" >Limpar</button>
+                    </div>
+                    <div class="col-md-6">
+                        <a id="btn_painel_fechar" href="<?php echo $modal['fechar'] ?>" type="button" class="btn btn-default" data-dismiss="modal">Fechar</a>
+                        <button  id="btn_modal_salvar" itemid="<?php echo $modal['acao'] ?>" class="btn btn-primary"><?php echo $modal['btn_cadastrar']; ?></button>
+                    </div>
+
+                </div>
+
             </div>
+
         </div>
     </div>
 </div>
