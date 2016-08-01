@@ -32,6 +32,7 @@
 
                     </div>
 
+
                     <div class="col-md-2">
                         <select class="form-control" id="id_formGroup">
                             <?php echo $painel['opcoes']; ?> 
@@ -92,11 +93,18 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-md-6">
-                        <button style="float: left" id="btn_painel_limpar" type="button" class="btn btn-warning" >Limpar</button>
+                        <button style="float: left" id="btn_painel_limpar" type="button" class="btn btn-warning">Limpar
+                            <span style="margin-left: 15px;" class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                        </button>
                     </div>
                     <div class="col-md-6">
-                        <a id="btn_painel_fechar" href="<?php echo $modal['fechar'] ?>" type="button" class="btn btn-default" data-dismiss="modal">Fechar</a>
-                        <button  id="btn_modal_salvar" itemid="<?php echo $modal['acao'] ?>" class="btn btn-primary"><?php echo $modal['btn_cadastrar']; ?></button>
+                        <a id="btn_painel_fechar" href="<?php echo $modal['fechar'] ?>" type="button" class="btn btn-default" data-dismiss="modal">Fechar
+                            <span style="margin-left: 15px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+
+                        <button id="btn_modal_salvar" itemid="<?php echo $modal['acao'] ?>" class="btn btn-primary"><?php echo $modal['btn_cadastrar']; ?>
+                            <span style="margin-left: 15px;" class="glyphicon glyphicon-floppy-save " aria-hidden="true"></span>
+                        </button>
                     </div>
 
                 </div>

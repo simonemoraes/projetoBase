@@ -22,3 +22,21 @@
     
 }
 
+#btn_painel_limpar {
+    float: left;
+    
+}
+
+#btn_painel_fechar {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+#btn_painel_fechar:hover {
+     color: #333;
+    background-color: #ccc;
+    border-color: #adadad;
+}
+
+
+
