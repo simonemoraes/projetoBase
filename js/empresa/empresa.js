@@ -18,6 +18,11 @@ $(document).ready(function () {
     $("#btn_painel_editar").click(function () {
         var ukey_empresa = $("input[type=checkbox][name = 'empresa[]']:checked").attr("id");
         alert(ukey_empresa);
+
+        $("#modal_cadastro").modal({
+            backdrop: false,
+            keyboard: true
+        }).modal('show');
     });
 
 
@@ -73,18 +78,18 @@ $(document).ready(function () {
 
 });
 
-function habilitaBotoes(){
+function habilitaBotoes() {
     $("#btn_painel_editar").removeAttr('disabled');
     $("#btn_painel_excluir").removeAttr('disabled');
     $("#btn_painel_visualizar").removeAttr('disabled');
-   
+
 }
 
-function desabilitaBotoes(){
-    $("#btn_painel_editar").attr('disabled',"disabled");
-    $("#btn_painel_excluir").attr('disabled',"disabled");
-    $("#btn_painel_visualizar").attr('disabled',"disabled");
-   
+function desabilitaBotoes() {
+    $("#btn_painel_editar").attr('disabled', "disabled");
+    $("#btn_painel_excluir").attr('disabled', "disabled");
+    $("#btn_painel_visualizar").attr('disabled', "disabled");
+
 }
 
 // Função que chama a janela modal
@@ -123,21 +128,21 @@ function salvarEmpresa(endereco) {
         estado: $("#estado").val(),
         cidade: $("#cidade").val()
     },
-    function (data, status) {
+            function (data, status) {
 
-        $("#msg_sucesso").hide();
-        $("#msg_sucesso").hide();
+                $("#msg_sucesso").hide();
+                $("#msg_sucesso").hide();
 
-        if (data === "sucesso") {
-            limpaCampos();
-            $("#msg_sucesso").show();
-        } else {
-            $("#msg_sucesso").show();
-        }
+                if (data === "sucesso") {
+                    limpaCampos();
+                    $("#msg_sucesso").show();
+                } else {
+                    $("#msg_sucesso").show();
+                }
 
 
 
-    });
+            });
 
 }
 
