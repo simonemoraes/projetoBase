@@ -46,6 +46,7 @@ $route['404_override'] = '';
 
 $route['empresa'] = "empresa_control";
 $route['empresa/salvar'] = "empresa_control/salvar";
+$route['empresa/editar'] = "empresa_control/editar";
 
 
 

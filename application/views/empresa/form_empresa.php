@@ -1,4 +1,6 @@
 <form id="form_modal" onsubmit="return false">
+    
+    <input type="hidden" class="form-control" id="ukey" name="ukey">
 
     <div class="form-group">
         <label for="razao_social" class="control-label">Razão Social</label>

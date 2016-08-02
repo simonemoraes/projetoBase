@@ -18,7 +18,7 @@
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
 
-                        <button <?php echo $painel['estado_btn_editar']; ?> id="btn_painel_editar" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
+                        <button itemid="<?php echo $painel['endereco_btn_editar']; ?>" <?php echo $painel['estado_btn_editar']; ?> id="btn_painel_editar" class="btn btn-default btn-lg botaoFerramenta" title="Editar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </button>
 

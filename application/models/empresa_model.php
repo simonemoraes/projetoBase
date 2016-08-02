@@ -10,5 +10,15 @@ class Empresa_model extends CI_Model {
         return $this->db->get("empresa")->result_array();
     }
     
+    public function buscaPorId($id){
+        $this->db->where("ukey",$id);
+        return $this->db->get("empresa");
+    }
+    
+    public function editarEmpresa($empresa){
+        $this->db->where('ukey', $empresa['ukey']);
+        return $this->db->update("empresa",$empresa);
+    }
+    
    
 }

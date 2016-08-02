@@ -9,7 +9,6 @@ $(document).ready(function () {
     // Esse enevento faz uma chamada para função assincrona para gravar empresa 
     $("#btn_modal_salvar").click(function () {
         var url = $(this).attr("itemid");
-
         salvarEmpresa(url);
     });
 
@@ -17,12 +16,32 @@ $(document).ready(function () {
     // Esse enevento faz uma chamada para função assincrona para abrir a edição da empresa
     $("#btn_painel_editar").click(function () {
         var ukey_empresa = $("input[type=checkbox][name = 'empresa[]']:checked").attr("id");
-        alert(ukey_empresa);
+        var url = $(this).attr("itemid");
+        // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
+        // Retorno do callback json
+        $.post(url, {
+            ukey: ukey_empresa,
+        },
+                function (data, status) {
 
-        $("#modal_cadastro").modal({
-            backdrop: false,
-            keyboard: true
-        }).modal('show');
+                    $("#msg_sucesso").hide();
+                    $("#msg_error").hide();
+
+                    if (status === "success") {
+                        
+                        // metodo que preenche o objeto da tela com json retornado.
+                        preencherObjeto(data);
+
+                        abrirCadastro();
+
+                    } else {
+                         $("#msg_error").show();
+                    }
+
+
+
+                }, 'json');
+
     });
 
 
@@ -100,18 +119,23 @@ function abrirCadastro() {
         keyboard: true
     }).modal('show');
 
-    limpaCampos();
-
-
 }
 
 
 
 // Função para enviar dados para control salvar.
 // Envio de forma assincrona
+// metodo chamada para salvar ou editar registro
 function salvarEmpresa(endereco) {
+
+    var chave = 'NOVO'
+
+    if ($('#ukey').val() !== '') {
+        chave = $('#ukey').val();
+    }
+
     $.post(endereco, {
-        ukey: "NOVO",
+        ukey: chave,
         razao_social: $("#razao_social").val(),
         nome_fantasia: $("#nome_fantasia").val(),
         cnpj_cpf: $("#cnpj_cpf").val(),
@@ -131,13 +155,13 @@ function salvarEmpresa(endereco) {
             function (data, status) {
 
                 $("#msg_sucesso").hide();
-                $("#msg_sucesso").hide();
+                $("#msg_error").hide();
 
                 if (data === "sucesso") {
                     limpaCampos();
                     $("#msg_sucesso").show();
                 } else {
-                    $("#msg_sucesso").show();
+                    $("#msg_error").show();
                 }
 
 
@@ -163,5 +187,24 @@ function limpaCampos() {
     $("#cep").val("");
     $("#estado").val("");
     $("#cidade").val("");
+}
+
+function preencherObjeto(data) {
+    $("#ukey").val(data.ukey);
+    $("#razao_social").val(data.razao_social);
+    $("#nome_fantasia").val(data.nome_fantasia);
+    $("#cnpj_cpf").val(data.cnpj_cpf);
+    $("#responsavel").val(data.responsavel);
+    $("#contato").val(data.contato);
+    $("#email").val(data.email);
+    $("#telefone_1").val(data.telefone_1);
+    $("#telefone_2").val(data.telefone_2);
+    $("#telefone_3").val(data.telefone_3);
+    $("#endereco").val(data.endereco);
+    $("#numero").val(data.numero);
+    $("#complemento").val(data.complemento);
+    $("#cep").val(data.cep);
+    $("#estado").val(data.estado);
+    $("#cidade").val(data.cidade);
 }
 

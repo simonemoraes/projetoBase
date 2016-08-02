@@ -1,6 +1,5 @@
 <?php
 
-
 class Empresa_control extends CI_Controller {
 
     public function __construct() {
@@ -23,7 +22,8 @@ class Empresa_control extends CI_Controller {
             'estado_btn_novo' => "",
             'estado_btn_editar' => "disabled=''",
             'estado_btn_excluir' => "disabled=''",
-            'estado_btn_visualizar' => "disabled=''"
+            'estado_btn_visualizar' => "disabled=''",
+            'endereco_btn_editar' => base_url('empresa/editar')
         );
 
 
@@ -51,14 +51,41 @@ class Empresa_control extends CI_Controller {
         $this->load->view('empresa/v_empresa.php', $dados);
     }
 
-    public function salvar() {
+    public function editar() {
+        $chave = $this->input->post('ukey');
+        $resultado = $this->empresa_model->buscaPorId($chave);
 
-        $chave = "";
+        $retorno = array(
+            'ukey' => $resultado->row()->ukey,
+            'razao_social' => $resultado->row()->razao_social,
+            'nome_fantasia' => $resultado->row()->nome_fantasia,
+            'cnpj_cpf' => $resultado->row()->cnpj_cpf,
+            'responsavel' => $resultado->row()->responsavel,
+            'contato' => $resultado->row()->contato,
+            'email' => $resultado->row()->email,
+            'telefone_1' => $resultado->row()->telefone_1,
+            'telefone_2' => $resultado->row()->telefone_2,
+            'telefone_3' => $resultado->row()->telefone_3,
+            'endereco' => $resultado->row()->endereco,
+            'numero' => $resultado->row()->numero,
+            'complemento' => $resultado->row()->complemento,
+            'cep' => $resultado->row()->cep,
+            'estado' => $resultado->row()->estado,
+            'cidade' => $resultado->row()->cidade
+        );
+
+        echo json_encode($retorno);
+    }
+
+    public function salvar() {
+        
+        $acao = "EDITAR";
+
+        $chave = $this->input->post('ukey');
 
         if ($this->input->post('ukey') == "NOVO") {
             $chave = $this->obj_gen->criaChaveprimaria("E");
-        } else {
-            $chave = $this->input->post('ukey');
+            $acao = 'INSERIR';
         }
 
         // Preenchendo o objeto empresa com dados que vieram no post
@@ -81,10 +108,17 @@ class Empresa_control extends CI_Controller {
             'estado' => $this->input->post('estado'),
             'cidade' => $this->input->post('cidade')
         );
-
-
-
-        $retorno = $this->empresa_model->inserirEmpresa($empresa);
+        
+        $retorno = "";
+        
+        if($acao == 'INSERIR'){
+             $retorno = $this->empresa_model->inserirEmpresa($empresa);
+        }
+        
+        if($acao == 'EDITAR'){
+             $retorno = $this->empresa_model->editarEmpresa($empresa);
+        }
+       
 
         if ($retorno) {
             echo 'sucesso';
