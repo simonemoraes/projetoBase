@@ -80,7 +80,7 @@ $(document).ready(function () {
 
             $(this).prop("checked", false);
             $(".esp_chk").attr("itemid", "00000");
-            $(this).closest("tr").css("background", "");
+            $(this).closest("tr").removeClass("fundoLinhaPainel");
             desabilitaBotoes();
 
         } else {
@@ -88,8 +88,8 @@ $(document).ready(function () {
             $(this).attr("itemid", id_clicado);
             $(".esp_chk").prop("checked", false);
             $(this).prop("checked", true);
-            $(".esp_chk").closest("tr").css("background", "");
-            $(this).closest("tr").css("background", "#F0F4C3");
+            $(".esp_chk").closest("tr").removeClass("fundoLinhaPainel");
+            $(this).closest("tr").addClass("fundoLinhaPainel");
             habilitaBotoes();
         }
 
