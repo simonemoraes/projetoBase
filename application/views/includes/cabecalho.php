@@ -11,7 +11,6 @@
 
         <title>SGS - Sistema Gestor de Seguros</title>
 
-
         <link rel="stylesheet" href="<?= base_url("css/estilo_painel.css") ?>" media="all">
         <link rel="stylesheet" href="<?= base_url("css/bootstrap.min.css") ?>">
 

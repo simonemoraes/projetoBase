@@ -15,7 +15,7 @@ $(document).ready(function () {
     
     // Essa função trata a seleção unica dos checkbox da tela
     // Essa fução está no JS_base.
-    controlaCheckbox(".esp_chk");
+    controlaCheckbox('.esp_chk');
     
      // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
