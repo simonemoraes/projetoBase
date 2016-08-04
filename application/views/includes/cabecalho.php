@@ -40,6 +40,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?= base_url('empresa') ?>">Empresas</a></li>
+                                <li><a href="<?= base_url('usuario') ?>">Usuarios</a></li>
                                 <li><a href="#">Seguradora</a></li>
                                 <li><a href="#">Corretor</a></li>
                                 <li><a href="#">Supervisor</a></li>

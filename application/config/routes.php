@@ -41,12 +41,18 @@ if (!defined('BASEPATH'))
   |
  */
 
-$route['default_controller'] = "principal_control";
+$route['default_controller'] = "Principal_control";
 $route['404_override'] = '';
 
 $route['empresa'] = "empresa_control";
 $route['empresa/salvar'] = "empresa_control/salvar";
 $route['empresa/editar'] = "empresa_control/editar";
+
+
+$route['usuario'] = "usuario_control";
+$route['usuario/salvar'] = "usuario_control/salvar";
+$route['usuario/editar'] = "usuario_control/editar";
+
 
 
 

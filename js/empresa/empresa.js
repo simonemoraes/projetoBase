@@ -68,61 +68,14 @@ $(document).ready(function () {
         window.location.href = url;
 
     });
-
-
-    // Esse evento trata a seleção unica dos checkbox da tela
-    $(".esp_chk").click(function () {
-
-        var id_clicado = $(this).attr("id");
-        var itemid_clicado = $(this).attr("itemid");
-
-        if (id_clicado === itemid_clicado) {
-
-            $(this).prop("checked", false);
-            $(".esp_chk").attr("itemid", "00000");
-            $(this).closest("tr").removeClass("fundoLinhaPainel");
-            desabilitaBotoes();
-
-        } else {
-            $(".esp_chk").attr("itemid", "00000");
-            $(this).attr("itemid", id_clicado);
-            $(".esp_chk").prop("checked", false);
-            $(this).prop("checked", true);
-            $(".esp_chk").closest("tr").removeClass("fundoLinhaPainel");
-            $(this).closest("tr").addClass("fundoLinhaPainel");
-            habilitaBotoes();
-        }
-
-
-    });
-
+    
+    // Essa função trata a seleção unica dos checkbox da tela
+    // Essa fução está no JS_base.
+    controlaCheckbox(".esp_chk");
 
 
 });
 
-function habilitaBotoes() {
-    $("#btn_painel_editar").removeAttr('disabled');
-    $("#btn_painel_excluir").removeAttr('disabled');
-    $("#btn_painel_visualizar").removeAttr('disabled');
-
-}
-
-function desabilitaBotoes() {
-    $("#btn_painel_editar").attr('disabled', "disabled");
-    $("#btn_painel_excluir").attr('disabled', "disabled");
-    $("#btn_painel_visualizar").attr('disabled', "disabled");
-
-}
-
-// Função que chama a janela modal
-function abrirCadastro() {
-
-    $("#modal_cadastro").modal({
-        backdrop: false,
-        keyboard: true
-    }).modal('show');
-
-}
 
 
 
@@ -210,4 +163,5 @@ function preencherObjeto(data) {
     $("#estado").val(data.estado);
     $("#cidade").val(data.cidade);
 }
+
 
