@@ -15,7 +15,8 @@ $(document).ready(function () {
     // Esse evento faz a abertura do formulario de cadastro
     $("#btn_painel_inativar").click(function () {
         var url = $(this).attr("itemid");
-        ativarUsuario(url);
+        //Função no js_base
+        ativar(url);
 
     });
 
@@ -50,27 +51,25 @@ $(document).ready(function () {
     // Esse enevento faz uma chamada para função assincrona para abrir a edição da empresa
     $("#btn_painel_editar").click(function () {
 
-        var ukey_usuario = $("input[type=checkbox][name = 'usuario[]']:checked").attr("id");
+        var ukey_usuario = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
         var url = $(this).attr("itemid");
+        
+        //escondendo esses campos na edição, pois não podem ser preenchidos.
+        $("#box_confirma_senha").hide();
+        $("#box_senha").hide();
 
-        alert(ukey_usuario);
-
-        alert(url);
-
+       
         // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
         // Retorno do callback json
         $.post(url, {
             ukey: ukey_usuario,
         },
                 function (data, status) {
-
-                    $("#msg_sucesso").hide();
-                    $("#msg_error").hide();
-
+                  
                     if (status === "success") {
 
                         // metodo que preenche o objeto da tela com json retornado.
-                        preencherObjeto(data);
+                        preencherObjetoUsuario(data);
 
                         abrirCadastro();
 
@@ -80,7 +79,7 @@ $(document).ready(function () {
 
 
 
-                }, 'json');
+                },'json');
 
     });
 
@@ -88,6 +87,14 @@ $(document).ready(function () {
 
 
 });
+
+function  preencherObjetoUsuario(data) {
+    $("#ukey").val(data.ukey);
+    $("#nome").val(data.nome);
+    $("#cpf").val(data.cpf);
+    $("#login").val(data.login);
+  
+}
 
 function  limpaCampos() {
     $("#nome").val("");
@@ -130,29 +137,3 @@ function  salvarUsuario(url) {
             });
 }
 
-function ativarUsuario(url) {
-
-    var ukey_usuario = $("input[type=checkbox][name = 'usuario[]']:checked").attr("id");
-   
-    // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
-    // Retorno do callback json
-    $.post(url, {
-        ukey: ukey_usuario,
-    },
-            function (data, status) {
-              
-                if (data === "Error") {
-
-                    alert('Error!!');
-
-                } else {
-                                    
-                  window.location.href = data;
-                }
-
-
-
-            });
-
-
-}

@@ -58,10 +58,10 @@ class Usuario_control extends CI_Controller {
     }
 
     public function ativar() {
-
+       
         $chave = $this->input->post('ukey');
         $usr = $this->usuario_model->buscaPorId($chave);
-        
+
         $retorno = "";
 
         if (!empty($usr)) {
@@ -75,37 +75,23 @@ class Usuario_control extends CI_Controller {
                 $retorno = $this->usuario_model->editarUsuario($usr);
             }
         }
-        
-        if($retorno){
+
+        if ($retorno) {
             echo base_url('usuario');
-        }else{
+        } else {
             echo 'error';
         }
-        
-         
     }
 
     public function editar() {
         $chave = $this->input->post('ukey');
-        $resultado = $this->empresa_model->buscaPorId($chave);
+        $resultado = $this->usuario_model->buscaPorId($chave);
 
         $retorno = array(
-            'ukey' => $resultado->row()->ukey,
-            'razao_social' => $resultado->row()->razao_social,
-            'nome_fantasia' => $resultado->row()->nome_fantasia,
-            'cnpj_cpf' => $resultado->row()->cnpj_cpf,
-            'responsavel' => $resultado->row()->responsavel,
-            'contato' => $resultado->row()->contato,
-            'email' => $resultado->row()->email,
-            'telefone_1' => $resultado->row()->telefone_1,
-            'telefone_2' => $resultado->row()->telefone_2,
-            'telefone_3' => $resultado->row()->telefone_3,
-            'endereco' => $resultado->row()->endereco,
-            'numero' => $resultado->row()->numero,
-            'complemento' => $resultado->row()->complemento,
-            'cep' => $resultado->row()->cep,
-            'estado' => $resultado->row()->estado,
-            'cidade' => $resultado->row()->cidade
+            'ukey' => $resultado['ukey'],
+            'nome' => $resultado['nome'],
+            'cpf' => $resultado['cpf'],
+            'login' => $resultado['login']
         );
 
         echo json_encode($retorno);
@@ -122,26 +108,36 @@ class Usuario_control extends CI_Controller {
             $acao = 'INSERIR';
         }
 
-        $senha = md5($this->input->post('senha'));
 
-        // Preenchendo o objeto empresa com dados que vieram no post
-        $usuario = array(
-            'ukey' => $chave,
-            'cia_ukey' => $chave,
-            'nome' => $this->input->post('nome'),
-            'cpf' => $this->input->post('cpf'),
-            'login' => $this->input->post('login'),
-            'senha' => $senha,
-            'status' => $this->input->post('status')
-        );
 
         $retorno = "";
 
         if ($acao == 'INSERIR') {
+            // criptografando a senha
+            $senha = md5($this->input->post('senha'));
+
+            // Preenchendo o objeto usuario com dados que vieram no post para inserção no banco
+            $usuario = array(
+                'ukey' => $chave,
+                'cia_ukey' => $chave,
+                'nome' => $this->input->post('nome'),
+                'cpf' => $this->input->post('cpf'),
+                'login' => $this->input->post('login'),
+                'senha' => $senha,
+                'status' => $this->input->post('status')
+            );
             $retorno = $this->usuario_model->inserirUsuario($usuario);
         }
 
         if ($acao == 'EDITAR') {
+            // Preenchendo o objeto usuario com dados que vieram no post para alteração
+            $usuario = array(
+                'ukey' => $chave,
+                'nome' => $this->input->post('nome'),
+                'cpf' => $this->input->post('cpf'),
+                'login' => $this->input->post('login')
+                
+            );
             $retorno = $this->usuario_model->editarUsuario($usuario);
         }
 

@@ -6,6 +6,37 @@ $(document).ready(function () {
 
 });
 
+// Função generica que recebe a url e ativa qualquer cadastro com base na coluna status.
+function ativar(url) {
+    
+    // o Seletor Jquery deve ser sempre esse : "input[type=checkbox][name = 'check[]']:checked"
+    // a coluna do grid deve ter esse mesmo atributo
+    var ukey = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
+
+    // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
+    // Retorno do callback json
+    $.post(url, {
+        ukey: ukey
+       
+    },
+            function (data, status) {
+
+                if (data === "Error") {
+
+                    alert('Error!!');
+
+                } else {
+
+                    window.location.href = data;
+                }
+
+
+
+            });
+
+
+}
+
 
 function habilitaBotoes() {
     $("#btn_painel_editar").removeAttr('disabled');

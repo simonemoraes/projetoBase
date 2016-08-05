@@ -15,7 +15,7 @@
             <?php foreach ($lista_usuario as $usuario) : ?>
                 <tr>
                     <td style="text-align: center">
-                        <input name="usuario[]" itemid="000" class="esp_chk" id="<?= $usuario["ukey"] ?>" type="checkbox" value="">
+                        <input name="check[]" itemid="000" class="esp_chk" id="<?= $usuario["ukey"] ?>" type="checkbox" value="">
                     </td>
                     <td><?= $usuario["codigo"] ?></td>
                     <td><?= $usuario["nome"] ?></td>
