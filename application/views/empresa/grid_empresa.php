@@ -4,7 +4,7 @@
     <table class="table table-bordered">
         <thead>
             <tr class="info" >
-                <th style="text-align: center"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></th>
+                <th style="text-align: center"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
                 <th style="text-align: center">Codigo</th>
                 <th style="text-align: center">Razão Social</th>
                 <th style="text-align: center">Responsável</th>

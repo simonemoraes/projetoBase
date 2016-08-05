@@ -14,11 +14,10 @@
         <link rel="stylesheet" href="<?= base_url("css/estilo_painel.css") ?>" media="all">
         <link rel="stylesheet" href="<?= base_url("css/bootstrap.min.css") ?>">
 
-
-
     </head>
 
     <body>
+
 
         <!-- Inicio - Navbar -->
         <nav style="" class="navbar navbar-inverse" id="navBar">

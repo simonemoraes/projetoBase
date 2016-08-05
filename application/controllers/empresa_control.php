@@ -24,7 +24,10 @@ class Empresa_control extends CI_Controller {
             'estado_btn_editar' => "disabled=''",
             'estado_btn_excluir' => "disabled=''",
             'estado_btn_visualizar' => "disabled=''",
-            'endereco_btn_editar' => base_url('empresa/editar')
+            'endereco_btn_editar' => base_url('empresa/editar'),
+            'estado_btn_inativar' => "disabled=''",
+            'estado_btn_maps' => "disabled=''",
+            'endereco_btn_ativar' => ''
         );
 
 

@@ -1,7 +1,7 @@
 <?php
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-
 
 class Usuario_control extends CI_Controller {
 
@@ -12,9 +12,9 @@ class Usuario_control extends CI_Controller {
     }
 
     public function index() {
-        
+
         $usuario['lista_usuario'] = $this->usuario_model->retornaUsuarios();
-        
+
         $html_grid_usuario = $this->load->view('usuario/grid_usuario.php', $usuario, TRUE);
         $html_form_usuario = $this->load->view('usuario/form_usuario.php', "", TRUE);
         $html_opcoes_usuario = $this->load->view('usuario/opcao_pesquisa.php', "", TRUE);
@@ -26,7 +26,10 @@ class Usuario_control extends CI_Controller {
             'estado_btn_editar' => "disabled=''",
             'estado_btn_excluir' => "disabled=''",
             'estado_btn_visualizar' => "disabled=''",
-            'endereco_btn_editar' => base_url('usuario/editar')
+            'endereco_btn_editar' => base_url('usuario/editar'),
+            'estado_btn_inativar' => "disabled=''",
+            'estado_btn_maps' => "disabled=''",
+            'endereco_btn_ativar' => base_url('usuario/ativar'),
         );
 
 
@@ -52,6 +55,34 @@ class Usuario_control extends CI_Controller {
         $dados['html_usuario'] = $this->obj_gen->retornaPagina($html_grid_usuario, $dados_painel, $obj_jS, $obj_modal);
 
         $this->load->view('usuario/v_usuario.php', $dados);
+    }
+
+    public function ativar() {
+
+        $chave = $this->input->post('ukey');
+        $usr = $this->usuario_model->buscaPorId($chave);
+        
+        $retorno = "";
+
+        if (!empty($usr)) {
+            $status = $usr['status'];
+
+            if ($status == 1) {
+                $usr['status'] = 0;
+                $retorno = $this->usuario_model->editarUsuario($usr);
+            } else {
+                $usr['status'] = 1;
+                $retorno = $this->usuario_model->editarUsuario($usr);
+            }
+        }
+        
+        if($retorno){
+            echo base_url('usuario');
+        }else{
+            echo 'error';
+        }
+        
+         
     }
 
     public function editar() {
@@ -81,47 +112,39 @@ class Usuario_control extends CI_Controller {
     }
 
     public function salvar() {
-        
+
         $acao = "EDITAR";
 
         $chave = $this->input->post('ukey');
 
         if ($this->input->post('ukey') == "NOVO") {
-            $chave = $this->obj_gen->criaChaveprimaria("E");
+            $chave = $this->obj_gen->criaChaveprimaria("U");
             $acao = 'INSERIR';
         }
 
+        $senha = md5($this->input->post('senha'));
+
         // Preenchendo o objeto empresa com dados que vieram no post
-        $empresa = array(
+        $usuario = array(
             'ukey' => $chave,
             'cia_ukey' => $chave,
-            'razao_social' => $this->input->post('razao_social'),
-            'nome_fantasia' => $this->input->post('nome_fantasia'),
-            'cnpj_cpf' => $this->input->post('cnpj_cpf'),
-            'responsavel' => $this->input->post('responsavel'),
-            'contato' => $this->input->post('contato'),
-            'email' => $this->input->post('email'),
-            'telefone_1' => $this->input->post('telefone_1'),
-            'telefone_2' => $this->input->post('telefone_2'),
-            'telefone_3' => $this->input->post('telefone_3'),
-            'endereco' => $this->input->post('endereco'),
-            'numero' => $this->input->post('numero'),
-            'complemento' => $this->input->post('complemento'),
-            'cep' => $this->input->post('cep'),
-            'estado' => $this->input->post('estado'),
-            'cidade' => $this->input->post('cidade')
+            'nome' => $this->input->post('nome'),
+            'cpf' => $this->input->post('cpf'),
+            'login' => $this->input->post('login'),
+            'senha' => $senha,
+            'status' => $this->input->post('status')
         );
-        
+
         $retorno = "";
-        
-        if($acao == 'INSERIR'){
-             $retorno = $this->empresa_model->inserirEmpresa($empresa);
+
+        if ($acao == 'INSERIR') {
+            $retorno = $this->usuario_model->inserirUsuario($usuario);
         }
-        
-        if($acao == 'EDITAR'){
-             $retorno = $this->empresa_model->editarEmpresa($empresa);
+
+        if ($acao == 'EDITAR') {
+            $retorno = $this->usuario_model->editarUsuario($usuario);
         }
-       
+
 
         if ($retorno) {
             echo 'sucesso';

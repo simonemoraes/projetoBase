@@ -11,6 +11,8 @@ function habilitaBotoes() {
     $("#btn_painel_editar").removeAttr('disabled');
     $("#btn_painel_excluir").removeAttr('disabled');
     $("#btn_painel_visualizar").removeAttr('disabled');
+    $("#btn_painel_inativar").removeAttr('disabled');
+    $("#btn_painel_maps").removeAttr('disabled');
 
 }
 
@@ -18,6 +20,8 @@ function desabilitaBotoes() {
     $("#btn_painel_editar").attr('disabled', "disabled");
     $("#btn_painel_excluir").attr('disabled', "disabled");
     $("#btn_painel_visualizar").attr('disabled', "disabled");
+     $("#btn_painel_inativar").attr('disabled',"disabled");
+    $("#btn_painel_maps").attr('disabled',"disabled");
 
 }
 

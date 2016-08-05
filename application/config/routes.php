@@ -52,6 +52,7 @@ $route['empresa/editar'] = "empresa_control/editar";
 $route['usuario'] = "usuario_control";
 $route['usuario/salvar'] = "usuario_control/salvar";
 $route['usuario/editar'] = "usuario_control/editar";
+$route['usuario/ativar'] = "usuario_control/ativar";
 
 
 

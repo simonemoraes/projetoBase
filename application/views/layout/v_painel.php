@@ -29,6 +29,14 @@
                         <button <?php echo $painel['estado_btn_visualizar']; ?> id="btn_painel_visualizar" class="btn btn-default btn-lg botaoFerramenta" title="Visualizar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </button>
+                        
+                         <button itemid="<?php echo $painel['endereco_btn_ativar']; ?>" <?php echo $painel['estado_btn_inativar']; ?> id="btn_painel_inativar" class="btn btn-default btn-lg botaoFerramenta" title="Ativar / Inativar" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                        </button>
+                        
+                         <button <?php echo $painel['estado_btn_maps']; ?> id="btn_painel_maps" class="btn btn-default btn-lg botaoFerramenta" title="Google Maps" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                        </button>
 
                     </div>
 
