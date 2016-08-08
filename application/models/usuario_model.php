@@ -5,7 +5,8 @@ if (!defined('BASEPATH'))
 
 class Usuario_model extends CI_Model {
 
-    public function retornaUsuarios() {
+    public function retornaUsuarios($cia_ukey) {
+          $this->db->where("cia_ukey",$cia_ukey);
         return $this->db->get("usuarios")->result_array();
     }
     

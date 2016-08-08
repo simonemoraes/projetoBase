@@ -4,16 +4,21 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Usuario_control extends CI_Controller {
+    
+    var $cia_ukey = "";
 
     public function __construct() {
         parent::__construct();
         // Instaciando o objeto usuario_model, só será usado aqui
         $this->load->model("usuario_model");
+        $this->cia_ukey = $this->session->userdata("empresa_logada")['ukey'];
     }
 
     public function index() {
-
-        $usuario['lista_usuario'] = $this->usuario_model->retornaUsuarios();
+        
+        $this->obj_gen->autoriza();
+        
+        $usuario['lista_usuario'] = $this->usuario_model->retornaUsuarios($this->cia_ukey);
 
         $html_grid_usuario = $this->load->view('usuario/grid_usuario.php', $usuario, TRUE);
         $html_form_usuario = $this->load->view('usuario/form_usuario.php', "", TRUE);
@@ -59,6 +64,8 @@ class Usuario_control extends CI_Controller {
 
     public function ativar() {
        
+        $this->obj_gen->autoriza();
+        
         $chave = $this->input->post('ukey');
         $usr = $this->usuario_model->buscaPorId($chave);
 
@@ -84,6 +91,9 @@ class Usuario_control extends CI_Controller {
     }
 
     public function editar() {
+        
+        $this->obj_gen->autoriza();
+        
         $chave = $this->input->post('ukey');
         $resultado = $this->usuario_model->buscaPorId($chave);
 
@@ -98,7 +108,9 @@ class Usuario_control extends CI_Controller {
     }
 
     public function salvar() {
-
+        
+        $this->obj_gen->autoriza();
+        
         $acao = "EDITAR";
 
         $chave = $this->input->post('ukey');
@@ -115,11 +127,13 @@ class Usuario_control extends CI_Controller {
         if ($acao == 'INSERIR') {
             // criptografando a senha
             $senha = md5($this->input->post('senha'));
+            
+           
 
             // Preenchendo o objeto usuario com dados que vieram no post para inserção no banco
             $usuario = array(
                 'ukey' => $chave,
-                'cia_ukey' => $chave,
+                'cia_ukey' => $this->cia_ukey,
                 'nome' => $this->input->post('nome'),
                 'cpf' => $this->input->post('cpf'),
                 'login' => $this->input->post('login'),

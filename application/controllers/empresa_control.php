@@ -3,15 +3,20 @@
 
 class Empresa_control extends CI_Controller {
 
+    var $cia_ukey = "";
+    
     public function __construct() {
         parent::__construct();
         // Instaciando o objeto empresa_model, só será usado aqui
         $this->load->model("empresa_model");
+        $this->cia_ukey = $this->session->userdata("empresa_logada")['ukey'];
     }
 
     public function index() {
+        
+        $this->obj_gen->autoriza();
 
-        $empresa['lista_empresa'] = $this->empresa_model->retornaEmpresas();
+        $empresa['lista_empresa'] = $this->empresa_model->retornaEmpresas($this->cia_ukey);
 
         $html_grid_empresa = $this->load->view('empresa/grid_empresa.php', $empresa, TRUE);
         $html_form_empresa = $this->load->view('empresa/form_empresa.php', "", TRUE);
@@ -56,6 +61,9 @@ class Empresa_control extends CI_Controller {
     }
 
     public function editar() {
+        
+        $this->obj_gen->autoriza();
+        
         $chave = $this->input->post('ukey');
         $resultado = $this->empresa_model->buscaPorId($chave);
 
@@ -82,6 +90,8 @@ class Empresa_control extends CI_Controller {
     }
 
     public function salvar() {
+        
+        $this->obj_gen->autoriza();
         
         $acao = "EDITAR";
 

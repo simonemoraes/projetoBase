@@ -6,8 +6,14 @@ class Empresa_model extends CI_Model {
         return $this->db->insert("empresa",$empresa);
     }
     
-    public function retornaEmpresas(){
+    public function retornaEmpresas($ukey){
+         $this->db->where("ukey",$ukey);
         return $this->db->get("empresa")->result_array();
+    }
+    
+     public function retornaEmpresaPorCodigo($codigo){
+        $this->db->where("codigo",$codigo);
+        return $this->db->get("empresa")->row_array();
     }
     
     public function buscaPorId($id){

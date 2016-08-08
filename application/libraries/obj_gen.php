@@ -11,6 +11,17 @@ class Obj_gen extends CI_Loader {
         $this->ci = &get_instance();
     }
 
+    function autoriza() {
+
+        $usuarioLogado = $this->ci->session->userdata("usuario_logado");
+        if (!$usuarioLogado) {
+            $this->ci->session->set_flashdata("erro", "Voce precisa estar logado!");
+            redirect("login");
+        }
+
+        return $usuarioLogado;
+    }
+
     function retornaPagina($html, $info_painel = array(), $funcao = array(), $modal = array()) {
 
         $dados['conteudo'] = $html;
