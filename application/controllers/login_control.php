@@ -46,7 +46,10 @@ class Login_control extends CI_Controller {
             $this->session->set_userdata("usuario_logado", $usuario);
             $this->session->set_userdata("empresa_logada", $empresa);
             
-            $this->session->set_flashdata("sucesso",$usuario['nome'] . '. Seja bem vindo ao sistema!');
+            $this->session->set_flashdata("sucesso",'<h1 id="id_h1_bemVindo">Seja bem vindo!</h1>'
+                    . '<p id="id_p_userLogado" class="text-success">'
+                    . 'Você está logado na Empresa '
+                    . '<strong>' . $empresa['razao_social'] . '</strong></p>');
         } else {
 
             $this->session->set_flashdata("erro", "Usuario e ou senha invalidos");

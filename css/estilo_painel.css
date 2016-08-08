@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
 
 
 #id_panel_h3_VPanel {
@@ -42,6 +43,42 @@
     background: #F0F4C3;
     font-weight: bold; 
 }
+
+
+/* Estilização da tela de login */
+
+.estilizaInputLogin {
+    margin-bottom: 30px;
+}
+
+#form_login { 
+    box-shadow: 10px 10px 10px #888888;  
+}
+
+.divBtnEntrar {
+    text-align: center;
+}
+
+#div_btn_entrar {
+    margin-bottom: 20px;
+}
+
+#btn_entrar {
+    width: 130px;
+}
+
+#id_h1_bemVindo {
+    text-align: center; 
+    margin-top:90px;
+}
+
+#id_p_userLogado {
+    text-align: center;
+}
+
+
+
+/* Fim - Estilização da tela de login */
 
 
 

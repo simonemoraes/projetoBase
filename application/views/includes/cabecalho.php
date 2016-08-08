@@ -48,6 +48,10 @@
                         </li>
                         <li><a href="<?= base_url('login/sair') ?>">Sair</a></li>
                     </ul>
+                    
+                    <p class="navbar-text navbar-right">Olá 
+                        <strong><?php echo $this->session->userdata("usuario_logado")['nome']; ?></strong>
+                    </p>
                 </div>
             </div>
         </nav>

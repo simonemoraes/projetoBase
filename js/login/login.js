@@ -20,21 +20,18 @@ $(document).ready(function () {
                             $("#senha").removeAttr("disabled");
                             $("#btn_entrar").removeAttr("disabled");
                             $("#msg_error").hide();
-
-                           
+                            $("#teste").hide();
 
                         } else {
                             
                             // Esse trecho é chamado quando o usuario preenche o codigo da empresa e não é correspondente a uma empresa cadastrada.
-                            
-                            $('#texto_msg').html("Codigo informado não corresponde a um Empresa cadastrada... tente novamente!");
+                            $("#teste").hide();
+                            $('#texto_msg').html("Codigo informado não corresponde a um Empresa cadastrada... tente novamente!");                            
                             $("#msg_error").show();
                             $("#login").attr("disabled", "");
                             $("#senha").attr("disabled", "");
                             $("#btn_entrar").attr("disabled", "");
                         }
-
-
 
                     });
 
@@ -44,13 +41,11 @@ $(document).ready(function () {
             $("#login").attr("disabled", "");
             $("#senha").attr("disabled", "");
             $("#btn_entrar").attr("disabled", "");
-            
-            $('#texto_msg').html("Codigo não pode ser vazio!");
+            $("#teste").hide();
+            $('#texto_msg').html("Codigo não pode ser vazio!");           
             $("#msg_error").show();
 
         }
-
-
 
     });
 

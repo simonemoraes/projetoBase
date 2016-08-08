@@ -15,69 +15,91 @@
         <!--        quando não tiver usuario logado-->
         <?php if (!$this->session->userdata("usuario_logado")) : ?>
 
-            <?= $this->session->flashdata("erro") ?>
-       
-     
-            <div style="display: none" id="msg_error" class="alert alert-danger  alert-dismissable" role="alert">
-                <p><strong id="texto_msg"></strong></p>
-            </div>
 
-            <form class="form-horizontal" id="form_login" method="post" action="login/entrar">
-                <div class="row">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <?php if ($this->session->flashdata("erro")) : ?>
+                        <p class="alert alert-danger" id="teste"><?= $this->session->flashdata("erro") ?></p>
+                    <?php endif ?>
 
-                    <h1>Login do sistema</h1>
-
-                    <div class="form-group">
-                        <label for="codigo_empresa" class="control-label">Código Empresa</label>
-                        <input itemid="<?php echo base_url('/login/buscarempresa') ?>" type="text" class="form-control" id="codigo_empresa" name="codigo_empresa">
+                    <div style="display: none" id="msg_error" class="alert alert-danger  alert-dismissable" role="alert">
+                        <p><strong id="texto_msg"></strong></p>
                     </div>
-
-                    <div class="form-group">
-                        <label for="login" class="control-label">Login</label>
-                        <input type="email" disabled="" placeholder="login@email.com.br" class="form-control" id="login" name="login">
-                    </div>
-
-                    <div class="form-group" id="box_senha">
-                        <label for="senha" class="control-label">Senha</label>
-                        <input type="password" disabled="" class="form-control" id="senha" name="senha">
-                    </div>
-
-                    <div class="row form-group" id="div_btn_entrar">
-
-                        <input type="submit" disabled="" id="btn_entrar" name="button" class="btn btn-primary" value="Entrar" placeholder="Senha" required="autofocus">
-
-                    </div>
-
-                    <div class="row form-group-lg">
-                        <div>
-                            <a href="recuperasenha">Esqueci minha senha</a>
-                        </div>
-                    </div>
-
                 </div>
 
+            </div>
 
-            </form>
+            <div class="row">
+                <div style="top: 40px;" class="col-md-offset-3 col-md-6">
+                    <form class="form-horizontal" id="form_login" method="post" action="login/entrar">
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+
+                                <img style="margin-left: 90px;" src="<?= base_url("images/cadeado.png") ?>">
+
+                                <div style="float: right; margin-top: 20px; margin-right: 80px; font-family: 'Droid Sans', sans-serif;">
+                                    <h1 style="color: #999;"><strong>Login do sistema</strong></h1>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div class="form-group-lg">
+                                        <div>
+                                            <label for="codigo_empresa" class="sr-only">Código Empresa</label>
+                                        </div>
+                                        <div>
+                                            <input itemid="<?php echo base_url('/login/buscarempresa') ?>" type="text" class="form-control estilizaInputLogin" id="codigo_empresa" name="codigo_empresa" placeholder="Código da Empresa">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-lg">
+                                        <div>
+                                            <label for="login" class="sr-only">Login</label>
+                                        </div>
+                                        <div>
+                                            <input type="email" disabled="" placeholder="login@email.com.br" class="form-control estilizaInputLogin" id="login" name="login">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-lg" id="box_senha">
+                                        <div>
+                                            <label for="senha" class="sr-only">Senha</label>
+                                        </div>
+                                        <div>
+                                            <input type="password" disabled="" placeholder="Senha" class="form-control estilizaInputLogin" id="senha" name="senha">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group-lg divBtnEntrar" id="div_btn_entrar">
+
+                                        <input type="submit" disabled="" id="btn_entrar" name="button" class="btn btn-primary btn-lg" value="Entrar" placeholder="Senha" required="autofocus">
+
+                                    </div>
+
+                                    <div class="form-group-lg divBtnEntrar">
+                                        <div>
+                                            <a href="recuperasenha">Esqueci minha senha</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
         <?php endif ?>
 
 
         <!--        tiver usuario logado-->
         <?php if ($this->session->userdata("usuario_logado")) : ?>
-            <h1><?= $this->session->flashdata("sucesso") ?></h1>
-
-            <?php
-            echo '<pre>';
-            print_r($this->session->userdata("usuario_logado"));
-            echo '</pre>';
-
-            echo '<pre>';
-            print_r($this->session->userdata("empresa_logada"));
-            echo '</pre>';
-            
-            echo $this->session->userdata("empresa_logada")['razao_social'];
-            
-            ?>
+            <?= $this->session->flashdata("sucesso") ?>
+            <div id="testando"></div>
         <?php endif ?>
+
 
 
 
