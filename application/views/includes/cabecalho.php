@@ -13,6 +13,7 @@
 
         <link rel="stylesheet" href="<?= base_url("css/estilo_painel.css") ?>" media="all">
         <link rel="stylesheet" href="<?= base_url("css/bootstrap.min.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("css/font_awesome/css/font-awesome.min.css") ?>">
 
     </head>
 
@@ -37,19 +38,23 @@
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?= base_url('empresa') ?>">Empresas</a></li>
-                                <li><a href="<?= base_url('usuario') ?>">Usuarios</a></li>
+                                <li><a href="<?= base_url('empresa') ?>"><i class="fa fa-university" aria-hidden="true"></i>&nbsp; Empresas</a></li>
+                                <li><a href="<?= base_url('usuario') ?>"><i class="fa fa-user" aria-hidden="true"></i> &nbsp; &nbsp; Usuarios</a></li>
                                 <li><a href="#">Seguradora</a></li>
                                 <li><a href="#">Corretor</a></li>
                                 <li><a href="#">Supervisor</a></li>
                                 <li><a href="#">Gerente</a></li>
 
+
                             </ul>
                         </li>
                         <li><a href="<?= base_url('login/sair') ?>">Sair</a></li>
                     </ul>
-                    
-                    <p class="navbar-text navbar-right">Olá 
+
+
+
+                    <p class="navbar-text navbar-right">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         <strong><?php echo $this->session->userdata("usuario_logado")['nome']; ?></strong>
                     </p>
                 </div>

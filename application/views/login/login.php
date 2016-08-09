@@ -19,7 +19,9 @@
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <?php if ($this->session->flashdata("erro")) : ?>
-                        <p class="alert alert-danger" id="teste"><?= $this->session->flashdata("erro") ?></p>
+                        <p class="alert alert-danger" id="msg_flashdata_login_erro">
+                            <strong><?= $this->session->flashdata("erro") ?></strong>
+                        </p>
                     <?php endif ?>
 
                     <div style="display: none" id="msg_error" class="alert alert-danger  alert-dismissable" role="alert">
