@@ -47,7 +47,7 @@
 
 /* Estilização da tela de login */
 
-.estilizaInputLogin {
+.estilizaInput {
     margin-bottom: 30px;
 }
 
@@ -55,7 +55,7 @@
     box-shadow: 10px 10px 10px #888888;  
 }
 
-.divBtnEntrar {
+.divBtnEntrar, .divBtnRedefinir, .divBtnAlterarSenha {
     text-align: center;
 }
 

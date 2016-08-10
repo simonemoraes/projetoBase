@@ -51,7 +51,7 @@
                                             <label for="codigo_empresa" class="sr-only">Código Empresa</label>
                                         </div>
                                         <div>
-                                            <input itemid="<?php echo base_url('/login/buscarempresa') ?>" type="text" class="form-control estilizaInputLogin" id="codigo_empresa" name="codigo_empresa" placeholder="Código da Empresa">
+                                            <input itemid="<?php echo base_url('/login/buscarempresa') ?>" type="text" class="form-control estilizaInput" id="codigo_empresa" name="codigo_empresa" placeholder="Código da Empresa">
                                         </div>
                                     </div>
 
@@ -60,7 +60,7 @@
                                             <label for="login" class="sr-only">Login</label>
                                         </div>
                                         <div>
-                                            <input type="email" disabled="" placeholder="login@email.com.br" class="form-control estilizaInputLogin" id="login" name="login">
+                                            <input type="email" disabled="" placeholder="login@email.com.br" class="form-control estilizaInput" id="login" name="login">
                                         </div>
                                     </div>
 
@@ -69,7 +69,7 @@
                                             <label for="senha" class="sr-only">Senha</label>
                                         </div>
                                         <div>
-                                            <input type="password" disabled="" placeholder="Senha" class="form-control estilizaInputLogin" id="senha" name="senha">
+                                            <input type="password" disabled="" placeholder="Senha" class="form-control estilizaInput" id="senha" name="senha">
                                         </div>
                                     </div>
 
@@ -81,7 +81,7 @@
 
                                     <div class="form-group-lg divBtnEntrar">
                                         <div>
-                                            <a href="recuperasenha">Esqueci minha senha</a>
+                                            <a href="<?= base_url('configuracao/recuperasenha')?>">Esqueci minha senha</a>
                                         </div>
                                     </div>
                                 </div>

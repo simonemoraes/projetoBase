@@ -59,6 +59,12 @@ $route['login/buscarempresa'] = "login_control/buscarEmpresa";
 $route['login/entrar'] = "login_control/entrar";
 $route['login/sair'] = "login_control/sair";
 
+$route['seguradora'] = "seguradora_control";
+
+$route['configuracao'] = "configuracao_control";
+$route['configuracao/recuperasenha'] = "configuracao_control/recuperasenha";
+
+
 
 
 

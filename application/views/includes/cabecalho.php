@@ -34,27 +34,40 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?= base_url() ?>">Inicio</a></li>
+                        <li><a href="<?= base_url() ?>"><i class="fa fa-home" aria-hidden="true"></i> &nbsp;Inicio</a></li>
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-folder-open-o" aria-hidden="true"></i> &nbsp;Cadastro<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?= base_url('empresa') ?>"><i class="fa fa-university" aria-hidden="true"></i>&nbsp; Empresas</a></li>
-                                <li><a href="<?= base_url('usuario') ?>"><i class="fa fa-user" aria-hidden="true"></i> &nbsp; &nbsp; Usuarios</a></li>
-                                <li><a href="#">Seguradora</a></li>
-                                <li><a href="#">Corretor</a></li>
-                                <li><a href="#">Supervisor</a></li>
-                                <li><a href="#">Gerente</a></li>
+                                <li><a href="<?= base_url('empresa') ?>"><i class="fa fa-building" aria-hidden="true"></i> &nbsp;Empresas</a></li>
+                                <li><a href="<?= base_url('usuario') ?>"><i class="fa fa-users" aria-hidden="true"></i> &nbsp;Usuarios</a></li>
+                                <li><a href="<?= base_url('seguradora') ?>"><i class="fa fa-medkit" aria-hidden="true"></i> &nbsp;Seguradora</a></li>
+                                <li><a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> &nbsp;Corretor</a></li>
+                                <li><a href="#"><i class="fa fa-user-secret" aria-hidden="true"></i> &nbsp;Supervisor</a></li>
+                                <li><a href="#"><i class="fa fa-universal-access" aria-hidden="true"></i> &nbsp;Gerente</a></li>
 
 
                             </ul>
                         </li>
-                        <li><a href="<?= base_url('login/sair') ?>">Sair</a></li>
+                        <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cogs" aria-hidden="true"></i> &nbsp;Configurações<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?= base_url('configuracao') ?>"><i class="fa fa-key" aria-hidden="true"></i> &nbsp;Alterar Senha</a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+                                <li><a href="#"></a></li>
+
+
+                            </ul>
+                        </li>
+                        <li><a href="<?= base_url('login/sair') ?>"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Sair</a></li>
                     </ul>
 
-
-
                     <p class="navbar-text navbar-right">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <i class="fa fa-user" aria-hidden="true"></i> 
                         <strong><?php echo $this->session->userdata("usuario_logado")['nome']; ?></strong>
                     </p>
                 </div>
