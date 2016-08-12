@@ -27,8 +27,7 @@ $(document).ready(function () {
 
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
-        limpaCampos();
-
+       limparForm()
     });
 
     // Evento para o botão fechar DENTRO modal
@@ -96,14 +95,6 @@ function  preencherObjetoUsuario(data) {
   
 }
 
-function  limpaCampos() {
-    $("#nome").val("");
-    $("#cpf").val("");
-    $("#login").val("");
-    $("#senha").val("");
-    $("#confirmar_senha").val("");
-
-}
 
 function  salvarUsuario(url) {
     var chave = 'NOVO'
@@ -127,7 +118,7 @@ function  salvarUsuario(url) {
                 $("#msg_error").hide();
 
                 if (data === "sucesso") {
-                    limpaCampos();
+                    limparForm();
                     $("#msg_sucesso").show();
                 } else {
                     $("#msg_error").show();
@@ -137,3 +128,7 @@ function  salvarUsuario(url) {
             });
 }
 
+function limparForm() {
+    var id_form = $("form").attr("id");
+    limparFormularios(id_form);
+}

@@ -38,8 +38,8 @@ class Obj_gen extends CI_Loader {
     function criaChaveprimaria($tipo = "") {
 
         $chave = "";
-        // Essa informação vem por parametro ou Sessão.
-        $chave_do_usuario = 'XDSVT';
+        // Essa informação vem da Sessão.
+        $chave_do_usuario = substr($this->ci->session->userdata("usuario_logado")['ukey'], 8, 4);
 
         list($dia, $mes, $ano) = explode('/', date('d/m/Y'));
 
@@ -66,6 +66,10 @@ class Obj_gen extends CI_Loader {
         }
 
         return strtoupper($chave);
+    }
+    
+    function getCiaUkey(){
+        return $this->ci->session->userdata("empresa_logada")['ukey'];
     }
 
 }

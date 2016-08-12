@@ -10,6 +10,7 @@ $(document).ready(function () {
     $("#btn_modal_salvar").click(function () {
         var url = $(this).attr("itemid");
         salvarEmpresa(url);
+        limparForm();
     });
 
 
@@ -28,14 +29,14 @@ $(document).ready(function () {
                     $("#msg_error").hide();
 
                     if (status === "success") {
-                        
+
                         // metodo que preenche o objeto da tela com json retornado.
                         preencherObjeto(data);
 
                         abrirCadastro();
 
                     } else {
-                         $("#msg_error").show();
+                        $("#msg_error").show();
                     }
 
 
@@ -48,7 +49,7 @@ $(document).ready(function () {
 
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
-        limpaCampos();
+        limparForm();
 
     });
 
@@ -68,7 +69,7 @@ $(document).ready(function () {
         window.location.href = url;
 
     });
-    
+
     // Essa função trata a seleção unica dos checkbox da tela
     // Essa fução está no JS_base.
     controlaCheckbox('.esp_chk');
@@ -114,7 +115,7 @@ function salvarEmpresa(endereco) {
                 $("#msg_error").hide();
 
                 if (data === "sucesso") {
-                    limpaCampos();
+                   limparForm();
                     $("#msg_sucesso").show();
                 } else {
                     $("#msg_error").show();
@@ -126,24 +127,7 @@ function salvarEmpresa(endereco) {
 
 }
 
-// Função para limpar os campos do formulário
-function limpaCampos() {
-    $("#razao_social").val("");
-    $("#nome_fantasia").val("");
-    $("#cnpj_cpf").val("");
-    $("#responsavel").val("");
-    $("#contato").val("");
-    $("#email").val("");
-    $("#telefone_1").val("");
-    $("#telefone_2").val("");
-    $("#telefone_3").val("");
-    $("#endereco").val("");
-    $("#numero").val("");
-    $("#complemento").val("");
-    $("#cep").val("");
-    $("#estado").val("");
-    $("#cidade").val("");
-}
+
 
 function preencherObjeto(data) {
     $("#ukey").val(data.ukey);
@@ -165,3 +149,7 @@ function preencherObjeto(data) {
 }
 
 
+function limparForm() {
+    var id_form = $("form").attr("id");
+    limparFormularios(id_form);
+}

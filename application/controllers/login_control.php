@@ -22,7 +22,7 @@ class Login_control extends CI_Controller {
 
         $codigo = $this->input->post('codigo');
 
-        $empresa = $this->empresa_model->retornaEmpresaPorCodigo($codigo);
+        $empresa = $this->empresa_model->retornaPorCodigo("empresa",$codigo);
 
         $this->ukey = isset($empresa['ukey']) ? $empresa['ukey'] : "";
 
@@ -36,7 +36,7 @@ class Login_control extends CI_Controller {
         $senha = $this->input->post('senha');
 
         // primeiro pego a empresa pelo codigo informado.
-        $empresa = $this->empresa_model->retornaEmpresaPorCodigo($codigo);
+        $empresa = $this->empresa_model->retornaPorCodigo("empresa",$codigo);
 
         $usuario = $this->login_model->logar($login, $senha, $empresa['ukey']);
 

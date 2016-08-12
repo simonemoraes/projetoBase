@@ -4,6 +4,7 @@
 class Empresa_control extends CI_Controller {
 
     var $cia_ukey = "";
+    var $tabela = "empresa";
     
     public function __construct() {
         parent::__construct();
@@ -16,10 +17,11 @@ class Empresa_control extends CI_Controller {
         
         $this->obj_gen->autoriza();
 
-        $empresa['lista_empresa'] = $this->empresa_model->retornaEmpresas($this->cia_ukey);
+        $empresa['lista_empresa'] = $this->empresa_model->retornaTodos($this->tabela,$this->cia_ukey);
+        $empresa['id_form'] = 'id_form_empresa';
 
         $html_grid_empresa = $this->load->view('empresa/grid_empresa.php', $empresa, TRUE);
-        $html_form_empresa = $this->load->view('empresa/form_empresa.php', "", TRUE);
+        $html_form_empresa = $this->load->view('empresa/form_empresa.php', $empresa, TRUE);
         $html_opcoes_empresa = $this->load->view('empresa/opcao_pesquisa.php', "", TRUE);
 
         $dados_painel = array(
@@ -65,25 +67,25 @@ class Empresa_control extends CI_Controller {
         $this->obj_gen->autoriza();
         
         $chave = $this->input->post('ukey');
-        $resultado = $this->empresa_model->buscaPorId($chave);
+        $resultado = $this->empresa_model->buscaPorId($this->tabela,$chave);
 
         $retorno = array(
-            'ukey' => $resultado->row()->ukey,
-            'razao_social' => $resultado->row()->razao_social,
-            'nome_fantasia' => $resultado->row()->nome_fantasia,
-            'cnpj_cpf' => $resultado->row()->cnpj_cpf,
-            'responsavel' => $resultado->row()->responsavel,
-            'contato' => $resultado->row()->contato,
-            'email' => $resultado->row()->email,
-            'telefone_1' => $resultado->row()->telefone_1,
-            'telefone_2' => $resultado->row()->telefone_2,
-            'telefone_3' => $resultado->row()->telefone_3,
-            'endereco' => $resultado->row()->endereco,
-            'numero' => $resultado->row()->numero,
-            'complemento' => $resultado->row()->complemento,
-            'cep' => $resultado->row()->cep,
-            'estado' => $resultado->row()->estado,
-            'cidade' => $resultado->row()->cidade
+            'ukey' => $resultado['ukey'],
+            'razao_social' => $resultado['razao_social'],
+            'nome_fantasia' => $resultado['nome_fantasia'],
+            'cnpj_cpf' => $resultado['cnpj_cpf'],
+            'responsavel' => $resultado['responsavel'],
+            'contato' => $resultado['contato'],
+            'email' => $resultado['email'],
+            'telefone_1' => $resultado['telefone_1'],
+            'telefone_2' => $resultado['telefone_2'],
+            'telefone_3' => $resultado['telefone_3'],
+            'endereco' => $resultado['endereco'],
+            'numero' => $resultado['numero'],
+            'complemento' => $resultado['complemento'],
+            'cep' => $resultado['cep'],
+            'estado' => $resultado['estado'],
+            'cidade' => $resultado['cidade']
         );
 
         echo json_encode($retorno);
@@ -126,11 +128,11 @@ class Empresa_control extends CI_Controller {
         $retorno = "";
         
         if($acao == 'INSERIR'){
-             $retorno = $this->empresa_model->inserirEmpresa($empresa);
+             $retorno = $this->empresa_model->inserir($this->tabela,$empresa);
         }
         
         if($acao == 'EDITAR'){
-             $retorno = $this->empresa_model->editarEmpresa($empresa);
+             $retorno = $this->empresa_model->editar($this->tabela,$empresa);
         }
        
 

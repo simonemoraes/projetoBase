@@ -3,25 +3,8 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Usuario_model extends CI_Model {
+class Usuario_model extends Dao_model {
 
-    public function retornaUsuarios($cia_ukey) {
-          $this->db->where("cia_ukey",$cia_ukey);
-        return $this->db->get("usuarios")->result_array();
-    }
-    
-     public function inserirUsuario($usuario) {
-        return $this->db->insert("usuarios",$usuario);
-    }
-    
-     public function buscaPorId($id){
-        $this->db->where("ukey",$id);
-        return $this->db->get("usuarios")->row_array();
-    }
-    
-    public function editarUsuario($usuario){
-        $this->db->where('ukey', $usuario['ukey']);
-        return $this->db->update("usuarios",$usuario);
-    }
+   
 
 }

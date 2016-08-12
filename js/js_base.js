@@ -6,6 +6,13 @@ $(document).ready(function () {
 
 });
 
+function limparFormularios(form_id){
+    
+    $("#"+form_id).each(function () {
+        this.reset();
+    });
+}
+
 // Função generica que recebe a url e ativa qualquer cadastro com base na coluna status.
 function ativar(url) {
     

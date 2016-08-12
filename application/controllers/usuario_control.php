@@ -6,6 +6,7 @@ if (!defined('BASEPATH'))
 class Usuario_control extends CI_Controller {
     
     var $cia_ukey = "";
+    var $tabela = "usuarios";
 
     public function __construct() {
         parent::__construct();
@@ -18,10 +19,11 @@ class Usuario_control extends CI_Controller {
         
         $this->obj_gen->autoriza();
         
-        $usuario['lista_usuario'] = $this->usuario_model->retornaUsuarios($this->cia_ukey);
+        $usuario['lista_usuario'] = $this->usuario_model->retornaTodos($this->tabela,$this->cia_ukey);
+        $usuario['id_form'] = 'id_form_usuario';
 
         $html_grid_usuario = $this->load->view('usuario/grid_usuario.php', $usuario, TRUE);
-        $html_form_usuario = $this->load->view('usuario/form_usuario.php', "", TRUE);
+        $html_form_usuario = $this->load->view('usuario/form_usuario.php', $usuario, TRUE);
         $html_opcoes_usuario = $this->load->view('usuario/opcao_pesquisa.php', "", TRUE);
 
         $dados_painel = array(
@@ -67,7 +69,7 @@ class Usuario_control extends CI_Controller {
         $this->obj_gen->autoriza();
         
         $chave = $this->input->post('ukey');
-        $usr = $this->usuario_model->buscaPorId($chave);
+        $usr = $this->usuario_model->buscaPorId($this->tabela,$chave);
 
         $retorno = "";
 
@@ -76,10 +78,10 @@ class Usuario_control extends CI_Controller {
 
             if ($status == 1) {
                 $usr['status'] = 0;
-                $retorno = $this->usuario_model->editarUsuario($usr);
+                $retorno = $this->usuario_model->editar($this->tabela,$usr);
             } else {
                 $usr['status'] = 1;
-                $retorno = $this->usuario_model->editarUsuario($usr);
+                $retorno = $this->usuario_model->editar($this->tabela,$usr);
             }
         }
 
@@ -95,7 +97,7 @@ class Usuario_control extends CI_Controller {
         $this->obj_gen->autoriza();
         
         $chave = $this->input->post('ukey');
-        $resultado = $this->usuario_model->buscaPorId($chave);
+        $resultado = $this->usuario_model->buscaPorId($this->tabela,$chave);
 
         $retorno = array(
             'ukey' => $resultado['ukey'],
@@ -140,7 +142,7 @@ class Usuario_control extends CI_Controller {
                 'senha' => $senha,
                 'status' => $this->input->post('status')
             );
-            $retorno = $this->usuario_model->inserirUsuario($usuario);
+            $retorno = $this->usuario_model->inserir($this->tabela,$usuario);
         }
 
         if ($acao == 'EDITAR') {
@@ -152,7 +154,7 @@ class Usuario_control extends CI_Controller {
                 'login' => $this->input->post('login')
                 
             );
-            $retorno = $this->usuario_model->editarUsuario($usuario);
+            $retorno = $this->usuario_model->editar($this->tabela,$usuario);
         }
 
 

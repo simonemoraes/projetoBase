@@ -6,6 +6,7 @@ if (!defined('BASEPATH'))
 class Seguradora_control extends CI_Controller {
     
     var $cia_ukey = "";
+    var $tabela = "seguradoras";
 
     public function __construct() {
         parent::__construct();
@@ -17,10 +18,11 @@ class Seguradora_control extends CI_Controller {
 
         $this->obj_gen->autoriza();
 
-        $seguradora['lista_seguradora'] = $this->seguradora_model->retornaSeguradoras($this->cia_ukey);
-
+        $seguradora['lista_seguradora'] = $this->seguradora_model->retornaTodos($this->tabela,$this->cia_ukey);
+        $seguradora['id_form'] = 'id_form_seguradora';
+        
         $html_grid_seguradora = $this->load->view('seguradora/grid_seguradora.php', $seguradora, TRUE);
-        $html_form_seguradora = $this->load->view('seguradora/form_seguradora.php', "", TRUE);
+        $html_form_seguradora = $this->load->view('seguradora/form_seguradora.php', $seguradora, TRUE);
         $html_opcoes_seguradora = $this->load->view('seguradora/opcao_pesquisa.php', "", TRUE);
 
         $dados_painel = array(
@@ -71,18 +73,20 @@ class Seguradora_control extends CI_Controller {
         $ukey = $this->input->post('ukey');
         $nome = $this->input->post('nome');
         $descricao = $this->input->post('descricao');
+        $cia_ukey = $this->obj_gen->getCiaUkey();
         
         if($ukey === 'NOVO'){
-            $ukey = $this->obj_gen->criaChaveprimaria("");
+            $ukey = $this->obj_gen->criaChaveprimaria();
             
             $seguradora = array(
                 'ukey' => $ukey,
+                'cia_ukey' => $cia_ukey,
                 'nome' => $nome,
                 'descricao' => $descricao,
                 'status' => 1
             );
             
-          $retorno =   $this->seguradora_model->inserirSeguradora($seguradora);
+          $retorno =   $this->seguradora_model->inserir($this->tabela,$seguradora);
         }
         
         
