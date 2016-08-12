@@ -9,7 +9,7 @@ $(document).ready(function () {
     // Esse enevento faz uma chamada para função assincrona para gravar usuario 
     $("#btn_modal_salvar").click(function () {
         var url = $(this).attr("itemid");
-        salvarUsuario(url);
+        salvarSeguradora(url);
     });
 
     // Esse evento faz a abertura do formulario de cadastro
@@ -53,19 +53,19 @@ $(document).ready(function () {
 
         var ukey_usuario = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
         var url = $(this).attr("itemid");
-        
+
         //escondendo esses campos na edição, pois não podem ser preenchidos.
         $("#box_confirma_senha").hide();
         $("#box_senha").hide();
 
-       
+
         // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
         // Retorno do callback json
         $.post(url, {
             ukey: ukey_usuario,
         },
                 function (data, status) {
-                  
+
                     if (status === "success") {
 
                         // metodo que preenche o objeto da tela com json retornado.
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
 
 
-                },'json');
+                }, 'json');
 
     });
 
@@ -93,7 +93,7 @@ function  preencherObjetoUsuario(data) {
     $("#nome").val(data.nome);
     $("#cpf").val(data.cpf);
     $("#login").val(data.login);
-  
+
 }
 
 function  limpaCampos() {
@@ -105,20 +105,20 @@ function  limpaCampos() {
 
 }
 
-function  salvarUsuario(url) {
+function  salvarSeguradora(url) {
     var chave = 'NOVO'
 
     if ($('#ukey').val() !== '') {
         chave = $('#ukey').val();
     }
 
+    var nome = $("#nome").val();
+    var descricao = $("#descricao").val();
+
     $.post(url, {
         ukey: chave,
-        nome: $("#nome").val(),
-        cpf: $("#cpf").val(),
-        login: $("#login").val(),
-        senha: $("#senha").val(),
-        status: 1
+        nome: nome,
+        descricao: descricao
 
     },
             function (data, status) {
@@ -127,12 +127,10 @@ function  salvarUsuario(url) {
                 $("#msg_error").hide();
 
                 if (data === "sucesso") {
-                    limpaCampos();
                     $("#msg_sucesso").show();
                 } else {
                     $("#msg_error").show();
                 }
-
 
             });
 }

@@ -62,5 +62,36 @@ class Seguradora_control extends CI_Controller {
 
        
     }
+    
+    
+    public function salvar() {
+        
+        $retorno = FALSE;
+        
+        $ukey = $this->input->post('ukey');
+        $nome = $this->input->post('nome');
+        $descricao = $this->input->post('descricao');
+        
+        if($ukey === 'NOVO'){
+            $ukey = $this->obj_gen->criaChaveprimaria("");
+            
+            $seguradora = array(
+                'ukey' => $ukey,
+                'nome' => $nome,
+                'descricao' => $descricao,
+                'status' => 1
+            );
+            
+          $retorno =   $this->seguradora_model->inserirSeguradora($seguradora);
+        }
+        
+        
+        if($retorno){
+            echo 'sucesso';
+        }else{
+             echo 'error';
+        }
+     
+    }
 
 }
