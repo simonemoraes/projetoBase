@@ -82,6 +82,10 @@
             </div>
 
             <div class="modal-body">
+                
+                <div id="div_error_validacao">
+                    
+                </div>
 
                 <div style="display: none" id="msg_error" class="alert alert-danger  alert-dismissable" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

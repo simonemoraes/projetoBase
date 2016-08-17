@@ -8,8 +8,11 @@ $(document).ready(function () {
 
     // Esse enevento faz uma chamada para função assincrona para gravar usuario 
     $("#btn_modal_salvar").click(function () {
-        var url = $(this).attr("itemid");
-        salvarSeguradora(url);
+        if (valida()) {
+            var url = $(this).attr("itemid");
+            salvarSeguradora(url);
+        }
+
     });
 
     // Esse evento faz a abertura do formulario de cadastro
@@ -27,7 +30,7 @@ $(document).ready(function () {
 
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
-       limparForm() ;
+        limparForm();
 
     });
 
@@ -119,7 +122,7 @@ function  salvarSeguradora(url) {
                 $("#msg_error").hide();
 
                 if (data === "sucesso") {
-                    limparForm() ;
+                    limparForm();
                     $("#msg_sucesso").show();
                 } else {
                     $("#msg_error").show();

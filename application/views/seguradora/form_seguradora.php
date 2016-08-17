@@ -4,12 +4,12 @@
 
     <div class="form-group">
         <label for="nome" class="control-label">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome">
+        <input itemid="Nome da seguradora" type="text" class="verificar form-control" id="nome" name="nome">
     </div>
 
     <div class="form-group">
         <label for="descricao" class="control-label">Descrição</label>
-        <input type="text" class="form-control" id="descricao" name="descricao">
+        <input itemid="Descrição da seguradora " type="text" class="verificar form-control" id="descricao" name="descricao">
     </div>
 
 </form>

@@ -8,8 +8,18 @@ $(document).ready(function () {
 
     // Esse enevento faz uma chamada para função assincrona para gravar usuario 
     $("#btn_modal_salvar").click(function () {
-        var url = $(this).attr("itemid");
-        salvarUsuario(url);
+        if (valida()) {
+
+            if ($('#senha').val() !== $('#confirmar_senha').val()) {
+                $("#div_error_validacao").html("Senha e confirmação não podem ser diferentes!").addClass("alert alert-danger").show();
+            } else {
+                var url = $(this).attr("itemid");
+                salvarUsuario(url);
+            }
+
+
+        }
+
     });
 
     // Esse evento faz a abertura do formulario de cadastro
@@ -27,7 +37,7 @@ $(document).ready(function () {
 
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
-       limparForm()
+        limparForm()
     });
 
     // Evento para o botão fechar DENTRO modal
@@ -52,19 +62,19 @@ $(document).ready(function () {
 
         var ukey_usuario = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
         var url = $(this).attr("itemid");
-        
+
         //escondendo esses campos na edição, pois não podem ser preenchidos.
         $("#box_confirma_senha").hide();
         $("#box_senha").hide();
 
-       
+
         // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
         // Retorno do callback json
         $.post(url, {
             ukey: ukey_usuario,
         },
                 function (data, status) {
-                  
+
                     if (status === "success") {
 
                         // metodo que preenche o objeto da tela com json retornado.
@@ -78,7 +88,7 @@ $(document).ready(function () {
 
 
 
-                },'json');
+                }, 'json');
 
     });
 
@@ -92,7 +102,7 @@ function  preencherObjetoUsuario(data) {
     $("#nome").val(data.nome);
     $("#cpf").val(data.cpf);
     $("#login").val(data.login);
-  
+
 }
 
 

@@ -105,3 +105,40 @@ function abrirCadastro() {
 
     }
     // fim da função
+
+/* Esta função fz as validações dos campos input, caso estejam vazio não será feito o submit do formulario
+ * até que todos os campos estejam preenchidos */
+function valida() {
+
+    var verificaInput = 'verificar';
+    var inputs = $('form').find('input[class*="' + verificaInput + '"]');
+
+    var erros = [];
+
+    erros.length = 0;
+
+    $("#div_error_validacao").hide();
+
+    $.each(inputs, function (i, value) {
+        if (inputs[i].value === "") {
+            erros[i] = $(inputs[i]).attr("itemid") + " deve ser preenchido!";
+        }
+    });
+
+    if (erros.length > 0) {
+
+        var texto = "";
+
+        $.each(erros, function (i, value) {
+            if (erros[i]) {
+                texto = texto + erros[i] + "<br/>";
+            }
+        });
+
+        $("#div_error_validacao").html(texto).addClass("alert alert-danger").show();
+
+        return false;
+    }
+
+    return true;
+}
