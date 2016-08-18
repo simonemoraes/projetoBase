@@ -53,6 +53,8 @@ $route['usuario'] = "usuario_control";
 $route['usuario/salvar'] = "usuario_control/salvar";
 $route['usuario/editar'] = "usuario_control/editar";
 $route['usuario/ativar'] = "usuario_control/ativar";
+$route['usuario/verificarlogin'] = "usuario_control/verificaLoginExistente";
+$route['usuario/filtarRegistros'] = "usuario_control/filtarRegistros";
 
 $route['login'] = "login_control";
 $route['login/buscarempresa'] = "login_control/buscarEmpresa";
@@ -61,6 +63,9 @@ $route['login/sair'] = "login_control/sair";
 
 $route['seguradora'] = "seguradora_control";
 $route['seguradora/salvar'] = "seguradora_control/salvar";
+$route['seguradora/filtarRegistros'] = "seguradora_control/filtarRegistros";
+
+
 
 $route['configuracao'] = "configuracao_control";
 $route['configuracao/recuperasenha'] = "configuracao_control/recuperasenha";

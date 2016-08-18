@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    
+
     // Esse evento faz a abertura do formulario de cadastro
     $("#btn_painel_novo").click(function () {
         abrirCadastro();
@@ -31,9 +33,7 @@ $(document).ready(function () {
     });
 
 
-    // Essa função trata a seleção unica dos checkbox da tela
-    // Essa fução está no JS_base.
-    controlaCheckbox('.esp_chk');
+
 
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
@@ -57,7 +57,7 @@ $(document).ready(function () {
 
     });
 
-    // Esse enevento faz uma chamada para função assincrona para abrir a edição da empresa
+    // Esse enevento faz uma chamada para função assincrona para abrir a edição do usuario
     $("#btn_painel_editar").click(function () {
 
         var ukey_usuario = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
@@ -66,6 +66,14 @@ $(document).ready(function () {
         //escondendo esses campos na edição, pois não podem ser preenchidos.
         $("#box_confirma_senha").hide();
         $("#box_senha").hide();
+        
+        // removendo a classe verificar para que os campos não passem por validação
+        // na edição.
+        $('#senha').removeClass("verificar");
+        $('#confirmar_senha').removeClass("verificar");
+
+        $('#login').attr("disabled", "");
+        $('#btn_painel_limpar').attr("disabled", "");
 
 
         // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
@@ -92,8 +100,37 @@ $(document).ready(function () {
 
     });
 
+    // Chamama na saida do campo login
+    // faz a verificação da existencia de login já existente no banco
+    $('#login').change(function () {
+
+        $('#div_error_validacao').hide();
+
+        var sEmail = $(this).val();
+
+        // filtros
+        var emailFilter = /^.+@.+\..{2,}$/;
+        var illegalChars = /[\(\)\<\>\,\;\:\\\/\"\[\]]/
+        // condição
+        if (!(emailFilter.test(sEmail)) || sEmail.match(illegalChars)) {
+            texto = "Digite um e-mail valido!"
+            $('#div_error_validacao').html(texto).addClass("alert alert-danger").show();
+            $(this).val("");
+            $(this).focus();
+        } else {
+
+            url = $(this).attr("url");
+            login = $(this).val();
+            obj = $(this);
+
+            verificaUsuarioExistente(url, login, obj)
+
+        }
 
 
+
+
+    });
 
 });
 
@@ -102,6 +139,27 @@ function  preencherObjetoUsuario(data) {
     $("#nome").val(data.nome);
     $("#cpf").val(data.cpf);
     $("#login").val(data.login);
+
+}
+
+function verificaUsuarioExistente(url, login, objeto) {
+
+    $.post(url, {
+        login: login,
+    },
+            function (data, status) {
+
+                if (data === 'sim') {
+                    texto = "Login " + objeto.val() + " já existe! Por favor escolha outro.";
+                    $('#div_error_validacao').html(texto).addClass("alert alert-danger").show();
+
+
+                    objeto.val("");
+                    objeto.focus();
+                }
+
+
+            });
 
 }
 
@@ -142,3 +200,9 @@ function limparForm() {
     var id_form = $("form").attr("id");
     limparFormularios(id_form);
 }
+
+// Essa função trata a seleção unica dos checkbox da tela
+// Essa fução está no JS_base.
+// Array deve receber os id dos botões que serão habilitados no clique do checkbox
+var botoes_habilitar = ['#btn_painel_editar', "#btn_painel_inativar"]
+controlaCheckbox('.esp_chk', botoes_habilitar);

@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Usuario_control extends CI_Controller {
-    
+
     var $cia_ukey = "";
     var $tabela = "usuarios";
 
@@ -16,10 +16,13 @@ class Usuario_control extends CI_Controller {
     }
 
     public function index() {
-        
+
         $this->obj_gen->autoriza();
-        
-        $usuario['lista_usuario'] = $this->usuario_model->retornaTodos($this->tabela,$this->cia_ukey);
+
+
+        $usuario['lista_usuario'] = $this->usuario_model->retornaTodos($this->tabela, $this->cia_ukey);
+
+
         $usuario['id_form'] = 'id_form_usuario';
 
         $html_grid_usuario = $this->load->view('usuario/grid_usuario.php', $usuario, TRUE);
@@ -37,6 +40,7 @@ class Usuario_control extends CI_Controller {
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
             'endereco_btn_ativar' => base_url('usuario/ativar'),
+            'endereco_btn_localizar' => base_url('usuario/filtarRegistros')
         );
 
 
@@ -65,11 +69,11 @@ class Usuario_control extends CI_Controller {
     }
 
     public function ativar() {
-       
+
         $this->obj_gen->autoriza();
-        
+
         $chave = $this->input->post('ukey');
-        $usr = $this->usuario_model->buscaPorId($this->tabela,$chave);
+        $usr = $this->usuario_model->buscaPorId($this->tabela, $chave);
 
         $retorno = "";
 
@@ -78,10 +82,10 @@ class Usuario_control extends CI_Controller {
 
             if ($status == 1) {
                 $usr['status'] = 0;
-                $retorno = $this->usuario_model->editar($this->tabela,$usr);
+                $retorno = $this->usuario_model->editar($this->tabela, $usr);
             } else {
                 $usr['status'] = 1;
-                $retorno = $this->usuario_model->editar($this->tabela,$usr);
+                $retorno = $this->usuario_model->editar($this->tabela, $usr);
             }
         }
 
@@ -93,11 +97,11 @@ class Usuario_control extends CI_Controller {
     }
 
     public function editar() {
-        
+
         $this->obj_gen->autoriza();
-        
+
         $chave = $this->input->post('ukey');
-        $resultado = $this->usuario_model->buscaPorId($this->tabela,$chave);
+        $resultado = $this->usuario_model->buscaPorId($this->tabela, $chave);
 
         $retorno = array(
             'ukey' => $resultado['ukey'],
@@ -110,9 +114,9 @@ class Usuario_control extends CI_Controller {
     }
 
     public function salvar() {
-        
+
         $this->obj_gen->autoriza();
-        
+
         $acao = "EDITAR";
 
         $chave = $this->input->post('ukey');
@@ -129,8 +133,8 @@ class Usuario_control extends CI_Controller {
         if ($acao == 'INSERIR') {
             // criptografando a senha
             $senha = md5($this->input->post('senha'));
-            
-           
+
+
 
             // Preenchendo o objeto usuario com dados que vieram no post para inserção no banco
             $usuario = array(
@@ -142,7 +146,7 @@ class Usuario_control extends CI_Controller {
                 'senha' => $senha,
                 'status' => $this->input->post('status')
             );
-            $retorno = $this->usuario_model->inserir($this->tabela,$usuario);
+            $retorno = $this->usuario_model->inserir($this->tabela, $usuario);
         }
 
         if ($acao == 'EDITAR') {
@@ -152,9 +156,8 @@ class Usuario_control extends CI_Controller {
                 'nome' => $this->input->post('nome'),
                 'cpf' => $this->input->post('cpf'),
                 'login' => $this->input->post('login')
-                
             );
-            $retorno = $this->usuario_model->editar($this->tabela,$usuario);
+            $retorno = $this->usuario_model->editar($this->tabela, $usuario);
         }
 
 
@@ -163,6 +166,49 @@ class Usuario_control extends CI_Controller {
         } else {
 
             echo 'error';
+        }
+    }
+
+    public function verificaLoginExistente() {
+
+        $login = $this->input->post('login');
+        $cia_ukey = $this->cia_ukey;
+
+        $usuario = $this->usuario_model->verificaLoginExistente($login, $cia_ukey);
+
+        if ($usuario) {
+            echo 'sim';
+        } else {
+            echo 'nao';
+        }
+    }
+
+    public function filtarRegistros() {
+        $filtro = $this->input->post('filtro');
+        $valor = $this->input->post('texto_digitado');
+
+        if ($filtro == 'status') {
+
+            if (strtoupper($valor) == 'INATIVO') {
+                $valor = 0;
+            }
+
+            if (strtoupper($valor) == 'ATIVO') {
+                $valor = 1;
+            }
+        }
+
+        $resultado = $this->usuario_model->buscarPorFiltro("usuarios",$filtro, $valor);
+
+        if ($resultado) {
+
+            $usuario['lista_usuario'] = $resultado;
+
+            $usuario['id_form'] = 'id_form_usuario';
+
+            $html_grid_usuario = $this->load->view('usuario/grid_usuario.php', $usuario, TRUE);
+
+            echo $html_grid_usuario;
         }
     }
 

@@ -72,7 +72,9 @@ $(document).ready(function () {
 
     // Essa função trata a seleção unica dos checkbox da tela
     // Essa fução está no JS_base.
-    controlaCheckbox('.esp_chk');
+    // Array deve receber os id dos botões que serão habilitados no clique do checkbox
+    var botoes_habilitar = ['#btn_painel_editar']
+    controlaCheckbox('.esp_chk',botoes_habilitar);
 
 
 });

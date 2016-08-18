@@ -42,16 +42,16 @@
 
 
                     <div class="col-md-2">
-                        <select class="form-control" id="id_formGroup">
+                        <select class="form-control" id="select_painel">
                             <?php echo $painel['opcoes']; ?> 
                         </select>
                     </div>
 
                     <div class="col-md-4">
                         <div class="input-group input-group-lg" style= "margin-right: 4px;">
-                            <input type="text" class="form-control" aria-label="" placeholder="Buscar">
+                            <input type="text" id="input_localizar" class="form-control" aria-label="" placeholder="Buscar">
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default btn-lg botaoFerramenta" title="Excluir" aria-label="Left Align">
+                                <button url="<?php echo $painel['endereco_btn_localizar']; ?>" id="btn_painel_localizar" type="button" class="btn btn-default btn-lg botaoFerramenta" title="Localizar" aria-label="Left Align">
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 </button>
                             </div>

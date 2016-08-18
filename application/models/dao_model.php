@@ -29,5 +29,18 @@ class Dao_model extends CI_Model {
         $this->db->where('ukey', $objeto['ukey']);
         return $this->db->update($tabela, $objeto);
     }
+    
+    public function buscarPorFiltro($tabela,$filtro, $valor_procurado) {
+
+        if ($filtro != "todos" && $filtro != "codigo") {
+            $this->db->like($filtro, $valor_procurado);
+        }
+
+        if ($filtro == "codigo") {
+            $this->db->where($filtro, $valor_procurado);
+        }
+
+        return $this->db->get($tabela)->result_array();
+    }
 
 }

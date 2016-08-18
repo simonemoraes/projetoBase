@@ -34,7 +34,8 @@ class Empresa_control extends CI_Controller {
             'endereco_btn_editar' => base_url('empresa/editar'),
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
-            'endereco_btn_ativar' => ''
+            'endereco_btn_ativar' => '',
+            'endereco_btn_localizar' => "000"
         );
 
 

@@ -24,9 +24,7 @@ $(document).ready(function () {
     });
 
 
-    // Essa função trata a seleção unica dos checkbox da tela
-    // Essa fução está no JS_base.
-    controlaCheckbox('.esp_chk');
+
 
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
@@ -135,3 +133,8 @@ function limparForm() {
     var id_form = $("form").attr("id");
     limparFormularios(id_form);
 }
+
+// Essa função trata a seleção unica dos checkbox da tela
+// Essa fução está no JS_base.
+var botoes_habilitar = ['#btn_painel_editar']
+controlaCheckbox('.esp_chk', botoes_habilitar);

@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Seguradora_control extends CI_Controller {
-    
+
     var $cia_ukey = "";
     var $tabela = "seguradoras";
 
@@ -18,9 +18,9 @@ class Seguradora_control extends CI_Controller {
 
         $this->obj_gen->autoriza();
 
-        $seguradora['lista_seguradora'] = $this->seguradora_model->retornaTodos($this->tabela,$this->cia_ukey);
+        $seguradora['lista_seguradora'] = $this->seguradora_model->retornaTodos($this->tabela, $this->cia_ukey);
         $seguradora['id_form'] = 'id_form_seguradora';
-        
+
         $html_grid_seguradora = $this->load->view('seguradora/grid_seguradora.php', $seguradora, TRUE);
         $html_form_seguradora = $this->load->view('seguradora/form_seguradora.php', $seguradora, TRUE);
         $html_opcoes_seguradora = $this->load->view('seguradora/opcao_pesquisa.php', "", TRUE);
@@ -35,7 +35,8 @@ class Seguradora_control extends CI_Controller {
             'endereco_btn_editar' => base_url('seguradora/editar'),
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
-            'endereco_btn_ativar' => ''
+            'endereco_btn_ativar' => '',
+            'endereco_btn_localizar' => base_url('seguradora/filtarRegistros')
         );
 
 
@@ -61,23 +62,20 @@ class Seguradora_control extends CI_Controller {
         $dados['html_seguradora'] = $this->obj_gen->retornaPagina($html_grid_seguradora, $dados_painel, $obj_jS, $obj_modal);
 
         $this->load->view('seguradora/v_seguradora.php', $dados);
-
-       
     }
-    
-    
+
     public function salvar() {
-        
+
         $retorno = FALSE;
-        
+
         $ukey = $this->input->post('ukey');
         $nome = $this->input->post('nome');
         $descricao = $this->input->post('descricao');
         $cia_ukey = $this->obj_gen->getCiaUkey();
-        
-        if($ukey === 'NOVO'){
+
+        if ($ukey === 'NOVO') {
             $ukey = $this->obj_gen->criaChaveprimaria();
-            
+
             $seguradora = array(
                 'ukey' => $ukey,
                 'cia_ukey' => $cia_ukey,
@@ -85,17 +83,46 @@ class Seguradora_control extends CI_Controller {
                 'descricao' => $descricao,
                 'status' => 1
             );
-            
-          $retorno =   $this->seguradora_model->inserir($this->tabela,$seguradora);
+
+            $retorno = $this->seguradora_model->inserir($this->tabela, $seguradora);
         }
-        
-        
-        if($retorno){
+
+
+        if ($retorno) {
             echo 'sucesso';
-        }else{
-             echo 'error';
+        } else {
+            echo 'error';
         }
-     
+    }
+
+    public function filtarRegistros() {
+
+        $filtro = $this->input->post('filtro');
+        $valor = $this->input->post('texto_digitado');
+
+        if ($filtro == 'status') {
+
+            if (strtoupper($valor) == 'INATIVO') {
+                $valor = 0;
+            }
+
+            if (strtoupper($valor) == 'ATIVO') {
+                $valor = 1;
+            }
+        }
+
+        $resultado = $this->seguradora_model->buscarPorFiltro("seguradoras", $filtro, $valor);
+
+        if ($resultado) {
+
+            $seguradora['lista_seguradora'] = $resultado;
+            
+            $seguradora['id_form'] = 'id_form_seguradora';
+
+            $html_grid_seguradora = $this->load->view('seguradora/grid_seguradora.php', $seguradora, TRUE);
+
+            echo $html_grid_seguradora;
+        }
     }
 
 }
