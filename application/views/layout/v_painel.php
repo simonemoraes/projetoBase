@@ -5,7 +5,7 @@
 
     <div class="container">
 
-        <div class="panel panel-primary">
+        <div id="painel_principal" class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title" id="id_panel_h3_VPanel"><?= $painel['titulo'] ?></h3>
             </div>
@@ -29,12 +29,12 @@
                         <button <?php echo $painel['estado_btn_visualizar']; ?> id="btn_painel_visualizar" class="btn btn-default btn-lg botaoFerramenta" title="Visualizar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </button>
-                        
-                         <button itemid="<?php echo $painel['endereco_btn_ativar']; ?>" <?php echo $painel['estado_btn_inativar']; ?> id="btn_painel_inativar" class="btn btn-default btn-lg botaoFerramenta" title="Ativar / Inativar" aria-label="Left Align">
+
+                        <button itemid="<?php echo $painel['endereco_btn_ativar']; ?>" <?php echo $painel['estado_btn_inativar']; ?> id="btn_painel_inativar" class="btn btn-default btn-lg botaoFerramenta" title="Ativar / Inativar" aria-label="Left Align">
                             <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                         </button>
-                        
-                         <button <?php echo $painel['estado_btn_maps']; ?> id="btn_painel_maps" class="btn btn-default btn-lg botaoFerramenta" title="Google Maps" aria-label="Left Align">
+
+                        <button <?php echo $painel['estado_btn_maps']; ?> id="btn_painel_maps" class="btn btn-default btn-lg botaoFerramenta" title="Google Maps" aria-label="Left Align">
                             <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
                         </button>
 
@@ -65,6 +65,12 @@
             <div class="panel-body">
 
                 <?php echo $conteudo; ?>
+
+            </div>
+
+            <div id="rodape_painel" class="panel-footer text-center" >
+                <?php echo isset($painel['paginacao']) ? $painel['paginacao'] : ''; ?>
+
             </div>
         </div>
 
@@ -82,9 +88,9 @@
             </div>
 
             <div class="modal-body">
-                
+
                 <div id="div_error_validacao">
-                    
+
                 </div>
 
                 <div style="display: none" id="msg_error" class="alert alert-danger  alert-dismissable" role="alert">

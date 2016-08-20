@@ -16,18 +16,25 @@ class Usuario_control extends CI_Controller {
     }
 
     public function index() {
-
+        
         $this->obj_gen->autoriza();
 
+        $endereco_paginacao = 'usuario/p';
 
-        $usuario['lista_usuario'] = $this->usuario_model->retornaTodos($this->tabela, $this->cia_ukey);
+        $total_registros = $this->usuario_model->contarTodos('usuarios', $this->cia_ukey);
 
+        $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
+
+        $usuario['lista_usuario'] = $this->usuario_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
 
         $usuario['id_form'] = 'id_form_usuario';
 
         $html_grid_usuario = $this->load->view('usuario/grid_usuario.php', $usuario, TRUE);
         $html_form_usuario = $this->load->view('usuario/form_usuario.php', $usuario, TRUE);
         $html_opcoes_usuario = $this->load->view('usuario/opcao_pesquisa.php', "", TRUE);
+
+
+
 
         $dados_painel = array(
             'titulo' => 'Usuários',
@@ -40,7 +47,8 @@ class Usuario_control extends CI_Controller {
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
             'endereco_btn_ativar' => base_url('usuario/ativar'),
-            'endereco_btn_localizar' => base_url('usuario/filtarRegistros')
+            'endereco_btn_localizar' => base_url('usuario/filtarRegistros'),
+            'paginacao' => $data['paginacao']
         );
 
 
@@ -184,21 +192,46 @@ class Usuario_control extends CI_Controller {
     }
 
     public function filtarRegistros() {
-        $filtro = $this->input->post('filtro');
-        $valor = $this->input->post('texto_digitado');
 
-        if ($filtro == 'status') {
+        if ($this->input->post('filtro')) {
+            $filtro = $this->input->post('filtro');
+            $valor = $this->input->post('texto_digitado');
 
-            if (strtoupper($valor) == 'INATIVO') {
-                $valor = 0;
+            if ($filtro == 'status') {
+
+                if (strtoupper($valor) == 'INATIVO') {
+                    $valor = 0;
+                }
+
+                if (strtoupper($valor) == 'ATIVO') {
+                    $valor = 1;
+                }
             }
 
-            if (strtoupper($valor) == 'ATIVO') {
-                $valor = 1;
-            }
+            $total_registros = $this->usuario_model->contarTodosPorBusca('usuarios', $this->cia_ukey, $filtro, $valor);
+            $this->session->unset_userdata("ultima_busca");
+        } else {
+
+            $filtro = $this->session->userdata("ultima_busca")['filtro'];
+            $valor = $this->session->userdata("ultima_busca")['texto_digitado'];
+            $total_registros = $this->session->userdata("ultima_busca")['total'];
         }
 
-        $resultado = $this->usuario_model->buscarPorFiltro("usuarios",$filtro, $valor);
+
+        $endereco_paginacao = 'usuario/b';
+
+        $valores['filtro'] = $filtro;
+        $valores['texto_digitado'] = $valor;
+        $valores['total'] = $total_registros;
+
+        $this->session->set_userdata("ultima_busca", $valores);
+
+        $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
+
+        $resultado = $this->usuario_model->buscarPorFiltro("usuarios", $filtro, $valor, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
+
+        $html_footer_painel = $data['paginacao'];
+
 
         if ($resultado) {
 
@@ -208,7 +241,12 @@ class Usuario_control extends CI_Controller {
 
             $html_grid_usuario = $this->load->view('usuario/grid_usuario.php', $usuario, TRUE);
 
-            echo $html_grid_usuario;
+            $dados = array(
+                'html_grid' => $html_grid_usuario,
+                'html_footer' => $html_footer_painel
+            );
+
+            echo json_encode($dados);
         }
     }
 

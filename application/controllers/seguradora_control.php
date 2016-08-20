@@ -18,7 +18,14 @@ class Seguradora_control extends CI_Controller {
 
         $this->obj_gen->autoriza();
 
-        $seguradora['lista_seguradora'] = $this->seguradora_model->retornaTodos($this->tabela, $this->cia_ukey);
+        $endereco_paginacao = 'seguradora/p';
+        
+        $total_registros = $this->seguradora_model->contarTodos($this->tabela, $this->cia_ukey);
+        
+        $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
+
+        $seguradora['lista_seguradora'] = $this->seguradora_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
+        
         $seguradora['id_form'] = 'id_form_seguradora';
 
         $html_grid_seguradora = $this->load->view('seguradora/grid_seguradora.php', $seguradora, TRUE);
@@ -36,7 +43,8 @@ class Seguradora_control extends CI_Controller {
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
             'endereco_btn_ativar' => '',
-            'endereco_btn_localizar' => base_url('seguradora/filtarRegistros')
+            'endereco_btn_localizar' => base_url('seguradora/filtarRegistros'),
+            'paginacao' => $data['paginacao']
         );
 
 
@@ -116,7 +124,7 @@ class Seguradora_control extends CI_Controller {
         if ($resultado) {
 
             $seguradora['lista_seguradora'] = $resultado;
-            
+
             $seguradora['id_form'] = 'id_form_seguradora';
 
             $html_grid_seguradora = $this->load->view('seguradora/grid_seguradora.php', $seguradora, TRUE);

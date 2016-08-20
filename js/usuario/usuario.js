@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-    
-
     // Esse evento faz a abertura do formulario de cadastro
     $("#btn_painel_novo").click(function () {
         abrirCadastro();
@@ -25,7 +23,7 @@ $(document).ready(function () {
     });
 
     // Esse evento faz a abertura do formulario de cadastro
-    $("#btn_painel_inativar").click(function () {
+    $("#btn_painel_inativar").on('click',function () {
         var url = $(this).attr("itemid");
         //Função no js_base
         ativar(url);

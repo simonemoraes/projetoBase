@@ -1,4 +1,3 @@
-
 <section id="id_grid_usuario">
 
     <table class="table table-bordered">
@@ -21,21 +20,20 @@
                     <td><?= $usuario["nome"] ?></td>
                     <td style="text-align: center">
                         <?php
-                            if ($usuario["status"] === '1'){
-                                echo '<span class="label label-success">Ativo</span>';
-                            }else{
-                                echo '<span class="label label-danger">Inativo</span>';
-                            }
-                            
+                        if ($usuario["status"] === '1') {
+                            echo '<span class="label label-success">Ativo</span>';
+                        } else {
+                            echo '<span class="label label-danger">Inativo</span>';
+                        }
                         ?>
                     </td>
 
 
                 </tr>
-<?php endforeach ?>
+            <?php endforeach ?>
         </tbody>  
     </table>
-
+    
 </section>
 
 

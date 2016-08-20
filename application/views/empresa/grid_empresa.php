@@ -12,21 +12,21 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($lista_empresa as $empresa) : ?>
+            <?php foreach ($lista_empresa as $objempresa) : ?>
                 <tr>
                     <td style="text-align: center">
-                        <input name="check[]" itemid="000" class="esp_chk" id="<?= $empresa["ukey"] ?>" type="checkbox" value="">
+                        <input name="check[]" itemid="000" class="esp_chk" id="<?= $objempresa["ukey"] ?>" type="checkbox" value="">
                     </td>
-                    <td><?= $empresa["codigo"] ?></td>
-                    <td><?= $empresa["razao_social"] ?></td>
-                    <td><?= $empresa["responsavel"] ?></td>
-                    <td><?= $empresa["email"] ?></td>
+                    <td><?= $objempresa["codigo"] ?></td>
+                    <td><?= $objempresa["razao_social"] ?></td>
+                    <td><?= $objempresa["responsavel"] ?></td>
+                    <td><?= $objempresa["email"] ?></td>
 
                 </tr>
             <?php endforeach ?>
         </tbody>  
     </table>
-
+        <?php echo $paginacao; ?>
 </section>
 
 

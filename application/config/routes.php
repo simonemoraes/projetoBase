@@ -45,11 +45,19 @@ $route['default_controller'] = "login_control";
 $route['404_override'] = '';
 
 $route['empresa'] = "empresa_control";
+$route['empresa/p'] = "empresa_control";
+$route['empresa/p/(:num)'] = "empresa_control";
+
 $route['empresa/salvar'] = "empresa_control/salvar";
 $route['empresa/editar'] = "empresa_control/editar";
 
 
 $route['usuario'] = "usuario_control";
+$route['usuario/p'] = "usuario_control";
+$route['usuario/p/(:num)'] = "usuario_control";
+$route['usuario/b'] = "usuario_control/filtarRegistros";
+$route['usuario/b/(:num)'] = "usuario_control/filtarRegistros";
+
 $route['usuario/salvar'] = "usuario_control/salvar";
 $route['usuario/editar'] = "usuario_control/editar";
 $route['usuario/ativar'] = "usuario_control/ativar";
@@ -64,6 +72,10 @@ $route['login/sair'] = "login_control/sair";
 $route['seguradora'] = "seguradora_control";
 $route['seguradora/salvar'] = "seguradora_control/salvar";
 $route['seguradora/filtarRegistros'] = "seguradora_control/filtarRegistros";
+$route['seguradora/p'] = "seguradora_control";
+$route['seguradora/p/(:num)'] = "seguradora_control";
+$route['seguradora/b'] = "seguradora_control/filtarRegistros";
+$route['seguradora/b/(:num)'] = "seguradora_control/filtarRegistros";
 
 
 

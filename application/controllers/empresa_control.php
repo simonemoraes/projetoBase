@@ -1,11 +1,13 @@
-<?php if (!defined('BASEPATH'))
+<?php
+
+if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Empresa_control extends CI_Controller {
 
     var $cia_ukey = "";
     var $tabela = "empresa";
-    
+
     public function __construct() {
         parent::__construct();
         // Instaciando o objeto empresa_model, só será usado aqui
@@ -14,10 +16,19 @@ class Empresa_control extends CI_Controller {
     }
 
     public function index() {
-        
+
         $this->obj_gen->autoriza();
 
-        $empresa['lista_empresa'] = $this->empresa_model->retornaTodos($this->tabela,$this->cia_ukey);
+        $endereco_paginacao = 'empresa/p';
+
+        $total_registros = $this->empresa_model->contarTodos('empresa', $this->cia_ukey);
+
+        $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
+
+        $empresa['paginacao'] = $data['paginacao'];
+
+        $empresa['lista_empresa'] = $this->empresa_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
+
         $empresa['id_form'] = 'id_form_empresa';
 
         $html_grid_empresa = $this->load->view('empresa/grid_empresa.php', $empresa, TRUE);
@@ -64,11 +75,11 @@ class Empresa_control extends CI_Controller {
     }
 
     public function editar() {
-        
+
         $this->obj_gen->autoriza();
-        
+
         $chave = $this->input->post('ukey');
-        $resultado = $this->empresa_model->buscaPorId($this->tabela,$chave);
+        $resultado = $this->empresa_model->buscaPorId($this->tabela, $chave);
 
         $retorno = array(
             'ukey' => $resultado['ukey'],
@@ -93,9 +104,9 @@ class Empresa_control extends CI_Controller {
     }
 
     public function salvar() {
-        
+
         $this->obj_gen->autoriza();
-        
+
         $acao = "EDITAR";
 
         $chave = $this->input->post('ukey');
@@ -125,17 +136,17 @@ class Empresa_control extends CI_Controller {
             'estado' => $this->input->post('estado'),
             'cidade' => $this->input->post('cidade')
         );
-        
+
         $retorno = "";
-        
-        if($acao == 'INSERIR'){
-             $retorno = $this->empresa_model->inserir($this->tabela,$empresa);
+
+        if ($acao == 'INSERIR') {
+            $retorno = $this->empresa_model->inserir($this->tabela, $empresa);
         }
-        
-        if($acao == 'EDITAR'){
-             $retorno = $this->empresa_model->editar($this->tabela,$empresa);
+
+        if ($acao == 'EDITAR') {
+            $retorno = $this->empresa_model->editar($this->tabela, $empresa);
         }
-       
+
 
         if ($retorno) {
             echo 'sucesso';
