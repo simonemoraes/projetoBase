@@ -3,14 +3,14 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Seguradora_control extends CI_Controller {
+class condicao_comissionamento_control extends CI_Controller {
 
     var $cia_ukey = "";
-    var $tabela = "seguradoras";
+    var $tabela = "condicao_comissionamentos";
 
     public function __construct() {
         parent::__construct();
-        $this->load->model("seguradora_model");
+        $this->load->model("condicao_comissionamento_model");
         $this->cia_ukey = $this->session->userdata("empresa_logada")['ukey'];
     }
 
@@ -18,58 +18,58 @@ class Seguradora_control extends CI_Controller {
 
         $this->obj_gen->autoriza();
 
-        $endereco_paginacao = 'seguradora/p';
+        $endereco_paginacao = 'condicao_comissionamento/p';
 
-        $total_registros = $this->seguradora_model->contarTodos($this->tabela, $this->cia_ukey);
+        $total_registros = $this->condicao_comissionamento_model->contarTodos($this->tabela, $this->cia_ukey);
 
         $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
 
-        $seguradora['lista_seguradora'] = $this->seguradora_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
+        $condicao_comissionamento['lista_condicao_comissionamento'] = $this->condicao_comissionamento_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
 
-        $seguradora['id_form'] = 'id_form_seguradora';
+        $condicao_comissionamento['id_form'] = 'id_form_condicao_comissionamento';
 
-        $html_grid_seguradora = $this->load->view('seguradora/grid_seguradora.php', $seguradora, TRUE);
-        $html_form_seguradora = $this->load->view('seguradora/form_seguradora.php', $seguradora, TRUE);
-        $html_opcoes_seguradora = $this->load->view('seguradora/opcao_pesquisa.php', "", TRUE);
+        $html_grid_condicao_comissionamento = $this->load->view('condicao_comissionamento/grid_condicao_comissionamento.php', $condicao_comissionamento, TRUE);
+        $html_form_condicao_comissionamento = $this->load->view('condicao_comissionamento/form_condicao_comissionamento.php', $condicao_comissionamento, TRUE);
+        $html_opcoes_condicao_comissionamento = $this->load->view('condicao_comissionamento/opcao_pesquisa.php', "", TRUE);
 
         $dados_painel = array(
-            'titulo' => 'Seguradoras',
-            'opcoes' => $html_opcoes_seguradora,
+            'titulo' => 'Condições de Comissionamentos',
+            'opcoes' => $html_opcoes_condicao_comissionamento,
             'estado_btn_novo' => "",
             'estado_btn_editar' => "disabled=''",
             'estado_btn_excluir' => "disabled=''",
             'estado_btn_visualizar' => "disabled=''",
-            'endereco_btn_editar' => base_url('seguradora/editar'),
+            'endereco_btn_editar' => base_url('condicao_comissionamento/editar'),
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
-            'endereco_btn_ativar' => base_url('seguradora/ativar'),
-            'endereco_btn_localizar' => base_url('seguradora/filtarRegistros'),
+            'endereco_btn_ativar' => base_url('condicao_comissionamento/ativar'),
+            'endereco_btn_localizar' => base_url('condicao_comissionamento/filtarRegistros'),
             'paginacao' => $data['paginacao']
         );
 
 
-        $link_fechar = base_url('seguradora');
+        $link_fechar = base_url('condicao_comissionamento');
 
         // Obeto para injeção de js  especifico.
         $obj_jS = array(
-            'js_tela' => "js/seguradora/seguradora.js"
+            'js_tela' => "js/condicao_comissionamento/condicao_comissionamento.js"
         );
 
 
-        $endereco_salvar = base_url('seguradora/salvar');
+        $endereco_salvar = base_url('condicao_comissionamento/salvar');
 
         // Obeto para o preenchmento dos componentes do modal
         $obj_modal = array(
-            'titulo_modal' => 'Cadastro de Seguradoras',
+            'titulo_modal' => 'Cadastro de condicões de comissionamento',
             'btn_cadastrar' => 'Salvar',
             'acao' => $endereco_salvar,
             'fechar' => $link_fechar,
-            'formulario' => $html_form_seguradora
+            'formulario' => $html_form_condicao_comissionamento
         );
 
-        $dados['html_seguradora'] = $this->obj_gen->retornaPagina($html_grid_seguradora, $dados_painel, $obj_jS, $obj_modal);
+        $dados['html_condicao_comissionamento'] = $this->obj_gen->retornaPagina($html_grid_condicao_comissionamento, $dados_painel, $obj_jS, $obj_modal);
 
-        $this->load->view('seguradora/v_seguradora.php', $dados);
+        $this->load->view('condicao_comissionamento/v_condicao_comissionamento.php', $dados);
     }
 
     public function salvar() {
@@ -93,7 +93,7 @@ class Seguradora_control extends CI_Controller {
         if ($ukey === 'NOVO') {
             $ukey = $this->obj_gen->criaChaveprimaria();
 
-            $seguradora = array(
+            $condicao_comissionamento = array(
                 'ukey' => $ukey,
                 'cia_ukey' => $cia_ukey,
                 'nome' => $nome,
@@ -101,18 +101,18 @@ class Seguradora_control extends CI_Controller {
                 'status' => 1
             );
 
-            $retorno = $this->seguradora_model->inserir($this->tabela, $seguradora);
+            $retorno = $this->condicao_comissionamento_model->inserir($this->tabela, $condicao_comissionamento);
         }
         
         if ($acao == 'EDITAR') {
-            // Preenchendo o objeto seguradora com dados que vieram no post para alteração
+            // Preenchendo o objeto condicao_comissionamento com dados que vieram no post para alteração
             $usuario = array(
                 'ukey' => $chave,
                 'nome' => $this->input->post('nome'),
                 'descricao' => $this->input->post('descricao')
                
             );
-            $retorno = $this->seguradora_model->editar($this->tabela, $usuario);
+            $retorno = $this->condicao_comissionamento_model->editar($this->tabela, $usuario);
         }
 
 
@@ -128,7 +128,7 @@ class Seguradora_control extends CI_Controller {
         $this->obj_gen->autoriza();
 
         $chave = $this->input->post('ukey');
-        $usr = $this->seguradora_model->buscaPorId($this->tabela, $chave);
+        $usr = $this->condicao_comissionamento_model->buscaPorId($this->tabela, $chave);
 
         $retorno = "";
 
@@ -137,15 +137,15 @@ class Seguradora_control extends CI_Controller {
 
             if ($status == 1) {
                 $usr['status'] = 0;
-                $retorno = $this->seguradora_model->editar($this->tabela, $usr);
+                $retorno = $this->condicao_comissionamento_model->editar($this->tabela, $usr);
             } else {
                 $usr['status'] = 1;
-                $retorno = $this->seguradora_model->editar($this->tabela, $usr);
+                $retorno = $this->condicao_comissionamento_model->editar($this->tabela, $usr);
             }
         }
 
         if ($retorno) {
-            echo base_url('seguradora');
+            echo base_url('condicao_comissionamento');
         } else {
             echo 'error';
         }
@@ -156,7 +156,7 @@ class Seguradora_control extends CI_Controller {
         $this->obj_gen->autoriza();
 
         $chave = $this->input->post('ukey');
-        $resultado = $this->seguradora_model->buscaPorId($this->tabela, $chave);
+        $resultado = $this->condicao_comissionamento_model->buscaPorId($this->tabela, $chave);
 
         $retorno = array(
             'ukey' => $resultado['ukey'],
@@ -185,7 +185,7 @@ class Seguradora_control extends CI_Controller {
                 }
             }
 
-            $total_registros = $this->seguradora_model->contarTodosPorBusca($this->tabela, $this->cia_ukey, $filtro, $valor);
+            $total_registros = $this->condicao_comissionamento_model->contarTodosPorBusca($this->tabela, $this->cia_ukey, $filtro, $valor);
             $this->session->unset_userdata("ultima_busca");
         } else {
 
@@ -195,7 +195,7 @@ class Seguradora_control extends CI_Controller {
         }
 
 
-        $endereco_paginacao = 'seguradora/b';
+        $endereco_paginacao = 'condicao_comissionamento/b';
 
         $valores['filtro'] = $filtro;
         $valores['texto_digitado'] = $valor;
@@ -205,19 +205,19 @@ class Seguradora_control extends CI_Controller {
 
         $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
 
-        $resultado = $this->seguradora_model->buscarPorFiltro($this->tabela, $filtro, $valor, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
+        $resultado = $this->condicao_comissionamento_model->buscarPorFiltro($this->tabela, $filtro, $valor, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
 
         $html_footer_painel = $data['paginacao'];
 
 
         if ($resultado) {
 
-            $seguradora['lista_seguradora'] = $resultado;
+            $condicao_comissionamento['lista_condicao_comissionamento'] = $resultado;
 
-            $html_grid_seguradora = $this->load->view('seguradora/grid_seguradora.php', $seguradora, TRUE);
+            $html_grid_condicao_comissionamento = $this->load->view('condicao_comissionamento/grid_condicao_comissionamento.php', $condicao_comissionamento, TRUE);
 
             $dados = array(
-                'html_grid' => $html_grid_seguradora,
+                'html_grid' => $html_grid_condicao_comissionamento,
                 'html_footer' => $html_footer_painel
             );
 

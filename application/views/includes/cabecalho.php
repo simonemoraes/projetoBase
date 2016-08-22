@@ -41,7 +41,11 @@
                             <ul class="dropdown-menu">
                                 <li><a href="<?= base_url('empresa') ?>"><i class="fa fa-building" aria-hidden="true"></i> &nbsp;Empresas</a></li>
                                 <li><a href="<?= base_url('usuario') ?>"><i class="fa fa-users" aria-hidden="true"></i> &nbsp;Usuarios</a></li>
-                                <li><a href="<?= base_url('seguradora') ?>"><i class="fa fa-medkit" aria-hidden="true"></i> &nbsp;Seguradora</a></li>
+                                <li><a href="<?= base_url('seguradora') ?>"><i class="fa fa-hospital-o" aria-hidden="true"></i> &nbsp;Seguradora</a></li>
+                                <li><a href="<?= base_url('produto') ?>"><i class="fa fa-medkit" aria-hidden="true"></i> &nbsp;Produto</a></li>
+                                <li><a href="<?= base_url('condicao_comissionamento') ?>"><i class="fa fa-medkit" aria-hidden="true"></i> &nbsp;Condições de Comissionamento</a></li>
+                                
+                                <li><a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> &nbsp;Grupos de Corretores</a></li>
                                 <li><a href="#"><i class="fa fa-user-md" aria-hidden="true"></i> &nbsp;Corretor</a></li>
                                 <li><a href="#"><i class="fa fa-user-secret" aria-hidden="true"></i> &nbsp;Supervisor</a></li>
                                 <li><a href="#"><i class="fa fa-universal-access" aria-hidden="true"></i> &nbsp;Gerente</a></li>

@@ -10,7 +10,7 @@ $(document).ready(function () {
     $("#btn_modal_salvar").click(function () {
         if (valida()) {
             var url = $(this).attr("itemid");
-            salvarSeguradora(url);
+            salvarProduto(url);
         }
 
     });
@@ -53,21 +53,21 @@ $(document).ready(function () {
     // Esse enevento faz uma chamada para função assincrona para abrir a edição da empresa
     $("#btn_painel_editar").click(function () {
 
-        var ukey_usuario = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
+        var ukey_produto = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
         var url = $(this).attr("itemid");
 
 
         // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
         // Retorno do callback json
         $.post(url, {
-            ukey: ukey_usuario,
+            ukey: ukey_produto,
         },
                 function (data, status) {
 
                     if (status === "success") {
 
                         // metodo que preenche o objeto da tela com json retornado.
-                        preencherObjetoSeguradora(data);
+                        preencherObjetoProduto(data);
 
                         abrirCadastro();
 
@@ -86,7 +86,7 @@ $(document).ready(function () {
 
 });
 
-function  preencherObjetoSeguradora(data) {
+function  preencherObjetoProduto(data) {
     $("#ukey").val(data.ukey);
     $("#nome").val(data.nome);
     $("#descricao").val(data.descricao);
@@ -95,7 +95,7 @@ function  preencherObjetoSeguradora(data) {
 }
 
 
-function  salvarSeguradora(url) {
+function  salvarProduto(url) {
     var chave = 'NOVO'
 
     if ($('#ukey').val() !== '') {

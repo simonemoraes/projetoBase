@@ -71,11 +71,35 @@ $route['login/sair'] = "login_control/sair";
 
 $route['seguradora'] = "seguradora_control";
 $route['seguradora/salvar'] = "seguradora_control/salvar";
+$route['seguradora/editar'] = "seguradora_control/editar";
+$route['seguradora/ativar'] = "seguradora_control/ativar";
 $route['seguradora/filtarRegistros'] = "seguradora_control/filtarRegistros";
 $route['seguradora/p'] = "seguradora_control";
 $route['seguradora/p/(:num)'] = "seguradora_control";
 $route['seguradora/b'] = "seguradora_control/filtarRegistros";
 $route['seguradora/b/(:num)'] = "seguradora_control/filtarRegistros";
+
+
+$route['produto'] = "produto_control";
+$route['produto/salvar'] = "produto_control/salvar";
+$route['produto/editar'] = "produto_control/editar";
+$route['produto/ativar'] = "produto_control/ativar";
+$route['produto/filtarRegistros'] = "produto_control/filtarRegistros";
+$route['produto/p'] = "produto_control";
+$route['produto/p/(:num)'] = "produto_control";
+$route['produto/b'] = "produto_control/filtarRegistros";
+$route['produto/b/(:num)'] = "produto_control/filtarRegistros";
+
+
+$route['condicao_comissionamento'] = "condicao_comissionamento_control";
+$route['condicao_comissionamento/salvar'] = "condicao_comissionamento_control/salvar";
+$route['condicao_comissionamento/editar'] = "condicao_comissionamento_control/editar";
+$route['condicao_comissionamento/ativar'] = "condicao_comissionamento_control/ativar";
+$route['condicao_comissionamento/filtarRegistros'] = "condicao_comissionamento_control/filtarRegistros";
+$route['condicao_comissionamento/p'] = "condicao_comissionamento_control";
+$route['condicao_comissionamento/p/(:num)'] = "condicao_comissionamento_control";
+$route['condicao_comissionamento/b'] = "condicao_comissionamento_control/filtarRegistros";
+$route['condicao_comissionamento/b/(:num)'] = "condicao_comissionamento_control/filtarRegistros";
 
 
 
