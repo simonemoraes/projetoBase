@@ -101,6 +101,36 @@ $route['condicao_comissionamento/p/(:num)'] = "condicao_comissionamento_control"
 $route['condicao_comissionamento/b'] = "condicao_comissionamento_control/filtarRegistros";
 $route['condicao_comissionamento/b/(:num)'] = "condicao_comissionamento_control/filtarRegistros";
 
+$route['grupo_corretor'] = "grupo_corretor_control";
+$route['grupo_corretor/salvar'] = "grupo_corretor_control/salvar";
+$route['grupo_corretor/editar'] = "grupo_corretor_control/editar";
+$route['grupo_corretor/ativar'] = "grupo_corretor_control/ativar";
+$route['grupo_corretor/filtarRegistros'] = "grupo_corretor_control/filtarRegistros";
+$route['grupo_corretor/p'] = "grupo_corretor_control";
+$route['grupo_corretor/p/(:num)'] = "grupo_corretor_control";
+$route['grupo_corretor/b'] = "grupo_corretor_control/filtarRegistros";
+$route['grupo_corretor/b/(:num)'] = "grupo_corretor_control/filtarRegistros";
+
+$route['encargo'] = "encargo_control";
+$route['encargo/salvar'] = "encargo_control/salvar";
+$route['encargo/editar'] = "encargo_control/editar";
+$route['encargo/ativar'] = "encargo_control/ativar";
+$route['encargo/filtarRegistros'] = "encargo_control/filtarRegistros";
+$route['encargo/p'] = "encargo_control";
+$route['encargo/p/(:num)'] = "encargo_control";
+$route['encargo/b'] = "encargo_control/filtarRegistros";
+$route['encargo/b/(:num)'] = "encargo_control/filtarRegistros";
+
+$route['corretor'] = "corretor_control";
+$route['corretor/salvar'] = "corretor_control/salvar";
+$route['corretor/editar'] = "corretor_control/editar";
+$route['corretor/ativar'] = "corretor_control/ativar";
+$route['corretor/filtarRegistros'] = "corretor_control/filtarRegistros";
+$route['corretor/p'] = "corretor_control";
+$route['corretor/p/(:num)'] = "corretor_control";
+$route['corretor/b'] = "corretor_control/filtarRegistros";
+$route['corretor/b/(:num)'] = "corretor_control/filtarRegistros";
+
 
 
 $route['configuracao'] = "configuracao_control";
