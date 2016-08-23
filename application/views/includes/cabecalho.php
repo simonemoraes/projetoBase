@@ -44,12 +44,12 @@
                                 <li><a href="<?= base_url('seguradora') ?>"><i class="fa fa-hospital-o" aria-hidden="true"></i> &nbsp;Seguradoras</a></li>
                                 <li><a href="<?= base_url('produto') ?>"><i class="fa fa-medkit" aria-hidden="true"></i> &nbsp;Produtos</a></li>
                                 <li><a href="<?= base_url('condicao_comissionamento') ?>"><i class="fa fa-cc" aria-hidden="true"></i> &nbsp;Condições de Comissionamentos</a></li>
-                                <li><a href="<?= base_url('grupo_corretor') ?>"><i class="fa fa-users" aria-hidden="true"></i> &nbsp;Equipes</a></li>
+                                <li><a href="<?= base_url('grade_comissao') ?>"><i class="fa fa-newspaper-o" aria-hidden="true"></i> &nbsp;Grade de Comissão</a></li>
+                                <li><a href="<?= base_url('equipe') ?>"><i class="fa fa-users" aria-hidden="true"></i> &nbsp;Equipes</a></li>
                                 <li><a href="<?= base_url('encargo') ?>"><i class="fa fa-credit-card" aria-hidden="true"></i> &nbsp;Encargos</a></li>
                                 <li><a href="<?= base_url('corretor') ?>"><i class="fa fa-user-md" aria-hidden="true"></i> &nbsp;Corretores</a></li>
-                                
-                                <li><a href="#"><i class="fa fa-user-secret" aria-hidden="true"></i> &nbsp;Supervisores</a></li>
-                                <li><a href="#"><i class="fa fa-universal-access" aria-hidden="true"></i> &nbsp;Gerentes</a></li>
+                                <li><a href="<?= base_url('supervisor') ?>"><i class="fa fa-user-secret" aria-hidden="true"></i> &nbsp;Supervisores</a></li>
+                                <li><a href="<?= base_url('gerente') ?>"><i class="fa fa-universal-access" aria-hidden="true"></i> &nbsp;Gerentes</a></li>
 
 
                             </ul>

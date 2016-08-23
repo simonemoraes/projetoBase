@@ -16,6 +16,81 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `condicao_comissionamentos`
+--
+
+DROP TABLE IF EXISTS `condicao_comissionamentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `condicao_comissionamentos` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `idx_codigo` (`codigo`),
+  KEY `idx_nome` (`nome`),
+  KEY `idx_descricao` (`descricao`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `condicao_comissionamentos`
+--
+
+LOCK TABLES `condicao_comissionamentos` WRITE;
+/*!40000 ALTER TABLE `condicao_comissionamentos` DISABLE KEYS */;
+INSERT INTO `condicao_comissionamentos` VALUES ('20160822EB251FF1952F','A4FE','2016-08-22 20:53:07',NULL,1,1,'plano individual','Condição aplicada somente a PJ'),('20160822EB2536D4A794','A4FE','2016-08-22 20:53:45',NULL,1,2,'plano empresarial','Condição para plano PJ'),('20160822EB258C2F1E5A','A4FE','2016-08-22 20:54:07',NULL,1,3,'Adesão','plano por adesão');
+/*!40000 ALTER TABLE `condicao_comissionamentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `corretores`
+--
+
+DROP TABLE IF EXISTS `corretores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `corretores` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  `cpf` varchar(20) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `telefone` varchar(200) DEFAULT NULL,
+  `celular` varchar(200) DEFAULT NULL,
+  `cep` varchar(45) DEFAULT NULL,
+  `endereco` varchar(200) DEFAULT NULL,
+  `complemento` varchar(100) DEFAULT NULL,
+  `cidade` varchar(200) DEFAULT NULL,
+  `estado` varchar(200) DEFAULT NULL,
+  `bairro` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `idx_codigo` (`codigo`),
+  KEY `idx_nome` (`nome`),
+  KEY `idx_descricao` (`cpf`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `corretores`
+--
+
+LOCK TABLES `corretores` WRITE;
+/*!40000 ALTER TABLE `corretores` DISABLE KEYS */;
+INSERT INTO `corretores` VALUES ('20160822EB250DAA7777','A4FE','2016-08-23 02:19:04',NULL,1,1,'Corretor Teste','99988877766','rui@teste.com','987668572','987668500','21350090','Rua Teste','teste','Rio de Janeiro','RJ','Cascadura'),('20160823EB2567E52ECC','A4FE','2016-08-23 03:19:13',NULL,1,3,'Rui Teste Final','07080098865','rui','987665544','99887766','21350080','Silva Gomes 70','','Rio de Janeiro','RJ','Cascadura'),('20160823EB256B397E8B','A4FE','2016-08-23 02:36:14',NULL,1,2,'Ze Carioca','88877766655','ze@teste.com','22334455','44556677','23090876','teste','teste','Rio','RJ',NULL);
+/*!40000 ALTER TABLE `corretores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `empresa`
 --
 
@@ -65,6 +140,72 @@ INSERT INTO `empresa` VALUES ('3711','3711','2016-07-31 00:54:53',NULL,1,'Empres
 UNLOCK TABLES;
 
 --
+-- Table structure for table `encargos`
+--
+
+DROP TABLE IF EXISTS `encargos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `encargos` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  `valor` decimal(18,2) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `idx_codigo` (`codigo`),
+  KEY `idx_nome` (`nome`),
+  KEY `idx_descricao` (`valor`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `encargos`
+--
+
+LOCK TABLES `encargos` WRITE;
+/*!40000 ALTER TABLE `encargos` DISABLE KEYS */;
+INSERT INTO `encargos` VALUES ('20160823EB259A0923DC','A4FE','2016-08-22 22:15:39',NULL,1,2,'Impostos PCC',10.50),('20160823EB25EFE6C175','A4FE','2016-08-22 22:14:44',NULL,1,1,'PCC',6.50);
+/*!40000 ALTER TABLE `encargos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `grupo_corretores`
+--
+
+DROP TABLE IF EXISTS `grupo_corretores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `grupo_corretores` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `idx_codigo` (`codigo`),
+  KEY `idx_nome` (`nome`),
+  KEY `idx_descricao` (`descricao`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `grupo_corretores`
+--
+
+LOCK TABLES `grupo_corretores` WRITE;
+/*!40000 ALTER TABLE `grupo_corretores` DISABLE KEYS */;
+INSERT INTO `grupo_corretores` VALUES ('20160822EB256AF1B428','A4FE','2016-08-22 21:17:12',NULL,1,3,'Free-Lancers','Free-Lancers'),('20160822EB25D7294B30','A4FE','2016-08-22 21:16:56',NULL,1,2,'Repasses','Repasses'),('20160822EB25EF3450B9','A4FE','2016-08-22 21:16:25',NULL,1,1,'Internos','Internos');
+/*!40000 ALTER TABLE `grupo_corretores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `produtos`
 --
 
@@ -84,7 +225,7 @@ CREATE TABLE `produtos` (
   KEY `idx_codigo` (`codigo`),
   KEY `idx_nome` (`nome`),
   KEY `idx_descricao` (`descricao`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +234,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES ('20160822EB250DAAD51F','A4FE','2016-08-22 19:46:45',NULL,1,11,'Empresarial','Empresarial'),('20160822EB258AD1826A','A4FE','2016-08-22 19:47:25',NULL,1,13,'Empresarial Grande Porte','Empresarial Grande Porte'),('20160822EB25C2D837EF','A4FE','2016-08-22 19:45:09',NULL,1,10,'Individual','Descrição Individual'),('20160822EB25CC4FF228','A4FE','2016-08-22 19:46:56',NULL,1,12,'Adesão','Adesão');
+INSERT INTO `produtos` VALUES ('20160822EB250DAAD51F','A4FE','2016-08-22 22:46:45',NULL,1,11,'Empresarial','Empresarial'),('20160822EB258AD1826A','A4FE','2016-08-22 22:47:25',NULL,1,13,'Empresarial Grande Porte','Empresarial Grande Porte'),('20160822EB25C2D837EF','A4FE','2016-08-22 22:45:09',NULL,1,10,'Individual','Descrição Individual'),('20160822EB25CC4FF228','A4FE','2016-08-22 22:46:56',NULL,1,12,'Adesão','Adesão'),('20160822EB25F70DA198','A4FE','2016-08-22 19:56:38',NULL,1,14,'Adesão Estudantil','Adesão Estudantil');
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,4 +313,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-22 16:53:24
+-- Dump completed on 2016-08-23 14:06:38

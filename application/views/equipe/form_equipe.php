@@ -8,8 +8,8 @@
     </div>
 
     <div class="form-group">
-        <label for="descricao" class="control-label">Descrição</label>
-        <input itemid="Descrição do grupo " type="text" class="verificar form-control" id="descricao" name="descricao">
+        <label for="descricao" class="control-label">Descrição da equipe</label>
+        <input itemid="Descrição da equipe " type="text" class="verificar form-control" id="descricao" name="descricao">
     </div>
 
 </form>

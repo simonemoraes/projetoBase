@@ -3,14 +3,14 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class grupo_corretor_control extends CI_Controller {
+class Equipe_control extends CI_Controller {
 
     var $cia_ukey = "";
-    var $tabela = "grupo_corretores";
+    var $tabela = "equipes";
 
     public function __construct() {
         parent::__construct();
-        $this->load->model("grupo_corretor_model");
+        $this->load->model("equipe_model");
         $this->cia_ukey = $this->session->userdata("empresa_logada")['ukey'];
     }
 
@@ -18,45 +18,45 @@ class grupo_corretor_control extends CI_Controller {
 
         $this->obj_gen->autoriza();
 
-        $endereco_paginacao = 'grupo_corretor/p';
+        $endereco_paginacao = 'equipe/p';
 
-        $total_registros = $this->grupo_corretor_model->contarTodos($this->tabela, $this->cia_ukey);
+        $total_registros = $this->equipe_model->contarTodos($this->tabela, $this->cia_ukey);
 
         $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
 
-        $grupo_corretor['lista_grupo_corretor'] = $this->grupo_corretor_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
+        $equipe['lista_equipe'] = $this->equipe_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
 
-        $grupo_corretor['id_form'] = 'id_form_grupo_corretor';
+        $equipe['id_form'] = 'id_form_equipe';
 
-        $html_grid_grupo_corretor = $this->load->view('grupo_corretor/grid_grupo_corretor.php', $grupo_corretor, TRUE);
-        $html_form_grupo_corretor = $this->load->view('grupo_corretor/form_grupo_corretor.php', $grupo_corretor, TRUE);
-        $html_opcoes_grupo_corretor = $this->load->view('grupo_corretor/opcao_pesquisa.php', "", TRUE);
+        $html_grid_equipe = $this->load->view('equipe/grid_equipe.php', $equipe, TRUE);
+        $html_form_equipe = $this->load->view('equipe/form_equipe.php', $equipe, TRUE);
+        $html_opcoes_equipe = $this->load->view('equipe/opcao_pesquisa.php', "", TRUE);
 
         $dados_painel = array(
             'titulo' => 'Equipes',
-            'opcoes' => $html_opcoes_grupo_corretor,
+            'opcoes' => $html_opcoes_equipe,
             'estado_btn_novo' => "",
             'estado_btn_editar' => "disabled=''",
             'estado_btn_excluir' => "disabled=''",
             'estado_btn_visualizar' => "disabled=''",
-            'endereco_btn_editar' => base_url('grupo_corretor/editar'),
+            'endereco_btn_editar' => base_url('equipe/editar'),
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
-            'endereco_btn_ativar' => base_url('grupo_corretor/ativar'),
-            'endereco_btn_localizar' => base_url('grupo_corretor/filtarRegistros'),
+            'endereco_btn_ativar' => base_url('equipe/ativar'),
+            'endereco_btn_localizar' => base_url('equipe/filtarRegistros'),
             'paginacao' => $data['paginacao']
         );
 
 
-        $link_fechar = base_url('grupo_corretor');
+        $link_fechar = base_url('equipe');
 
         // Obeto para injeção de js  especifico.
         $obj_jS = array(
-            'js_tela' => "js/grupo_corretor/grupo_corretor.js"
+            'js_tela' => "js/equipe/equipe.js"
         );
 
 
-        $endereco_salvar = base_url('grupo_corretor/salvar');
+        $endereco_salvar = base_url('equipe/salvar');
 
         // Obeto para o preenchmento dos componentes do modal
         $obj_modal = array(
@@ -64,12 +64,12 @@ class grupo_corretor_control extends CI_Controller {
             'btn_cadastrar' => 'Salvar',
             'acao' => $endereco_salvar,
             'fechar' => $link_fechar,
-            'formulario' => $html_form_grupo_corretor
+            'formulario' => $html_form_equipe
         );
 
-        $dados['html_grupo_corretor'] = $this->obj_gen->retornaPagina($html_grid_grupo_corretor, $dados_painel, $obj_jS, $obj_modal);
+        $dados['html_equipe'] = $this->obj_gen->retornaPagina($html_grid_equipe, $dados_painel, $obj_jS, $obj_modal);
 
-        $this->load->view('grupo_corretor/v_grupo_corretor.php', $dados);
+        $this->load->view('equipe/v_equipe.php', $dados);
     }
 
     public function salvar() {
@@ -93,7 +93,7 @@ class grupo_corretor_control extends CI_Controller {
         if ($ukey === 'NOVO') {
             $ukey = $this->obj_gen->criaChaveprimaria();
 
-            $grupo_corretor = array(
+            $equipe = array(
                 'ukey' => $ukey,
                 'cia_ukey' => $cia_ukey,
                 'nome' => $nome,
@@ -101,18 +101,18 @@ class grupo_corretor_control extends CI_Controller {
                 'status' => 1
             );
 
-            $retorno = $this->grupo_corretor_model->inserir($this->tabela, $grupo_corretor);
+            $retorno = $this->equipe_model->inserir($this->tabela, $equipe);
         }
         
         if ($acao == 'EDITAR') {
-            // Preenchendo o objeto grupo_corretor com dados que vieram no post para alteração
+            // Preenchendo o objeto equipe com dados que vieram no post para alteração
             $usuario = array(
                 'ukey' => $chave,
                 'nome' => $this->input->post('nome'),
                 'descricao' => $this->input->post('descricao')
                
             );
-            $retorno = $this->grupo_corretor_model->editar($this->tabela, $usuario);
+            $retorno = $this->equipe_model->editar($this->tabela, $usuario);
         }
 
 
@@ -128,7 +128,7 @@ class grupo_corretor_control extends CI_Controller {
         $this->obj_gen->autoriza();
 
         $chave = $this->input->post('ukey');
-        $usr = $this->grupo_corretor_model->buscaPorId($this->tabela, $chave);
+        $usr = $this->equipe_model->buscaPorId($this->tabela, $chave);
 
         $retorno = "";
 
@@ -137,15 +137,15 @@ class grupo_corretor_control extends CI_Controller {
 
             if ($status == 1) {
                 $usr['status'] = 0;
-                $retorno = $this->grupo_corretor_model->editar($this->tabela, $usr);
+                $retorno = $this->equipe_model->editar($this->tabela, $usr);
             } else {
                 $usr['status'] = 1;
-                $retorno = $this->grupo_corretor_model->editar($this->tabela, $usr);
+                $retorno = $this->equipe_model->editar($this->tabela, $usr);
             }
         }
 
         if ($retorno) {
-            echo base_url('grupo_corretor');
+            echo base_url('equipe');
         } else {
             echo 'error';
         }
@@ -156,7 +156,7 @@ class grupo_corretor_control extends CI_Controller {
         $this->obj_gen->autoriza();
 
         $chave = $this->input->post('ukey');
-        $resultado = $this->grupo_corretor_model->buscaPorId($this->tabela, $chave);
+        $resultado = $this->equipe_model->buscaPorId($this->tabela, $chave);
 
         $retorno = array(
             'ukey' => $resultado['ukey'],
@@ -185,7 +185,7 @@ class grupo_corretor_control extends CI_Controller {
                 }
             }
 
-            $total_registros = $this->grupo_corretor_model->contarTodosPorBusca($this->tabela, $this->cia_ukey, $filtro, $valor);
+            $total_registros = $this->equipe_model->contarTodosPorBusca($this->tabela, $this->cia_ukey, $filtro, $valor);
             $this->session->unset_userdata("ultima_busca");
         } else {
 
@@ -195,7 +195,7 @@ class grupo_corretor_control extends CI_Controller {
         }
 
 
-        $endereco_paginacao = 'grupo_corretor/b';
+        $endereco_paginacao = 'equipe/b';
 
         $valores['filtro'] = $filtro;
         $valores['texto_digitado'] = $valor;
@@ -205,19 +205,19 @@ class grupo_corretor_control extends CI_Controller {
 
         $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
 
-        $resultado = $this->grupo_corretor_model->buscarPorFiltro($this->tabela, $filtro, $valor, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
+        $resultado = $this->equipe_model->buscarPorFiltro($this->tabela, $filtro, $valor, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
 
         $html_footer_painel = $data['paginacao'];
 
 
         if ($resultado) {
 
-            $grupo_corretor['lista_grupo_corretor'] = $resultado;
+            $equipe['lista_equipe'] = $resultado;
 
-            $html_grid_grupo_corretor = $this->load->view('grupo_corretor/grid_grupo_corretor.php', $grupo_corretor, TRUE);
+            $html_grid_equipe = $this->load->view('equipe/grid_equipe.php', $equipe, TRUE);
 
             $dados = array(
-                'html_grid' => $html_grid_grupo_corretor,
+                'html_grid' => $html_grid_equipe,
                 'html_footer' => $html_footer_painel
             );
 

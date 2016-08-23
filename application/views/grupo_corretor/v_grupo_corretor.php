@@ -1,1 +1,0 @@
-<?= $html_grupo_corretor; ?>

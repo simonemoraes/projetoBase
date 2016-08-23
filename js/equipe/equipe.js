@@ -10,7 +10,7 @@ $(document).ready(function () {
     $("#btn_modal_salvar").click(function () {
         if (valida()) {
             var url = $(this).attr("itemid");
-            salvarGrupoCorretor(url);
+            salvarEquipe(url);
         }
 
     });
@@ -53,21 +53,21 @@ $(document).ready(function () {
     // Esse enevento faz uma chamada para função assincrona para abrir a edição da empresa
     $("#btn_painel_editar").click(function () {
 
-        var ukey_grupo = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
+        var ukey_equipe = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
         var url = $(this).attr("itemid");
 
 
         // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
         // Retorno do callback json
         $.post(url, {
-            ukey: ukey_grupo,
+            ukey: ukey_equipe,
         },
                 function (data, status) {
 
                     if (status === "success") {
 
                         // metodo que preenche o objeto da tela com json retornado.
-                        preencherObjetoGrupo(data);
+                        preencherObjetoProduto(data);
 
                         abrirCadastro();
 
@@ -86,7 +86,7 @@ $(document).ready(function () {
 
 });
 
-function  preencherObjetoGrupo(data) {
+function  preencherObjetoProduto(data) {
     $("#ukey").val(data.ukey);
     $("#nome").val(data.nome);
     $("#descricao").val(data.descricao);
@@ -95,7 +95,7 @@ function  preencherObjetoGrupo(data) {
 }
 
 
-function  salvarGrupoCorretor(url) {
+function  salvarEquipe(url) {
     var chave = 'NOVO'
 
     if ($('#ukey').val() !== '') {

@@ -101,15 +101,15 @@ $route['condicao_comissionamento/p/(:num)'] = "condicao_comissionamento_control"
 $route['condicao_comissionamento/b'] = "condicao_comissionamento_control/filtarRegistros";
 $route['condicao_comissionamento/b/(:num)'] = "condicao_comissionamento_control/filtarRegistros";
 
-$route['grupo_corretor'] = "grupo_corretor_control";
-$route['grupo_corretor/salvar'] = "grupo_corretor_control/salvar";
-$route['grupo_corretor/editar'] = "grupo_corretor_control/editar";
-$route['grupo_corretor/ativar'] = "grupo_corretor_control/ativar";
-$route['grupo_corretor/filtarRegistros'] = "grupo_corretor_control/filtarRegistros";
-$route['grupo_corretor/p'] = "grupo_corretor_control";
-$route['grupo_corretor/p/(:num)'] = "grupo_corretor_control";
-$route['grupo_corretor/b'] = "grupo_corretor_control/filtarRegistros";
-$route['grupo_corretor/b/(:num)'] = "grupo_corretor_control/filtarRegistros";
+$route['grade_comissao'] = "grade_comissao_control";
+$route['grade_comissao/salvar'] = "grade_comissao_control/salvar";
+$route['grade_comissao/editar'] = "grade_comissao_control/editar";
+$route['grade_comissao/ativar'] = "grade_comissao_control/ativar";
+$route['grade_comissao/filtarRegistros'] = "grade_comissao_control/filtarRegistros";
+$route['grade_comissao/p'] = "grade_comissao_control";
+$route['grade_comissao/p/(:num)'] = "grade_comissao_control";
+$route['grade_comissao/b'] = "grade_comissao_control/filtarRegistros";
+$route['grade_comissao/b/(:num)'] = "grade_comissao_control/filtarRegistros";
 
 $route['encargo'] = "encargo_control";
 $route['encargo/salvar'] = "encargo_control/salvar";
@@ -130,6 +130,37 @@ $route['corretor/p'] = "corretor_control";
 $route['corretor/p/(:num)'] = "corretor_control";
 $route['corretor/b'] = "corretor_control/filtarRegistros";
 $route['corretor/b/(:num)'] = "corretor_control/filtarRegistros";
+
+$route['supervisor'] = "supervisor_control";
+$route['supervisor/salvar'] = "supervisor_control/salvar";
+$route['supervisor/editar'] = "supervisor_control/editar";
+$route['supervisor/ativar'] = "supervisor_control/ativar";
+$route['supervisor/filtarRegistros'] = "supervisor_control/filtarRegistros";
+$route['supervisor/p'] = "supervisor_control";
+$route['supervisor/p/(:num)'] = "supervisor_control";
+$route['supervisor/b'] = "supervisor_control/filtarRegistros";
+$route['supervisor/b/(:num)'] = "supervisor_control/filtarRegistros";
+
+
+$route['gerente'] = "gerente_control";
+$route['gerente/salvar'] = "gerente_control/salvar";
+$route['gerente/editar'] = "gerente_control/editar";
+$route['gerente/ativar'] = "gerente_control/ativar";
+$route['gerente/filtarRegistros'] = "gerente_control/filtarRegistros";
+$route['gerente/p'] = "gerente_control";
+$route['gerente/p/(:num)'] = "gerente_control";
+$route['gerente/b'] = "gerente_control/filtarRegistros";
+$route['gerente/b/(:num)'] = "gerente_control/filtarRegistros";
+
+$route['equipe'] = "equipe_control";
+$route['equipe/salvar'] = "equipe_control/salvar";
+$route['equipe/editar'] = "equipe_control/editar";
+$route['equipe/ativar'] = "equipe_control/ativar";
+$route['equipe/filtarRegistros'] = "equipe_control/filtarRegistros";
+$route['equipe/p'] = "equipe_control";
+$route['equipe/p/(:num)'] = "equipe_control";
+$route['equipe/b'] = "equipe_control/filtarRegistros";
+$route['equipe/b/(:num)'] = "equipe_control/filtarRegistros";
 
 
 
