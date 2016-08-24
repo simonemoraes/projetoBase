@@ -162,6 +162,16 @@ $route['equipe/p/(:num)'] = "equipe_control";
 $route['equipe/b'] = "equipe_control/filtarRegistros";
 $route['equipe/b/(:num)'] = "equipe_control/filtarRegistros";
 
+$route['supervisao'] = "supervisao_control";
+$route['supervisao/salvar'] = "supervisao_control/salvar";
+$route['supervisao/editar'] = "supervisao_control/editar";
+$route['supervisao/ativar'] = "supervisao_control/ativar";
+$route['supervisao/filtarRegistros'] = "supervisao_control/filtarRegistros";
+$route['supervisao/p'] = "supervisao_control";
+$route['supervisao/p/(:num)'] = "supervisao_control";
+$route['supervisao/b'] = "supervisao_control/filtarRegistros";
+$route['supervisao/b/(:num)'] = "supervisao_control/filtarRegistros";
+
 
 
 $route['configuracao'] = "configuracao_control";

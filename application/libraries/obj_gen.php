@@ -67,17 +67,17 @@ class Obj_gen extends CI_Loader {
 
         return strtoupper($chave);
     }
-    
-    function getCiaUkey(){
+
+    function getCiaUkey() {
         return $this->ci->session->userdata("empresa_logada")['ukey'];
     }
-    
-    function paginacao($endereco,$total_rgistros){
-        
+
+    function paginacao($endereco, $total_rgistros) {
+
         $config = array(
             "base_url" => base_url($endereco),
-            "per_page" => 7,//numero de registro por link
-            "num_links" => 3,// numero de links na pagina
+            "per_page" => 7, //numero de registro por link
+            "num_links" => 3, // numero de links na pagina
             "uri_segment" => 3,
             "total_rows" => $total_rgistros,
             "full_tag_open" => "<ul id='ajaxPaginacao' class='pagination' style = 'margin: 0px;'>", //tag de abertura
@@ -99,21 +99,30 @@ class Obj_gen extends CI_Loader {
             "num_tag_open" => "<li>", //tag de abertura a ser adicionada para os itens numericos(as paginas da nossa aplicação
             "num_tag_close" => "</li>"//tag de fechamento a ser adicionada para os itens numericos(as paginas da nossa aplicação
         );
-        
+
         $this->ci->pagination->initialize($config);
-        
+
         $data['paginacao'] = $this->ci->pagination->create_links();
-        
+
         $offset = ($this->ci->uri->segment(3)) ? $this->ci->uri->segment(3) : 0;
-        
+
         $resultado_por_pg = $config['per_page'];
-        
-        
+
+
         $data['offset'] = $offset;
         $data['resultado_por_pg'] = $resultado_por_pg;
-        
+
         return $data;
-        
+    }
+
+    function dataPtBrParaMysql($dataPtBr) {
+        $partes = explode("/", $dataPtBr);
+        return "{$partes[2]}-{$partes[1]}-{$partes[0]}";
+    }
+
+    function dataMysqlParaPtBr($dataMysql) {
+        $data = new DateTime($dataMysql);
+        return $data->format("d/m/Y");
     }
 
 }
