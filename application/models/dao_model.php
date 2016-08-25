@@ -3,6 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+// Classe generica para operações no banco
 class Dao_model extends CI_Model {
 
     public function inserir($tabela, $objeto) {
