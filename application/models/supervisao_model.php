@@ -37,7 +37,7 @@ class Supervisao_model extends Dao_model {
     public function validaSupervisorPorEquipe($cia_ukey, $tabela, $supervisor, $equipe, $data_inicio) {
 
         $where = "(cia_ukey ='$cia_ukey' AND supervisor_ukey='$supervisor' and equipe_ukey = '$equipe' and data_fim = '0000-00-00') or ";
-        $where = $where . "(cia_ukey ='$cia_ukey' AND supervisor_ukey='$supervisor' and equipe_ukey = '$equipe' and data_fim >= '$data_inicio')";
+        $where = $where . "(cia_ukey ='$cia_ukey' AND supervisor_ukey='$supervisor' and equipe_ukey = '$equipe' and (data_fim >= '$data_inicio' and data_inicio <= '$data_inicio'))";
 
         $this->db->where($where);
         $this->db->from($tabela);
