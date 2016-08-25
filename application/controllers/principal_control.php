@@ -11,7 +11,7 @@ class Principal_control extends CI_Controller {
         $this->load->view('principal/v_inicial.php');
     }
 
-    public function teste() {
+    public function teste_simone() {
         echo '<pre>';
         print_r($this->obj_gen->criaChaveprimaria("U"));
 
