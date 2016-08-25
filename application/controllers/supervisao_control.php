@@ -64,7 +64,7 @@ class Supervisao_control extends CI_Controller {
 
         // Obeto para o preenchmento dos componentes do modal
         $obj_modal = array(
-            'titulo_modal' => 'Cadastro de supervisaos',
+            'titulo_modal' => 'Vinculo de Supervisor X Equipe',
             'btn_cadastrar' => 'Salvar',
             'acao' => $endereco_salvar,
             'fechar' => $link_fechar,
@@ -79,6 +79,7 @@ class Supervisao_control extends CI_Controller {
     public function salvar() {
 
         $acao = "EDITAR";
+        $resposta = "";
 
         $chave = $this->input->post('ukey');
 
@@ -101,7 +102,7 @@ class Supervisao_control extends CI_Controller {
             $ukey = $this->obj_gen->criaChaveprimaria();
 
             $supervisao = array(
-                'ukey' => $ukey,
+                'ukey' => $chave,
                 'cia_ukey' => $cia_ukey,
                 'supervisor_ukey' => $supervisor,
                 'equipe_ukey' => $equipe,
@@ -110,56 +111,32 @@ class Supervisao_control extends CI_Controller {
                 'status' => 1
             );
 
-            $retorno = $this->supervisao_model->inserir($this->tabela, $supervisao);
+            $valida = 0;
+
+            $valida = $this->supervisao_model->validaSupervisorPorEquipe($cia_ukey, $this->tabela, $supervisor, $equipe, $data_inicio);
+
+            if ($valida > 0) {
+                $resposta = 'existe';
+            } else {
+                $retorno = $this->supervisao_model->inserir($this->tabela, $supervisao);
+            }
         }
 
         if ($acao == 'EDITAR') {
-            // Preenchendo o objeto supervisao com dados que vieram no post para alteração
-            $supervisao = array(
-                'ukey' => $ukey,
-                'cia_ukey' => $cia_ukey,
-                'supervisor_ukey' => $supervisor,
-                'equipe_ukey' => $equipe,
-                'data_inicio' => $data_inicio,
-                'data_fim' => $data_fim,
-                'status' => 1
-            );
-            $retorno = $this->supervisao_model->editar($this->tabela, $supervisao);
+
+            $retorno = $this->supervisao_model->desligar($this->tabela, $data_fim, $chave);
         }
 
 
         if ($retorno) {
             echo 'sucesso';
         } else {
-            echo 'error';
-        }
-    }
 
-    public function ativar() {
-
-        $this->obj_gen->autoriza();
-
-        $chave = $this->input->post('ukey');
-        $usr = $this->supervisao_model->buscaPorId($this->tabela, $chave);
-
-        $retorno = "";
-
-        if (!empty($usr)) {
-            $status = $usr['status'];
-
-            if ($status == 1) {
-                $usr['status'] = 0;
-                $retorno = $this->supervisao_model->editar($this->tabela, $usr);
+            if ($resposta === "existe") {
+                echo $resposta;
             } else {
-                $usr['status'] = 1;
-                $retorno = $this->supervisao_model->editar($this->tabela, $usr);
+                echo 'error';
             }
-        }
-
-        if ($retorno) {
-            echo base_url('supervisao');
-        } else {
-            echo 'error';
         }
     }
 
@@ -168,12 +145,14 @@ class Supervisao_control extends CI_Controller {
         $this->obj_gen->autoriza();
 
         $chave = $this->input->post('ukey');
-        $resultado = $this->supervisao_model->buscaPorId($this->tabela, $chave);
+        $resultado = $this->supervisao_model->retornaPorUkey($this->tabela, $this->cia_ukey, $chave);
 
         $retorno = array(
             'ukey' => $resultado['ukey'],
-            'nome' => $resultado['nome'],
-            'descricao' => $resultado['descricao']
+            'nome_supervisor' => $resultado['supervisor'],
+            'nome_equipe' => $resultado['equipe'],
+            'data_inicio' => $resultado['data_inicio'],
+            'data_fim' => $resultado['data_fim']
         );
 
         echo json_encode($retorno);

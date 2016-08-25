@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label for="data">Data Inicio</label>
-                <input required="" type="date" class="form-control"  value="" name="data_inicio" id="data_inicio" >
+                <input required="" itemid="Data inicial" type="date" class="verificar form-control"  value="" name="data_inicio" id="data_inicio" >
             </div>
 
             <div class="col-md-6">

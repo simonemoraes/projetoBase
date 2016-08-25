@@ -15,17 +15,7 @@ $(document).ready(function () {
 
     });
 
-    // Esse evento faz a abertura do formulario de cadastro
-    $("#btn_painel_inativar").click(function () {
-        var url = $(this).attr("itemid");
-        //Função no js_base
-        ativar(url);
-
-    });
-
-
-
-
+  
     // Evento para o botão limpar
     $("#btn_painel_limpar").click(function () {
         limparForm();
@@ -53,21 +43,21 @@ $(document).ready(function () {
     // Esse enevento faz uma chamada para função assincrona para abrir a edição da empresa
     $("#btn_painel_editar").click(function () {
 
-        var ukey_produto = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
+        var ukey_supervisao = $("input[type=checkbox][name = 'check[]']:checked").attr("id");
         var url = $(this).attr("itemid");
 
 
         // chamando AJAX assincrono para fazer a busca para preencher a tela de edição
         // Retorno do callback json
         $.post(url, {
-            ukey: ukey_produto
+            ukey: ukey_supervisao
         },
                 function (data, status) {
 
                     if (status === "success") {
 
                         // metodo que preenche o objeto da tela com json retornado.
-                        preencherObjetoProduto(data);
+                        preencherObjetoSuprvisao(data);
 
                         abrirCadastro();
 
@@ -86,11 +76,23 @@ $(document).ready(function () {
 
 });
 
-function  preencherObjetoProduto(data) {
+function  preencherObjetoSuprvisao(data) {
+    
     $("#ukey").val(data.ukey);
-    $("#nome").val(data.nome);
-    $("#descricao").val(data.descricao);
-
+    $("#select_supervisor").attr('disabled', "disabled");
+    $("#select_equipe").attr('disabled', "disabled");
+    $("#select_supervisor option").html(data.nome_supervisor).attr('disabled', "disabled");
+    $("#select_equipe option").html(data.nome_equipe).attr('disabled', "disabled");
+    $("#data_inicio").val(data.data_inicio).attr('disabled', "disabled");
+    $("#data_fim").val(data.data_fim);
+    
+    if(data.data_fim === "0000-00-00"){
+        $("#exampleModalLabel").html("Deligamento de Supervisão");
+    }else{
+        $("#exampleModalLabel").html("Supervisão já está desligada");
+        $("#data_fim").attr('disabled', "disabled");
+    }
+   
 
 }
 
@@ -107,6 +109,14 @@ function  salvarSupervisao(url) {
     var data_inicio = $("#data_inicio").val();
     var data_fim = $("#data_fim").val();
     
+    if(chave !== "NOVO" && data_inicio > data_fim){
+       
+        $("#msg_error").html("Data de desligamento não pode ser anterior a entrada!");
+        $("#msg_error").show();
+        return false;
+    }
+        
+
 
     $.post(url, {
         ukey: chave,
@@ -114,19 +124,33 @@ function  salvarSupervisao(url) {
         equipe_ukey: equipe,
         data_inicio: data_inicio,
         data_fim: data_fim
-        
+
 
     },
             function (data, status) {
 
                 $("#msg_sucesso").hide();
                 $("#msg_error").hide();
-
+                               
                 if (data === "sucesso") {
-                    limparForm();
+                    $("#msg_sucesso").html("Supervisor deligado com sucesso!");
                     $("#msg_sucesso").show();
+                    
+                    if(chave !== "NOVO"){
+                         $("#data_fim").attr('disabled', "disabled");
+                    }
+                    
                 } else {
-                    $("#msg_error").show();
+
+                    if (data === "existe") {
+                        $("#msg_error").html("Supervisor já está associado a essa equipe na data informada e não pode ser associado novamente!");
+                        $("#msg_error").show();
+
+                    } else {
+                        $("#msg_error").show();
+                    }
+
+
                 }
 
             });
@@ -139,5 +163,5 @@ function limparForm() {
 
 // Essa função trata a seleção unica dos checkbox da tela
 // Essa fução está no JS_base.
-var botoes_habilitar = ['#btn_painel_editar', "#btn_painel_inativar"]
+var botoes_habilitar = ['#btn_painel_editar']
 controlaCheckbox('.esp_chk', botoes_habilitar);

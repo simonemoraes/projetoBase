@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         $.get(url, function (data, status) {
             if (data.resultado === '1') {
-                $("#endereco").val(data.logradouro);
+                $("#endereco").val(data.tipo_logradouro + " "+data.logradouro);
                 $("#bairro").val(data.bairro);
                 $("#complemento").val(data.complemento);
                 $("#cidade").val(data.cidade);
