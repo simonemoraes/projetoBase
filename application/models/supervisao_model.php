@@ -4,7 +4,8 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Supervisao_model extends Dao_model {
-
+    
+    // Select que retorna todos os dados
     public function retornaTodos($tabela, $ukey, $sort = 'supervisor', $order = 'asc', $limit = null, $offset = null) {
 
         $this->db->select('sup.ukey as ukey, sp.nome as supervisor, eq.nome as equipe, sup.data_inicio, sup.data_fim');
