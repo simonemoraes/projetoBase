@@ -15,6 +15,7 @@ class Dao_model extends CI_Model {
         return $this->db->count_all($tabela);
     }
     
+    // contagem para paginação
     function contarTodosPorBusca($tabela, $cia_ukey, $filtro, $valor_procurado) {
         
         $this->db->where("cia_ukey", $cia_ukey);
