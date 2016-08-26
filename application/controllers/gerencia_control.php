@@ -3,14 +3,14 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Supervisao_control extends CI_Controller {
+class Gerencia_control extends CI_Controller {
 
     var $cia_ukey = "";
-    var $tabela = "supervisao";
+    var $tabela = "gerencia";
 
     public function __construct() {
         parent::__construct();
-        $this->load->model("supervisao_model");
+        $this->load->model("gerencia_model");
         $this->cia_ukey = $this->session->userdata("empresa_logada")['ukey'];
     }
 
@@ -18,62 +18,62 @@ class Supervisao_control extends CI_Controller {
 
         $this->obj_gen->autoriza();
 
-        $endereco_paginacao = 'supervisao/p';
+        $endereco_paginacao = 'gerencia/p';
 
-        $total_registros = $this->supervisao_model->contarTodos($this->tabela, $this->cia_ukey);
+        $total_registros = $this->gerencia_model->contarTodos($this->tabela, $this->cia_ukey);
 
         $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
 
-        $supervisao['lista_supervisao'] = $this->supervisao_model->retornaTodos($this->tabela, $this->cia_ukey, 'supervisor', 'asc', $data['resultado_por_pg'], $data['offset']);
+        $gerencia['lista_gerencia'] = $this->gerencia_model->retornaTodos($this->tabela, $this->cia_ukey, 'gerente', 'asc', $data['resultado_por_pg'], $data['offset']);
 
-        $supervisao['equipes'] = $this->supervisao_model->retornaEquipes($this->cia_ukey);
+        $gerencia['equipes'] = $this->gerencia_model->retornaEquipes($this->cia_ukey);
 
-        $supervisao['supervisores'] = $this->supervisao_model->retornaSupervisores($this->cia_ukey);
+        $gerencia['gerencias'] = $this->gerencia_model->retornaGerentes($this->cia_ukey);
 
-        $supervisao['id_form'] = 'id_form_supervisao';
+        $gerencia['id_form'] = 'id_form_gerencia';
 
-        $html_grid_supervisao = $this->load->view('supervisao/grid_supervisao.php', $supervisao, TRUE);
-        $html_form_supervisao = $this->load->view('supervisao/form_supervisao.php', $supervisao, TRUE);
-        $html_opcoes_supervisao = $this->load->view('supervisao/opcao_pesquisa.php', "", TRUE);
+        $html_grid_gerencia = $this->load->view('gerencia/grid_gerencia.php', $gerencia, TRUE);
+        $html_form_gerencia = $this->load->view('gerencia/form_gerencia.php', $gerencia, TRUE);
+        $html_opcoes_gerencia = $this->load->view('gerencia/opcao_pesquisa.php', "", TRUE);
 
         $dados_painel = array(
-            'titulo' => 'Supervisão',
-            'opcoes' => $html_opcoes_supervisao,
+            'titulo' => 'Gerencia',
+            'opcoes' => $html_opcoes_gerencia,
             'estado_btn_novo' => "",
             'estado_btn_editar' => "disabled=''",
             'estado_btn_excluir' => "disabled=''",
             'estado_btn_visualizar' => "disabled=''",
-            'endereco_btn_editar' => base_url('supervisao/editar'),
+            'endereco_btn_editar' => base_url('gerencia/editar'),
             'estado_btn_inativar' => "disabled=''",
             'estado_btn_maps' => "disabled=''",
-            'endereco_btn_ativar' => base_url('supervisao/ativar'),
-            'endereco_btn_localizar' => base_url('supervisao/filtarRegistros'),
+            'endereco_btn_ativar' => base_url('gerencia/ativar'),
+            'endereco_btn_localizar' => base_url('gerencia/filtarRegistros'),
             'paginacao' => $data['paginacao']
         );
 
 
-        $link_fechar = base_url('supervisao');
+        $link_fechar = base_url('gerencia');
 
         // Obeto para injeção de js  especifico.
         $obj_jS = array(
-            'js_tela' => "js/supervisao/supervisao.js"
+            'js_tela' => "js/gerencia/gerencia.js"
         );
 
 
-        $endereco_salvar = base_url('supervisao/salvar');
+        $endereco_salvar = base_url('gerencia/salvar');
 
         // Obeto para o preenchmento dos componentes do modal
         $obj_modal = array(
-            'titulo_modal' => 'Vinculo de Supervisor X Equipe',
+            'titulo_modal' => 'Vinculo de Gerencia X Equipe',
             'btn_cadastrar' => 'Salvar',
             'acao' => $endereco_salvar,
             'fechar' => $link_fechar,
-            'formulario' => $html_form_supervisao
+            'formulario' => $html_form_gerencia
         );
 
-        $dados['html_supervisao'] = $this->obj_gen->retornaPagina($html_grid_supervisao, $dados_painel, $obj_jS, $obj_modal);
+        $dados['html_gerencia'] = $this->obj_gen->retornaPagina($html_grid_gerencia, $dados_painel, $obj_jS, $obj_modal);
 
-        $this->load->view('supervisao/v_supervisao.php', $dados);
+        $this->load->view('gerencia/v_gerencia.php', $dados);
     }
 
     public function salvar() {
@@ -92,7 +92,7 @@ class Supervisao_control extends CI_Controller {
 
         $ukey = $this->input->post('ukey');
         $cia_ukey = $this->obj_gen->getCiaUkey();
-        $supervisor = $this->input->post('supervisor_ukey');
+        $gerente = $this->input->post('gerente_ukey');
         $equipe = $this->input->post('equipe_ukey');
         $data_inicio = $this->input->post('data_inicio');
         $data_fim = $this->input->post('data_fim');
@@ -101,10 +101,10 @@ class Supervisao_control extends CI_Controller {
         if ($ukey === 'NOVO') {
             $ukey = $this->obj_gen->criaChaveprimaria();
 
-            $supervisao = array(
+            $gerencia = array(
                 'ukey' => $chave,
                 'cia_ukey' => $cia_ukey,
-                'supervisor_ukey' => $supervisor,
+                'gerente_ukey' => $gerente,
                 'equipe_ukey' => $equipe,
                 'data_inicio' => $data_inicio,
                 'data_fim' => $data_fim,
@@ -113,18 +113,17 @@ class Supervisao_control extends CI_Controller {
 
             $valida = 0;
 
-            $valida = $this->supervisao_model->validaSupervisorPorEquipe($cia_ukey, $this->tabela, $supervisor, $equipe, $data_inicio);
+            $valida = $this->gerencia_model->validaGerentePorEquipe($cia_ukey, $this->tabela, $gerente, $equipe, $data_inicio);
 
             if ($valida > 0) {
                 $resposta = 'existe';
             } else {
-                $retorno = $this->supervisao_model->inserir($this->tabela, $supervisao);
+                $retorno = $this->gerencia_model->inserir($this->tabela, $gerencia);
             }
         }
 
         if ($acao == 'EDITAR') {
-
-            $retorno = $this->supervisao_model->desligar($this->tabela, $data_fim, $chave);
+            $retorno = $this->gerencia_model->desligar($this->tabela, $data_fim, $chave);
         }
 
 
@@ -145,11 +144,11 @@ class Supervisao_control extends CI_Controller {
         $this->obj_gen->autoriza();
 
         $chave = $this->input->post('ukey');
-        $resultado = $this->supervisao_model->retornaPorUkey($this->tabela, $this->cia_ukey, $chave);
+        $resultado = $this->gerencia_model->retornaPorUkey($this->tabela, $this->cia_ukey, $chave);
 
         $retorno = array(
             'ukey' => $resultado['ukey'],
-            'nome_supervisor' => $resultado['supervisor'],
+            'nome_gerente' => $resultado['gerente'],
             'nome_equipe' => $resultado['equipe'],
             'data_inicio' => $resultado['data_inicio'],
             'data_fim' => $resultado['data_fim']
@@ -163,33 +162,30 @@ class Supervisao_control extends CI_Controller {
         if ($this->input->post('filtro')) {
             $filtro = $this->input->post('filtro');
             $valor = $this->input->post('texto_digitado');
+
             $this->session->unset_userdata("ultima_busca");
         } else {
 
             $filtro = $this->session->userdata("ultima_busca")['filtro'];
             $valor = $this->session->userdata("ultima_busca")['texto_digitado'];
-            
         }
-
-
-        $endereco_paginacao = 'supervisao/b';
 
         $valores['filtro'] = $filtro;
         $valores['texto_digitado'] = $valor;
-        
+
+
         $this->session->set_userdata("ultima_busca", $valores);
 
-       $resultado = $this->supervisao_model->buscarPorFiltroSupervisao($this->tabela, $filtro, $valor);
+        $resultado = $this->gerencia_model->buscarPorFiltroGerencia($this->tabela, $filtro, $valor);
 
         if ($resultado) {
 
-            $supervisao['lista_supervisao'] = $resultado;
+            $gerencia['lista_gerencia'] = $resultado;
 
-            $html_grid_supervisao = $this->load->view('supervisao/grid_supervisao.php', $supervisao, TRUE);
+            $html_grid_gerencia = $this->load->view('gerencia/grid_gerencia.php', $gerencia, TRUE);
 
             $dados = array(
-                'html_grid' => $html_grid_supervisao,
-                
+                'html_grid' => $html_grid_gerencia,
             );
 
             echo json_encode($dados);

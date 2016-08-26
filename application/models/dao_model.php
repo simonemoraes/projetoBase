@@ -72,6 +72,8 @@ class Dao_model extends CI_Model {
         if ($filtro == "codigo") {
             $this->db->where($filtro, $valor_procurado);
         }
+        
+        $this->db->where("cia_ukey", $this->session->userdata("empresa_logada")['ukey']);
 
         return $this->db->get($tabela)->result_array();
     }

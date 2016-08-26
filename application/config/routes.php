@@ -173,6 +173,17 @@ $route['supervisao/b'] = "supervisao_control/filtarRegistros";
 $route['supervisao/b/(:num)'] = "supervisao_control/filtarRegistros";
 
 
+$route['gerencia'] = "gerencia_control";
+$route['gerencia/salvar'] = "gerencia_control/salvar";
+$route['gerencia/editar'] = "gerencia_control/editar";
+$route['gerencia/ativar'] = "gerencia_control/ativar";
+$route['gerencia/filtarRegistros'] = "gerencia_control/filtarRegistros";
+$route['gerencia/p'] = "gerencia_control";
+$route['gerencia/p/(:num)'] = "gerencia_control";
+$route['gerencia/b'] = "gerencia_control/filtarRegistros";
+$route['gerencia/b/(:num)'] = "gerencia_control/filtarRegistros";
+
+
 
 $route['configuracao'] = "configuracao_control";
 $route['configuracao/recuperasenha'] = "configuracao_control/recuperasenha";

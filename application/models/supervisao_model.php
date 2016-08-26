@@ -12,13 +12,15 @@ class Supervisao_model extends Dao_model {
         $this->db->join('supervisores sp', 'sp.ukey = sup.supervisor_ukey');
         $this->db->join('equipes eq', 'eq.ukey = sup.equipe_ukey');
 
-        $this->db->order_by($sort, $order);
+        //$this->db->order_by("sp.nome", "asc");
+        //$this->db->order_by("sup.data_fim", "asc");
+        $this->db->order_by("sup.data_inicio", "asc");
 
         if ($limit)
             $this->db->limit($limit, $offset);
 
         $this->db->where("sup.cia_ukey", $ukey);
-        $this->db->group_by("ukey"); 
+        $this->db->group_by("ukey");
         return $this->db->get($tabela)->result_array();
     }
 
@@ -44,8 +46,7 @@ class Supervisao_model extends Dao_model {
 
         return $this->db->get()->num_rows();
     }
-    
-    
+
     public function retornaPorUkey($tabela, $cia_ukey, $ukey) {
 
         $this->db->select('sup.ukey as ukey, sp.nome as supervisor, eq.nome as equipe, sup.data_inicio, sup.data_fim');
@@ -58,11 +59,30 @@ class Supervisao_model extends Dao_model {
         $this->db->where("sup.cia_ukey", $cia_ukey);
         return $this->db->get($tabela)->row_array();
     }
-    
-     public function desligar($tabela, $data_fim, $chave) {
+
+    public function desligar($tabela, $data_fim, $chave) {
         $this->db->where('ukey', $chave);
-        $this->db->set("data_fim",$data_fim);
+        $this->db->set("data_fim", $data_fim);
         return $this->db->update($tabela);
+    }
+
+    public function buscarPorFiltroSupervisao($tabela, $filtro, $valor_procurado) {
+
+        $this->db->select('sup.ukey as ukey, sp.nome as supervisor, eq.nome as equipe, sup.data_inicio, sup.data_fim');
+        $this->db->from($tabela . " as sup");
+        $this->db->join('supervisores sp', 'sp.ukey = sup.supervisor_ukey');
+        $this->db->join('equipes eq', 'eq.ukey = sup.equipe_ukey');
+
+        $this->db->where("sup.cia_ukey", $this->session->userdata("empresa_logada")['ukey']);
+
+        if ($filtro != "todos") {
+            $this->db->like($filtro, $valor_procurado);
+        }
+
+        $this->db->group_by("ukey");
+        $this->db->order_by("sp.nome", "asc");
+        $this->db->order_by("sup.data_fim", "asc");
+        return $this->db->get($tabela)->result_array();
     }
 
 }

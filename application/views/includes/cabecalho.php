@@ -60,7 +60,7 @@
                                 <i class="fa fa-user-times" aria-hidden="true"></i> &nbsp;Coordenação<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?= base_url('supervisao') ?>"><i class="fa fa-key" aria-hidden="true"></i> &nbsp;Supervisão</a></li>
-                                <li><a href=""><i class="fa fa-key" aria-hidden="true"></i> &nbsp;Gerência</a></li>
+                                <li><a href="<?= base_url('gerencia') ?>"><i class="fa fa-key" aria-hidden="true"></i> &nbsp;Gerência</a></li>
                             </ul>
                         </li>
                         

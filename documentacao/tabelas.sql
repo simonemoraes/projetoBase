@@ -173,13 +173,88 @@ INSERT INTO `encargos` VALUES ('20160823EB259A0923DC','A4FE','2016-08-22 22:15:3
 UNLOCK TABLES;
 
 --
--- Table structure for table `grupo_corretores`
+-- Table structure for table `equipes`
 --
 
-DROP TABLE IF EXISTS `grupo_corretores`;
+DROP TABLE IF EXISTS `equipes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `grupo_corretores` (
+CREATE TABLE `equipes` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `idx_codigo` (`codigo`),
+  KEY `idx_nome` (`nome`),
+  KEY `idx_descricao` (`descricao`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipes`
+--
+
+LOCK TABLES `equipes` WRITE;
+/*!40000 ALTER TABLE `equipes` DISABLE KEYS */;
+INSERT INTO `equipes` VALUES ('20160823EB25552A12A8','A4FE','2016-08-23 17:58:14',NULL,1,1,'Equipe Aguia','Equipe Aguia');
+/*!40000 ALTER TABLE `equipes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gerentes`
+--
+
+DROP TABLE IF EXISTS `gerentes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gerentes` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  `cpf` varchar(20) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `telefone` varchar(200) DEFAULT NULL,
+  `celular` varchar(200) DEFAULT NULL,
+  `cep` varchar(45) DEFAULT NULL,
+  `endereco` varchar(200) DEFAULT NULL,
+  `complemento` varchar(100) DEFAULT NULL,
+  `cidade` varchar(200) DEFAULT NULL,
+  `estado` varchar(200) DEFAULT NULL,
+  `bairro` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `idx_codigo` (`codigo`),
+  KEY `idx_nome` (`nome`),
+  KEY `idx_descricao` (`cpf`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gerentes`
+--
+
+LOCK TABLES `gerentes` WRITE;
+/*!40000 ALTER TABLE `gerentes` DISABLE KEYS */;
+INSERT INTO `gerentes` VALUES ('20160823EB2592E8ED4B','A4FE','2016-08-23 17:19:49',NULL,1,1,'Gerente 1','44455566677','gerente@teste.com','99999999','88888888','25561161','Comendador Teles 235','teste','São João de Meriti','RJ','Vilar dos Teles');
+/*!40000 ALTER TABLE `gerentes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `grade_comissoes`
+--
+
+DROP TABLE IF EXISTS `grade_comissoes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `grade_comissoes` (
   `ukey` varchar(20) NOT NULL,
   `cia_ukey` varchar(45) DEFAULT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -196,13 +271,13 @@ CREATE TABLE `grupo_corretores` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `grupo_corretores`
+-- Dumping data for table `grade_comissoes`
 --
 
-LOCK TABLES `grupo_corretores` WRITE;
-/*!40000 ALTER TABLE `grupo_corretores` DISABLE KEYS */;
-INSERT INTO `grupo_corretores` VALUES ('20160822EB256AF1B428','A4FE','2016-08-22 21:17:12',NULL,1,3,'Free-Lancers','Free-Lancers'),('20160822EB25D7294B30','A4FE','2016-08-22 21:16:56',NULL,1,2,'Repasses','Repasses'),('20160822EB25EF3450B9','A4FE','2016-08-22 21:16:25',NULL,1,1,'Internos','Internos');
-/*!40000 ALTER TABLE `grupo_corretores` ENABLE KEYS */;
+LOCK TABLES `grade_comissoes` WRITE;
+/*!40000 ALTER TABLE `grade_comissoes` DISABLE KEYS */;
+INSERT INTO `grade_comissoes` VALUES ('20160822EB256AF1B428','A4FE','2016-08-22 21:17:12',NULL,1,3,'Free-Lancers','Free-Lancers'),('20160822EB25D7294B30','A4FE','2016-08-22 21:16:56',NULL,1,2,'Repasses','Repasses'),('20160822EB25EF3450B9','A4FE','2016-08-22 21:16:25',NULL,1,1,'Internos','Internos');
+/*!40000 ALTER TABLE `grade_comissoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -272,6 +347,85 @@ INSERT INTO `seguradoras` VALUES ('20160813EB25325C3F39',NULL,'2016-08-12 22:29:
 UNLOCK TABLES;
 
 --
+-- Table structure for table `supervisao`
+--
+
+DROP TABLE IF EXISTS `supervisao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supervisao` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `data_inicio` date DEFAULT NULL,
+  `data_fim` date DEFAULT NULL,
+  `equipe_ukey` varchar(20) DEFAULT NULL,
+  `supervisor_ukey` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `fk_equipe_idx` (`equipe_ukey`),
+  KEY `fk_supervisor_idx` (`supervisor_ukey`),
+  KEY `idx_dt_inicio` (`data_inicio`),
+  KEY `idx_dt_fim` (`data_fim`),
+  CONSTRAINT `fk_equipe` FOREIGN KEY (`equipe_ukey`) REFERENCES `equipes` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_supervisor` FOREIGN KEY (`supervisor_ukey`) REFERENCES `supervisores` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supervisao`
+--
+
+LOCK TABLES `supervisao` WRITE;
+/*!40000 ALTER TABLE `supervisao` DISABLE KEYS */;
+INSERT INTO `supervisao` VALUES ('2016082598C2','A4FE','2016-08-25 03:02:51','',1,'2016-08-01','2016-08-01','20160823EB25552A12A8','20160823EB2578F03F7C');
+/*!40000 ALTER TABLE `supervisao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `supervisores`
+--
+
+DROP TABLE IF EXISTS `supervisores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supervisores` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) DEFAULT NULL,
+  `cpf` varchar(20) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `telefone` varchar(200) DEFAULT NULL,
+  `celular` varchar(200) DEFAULT NULL,
+  `cep` varchar(45) DEFAULT NULL,
+  `endereco` varchar(200) DEFAULT NULL,
+  `complemento` varchar(100) DEFAULT NULL,
+  `cidade` varchar(200) DEFAULT NULL,
+  `estado` varchar(200) DEFAULT NULL,
+  `bairro` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `idx_codigo` (`codigo`),
+  KEY `idx_nome` (`nome`),
+  KEY `idx_descricao` (`cpf`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supervisores`
+--
+
+LOCK TABLES `supervisores` WRITE;
+/*!40000 ALTER TABLE `supervisores` DISABLE KEYS */;
+INSERT INTO `supervisores` VALUES ('20160823EB2578F03F7C','A4FE','2016-08-23 17:09:31',NULL,1,1,'Carlos Alberto Parreira','00099988877','teste@teste.com','99887766','99887766','25561162','Avenida Comendador Teles 1758','lote 03 qd 06','São João de Meriti','RJ','Vilar dos Teles');
+/*!40000 ALTER TABLE `supervisores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usuarios`
 --
 
@@ -313,4 +467,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-23 14:06:38
+-- Dump completed on 2016-08-25 17:20:01
