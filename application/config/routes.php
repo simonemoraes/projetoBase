@@ -183,6 +183,16 @@ $route['gerencia/p/(:num)'] = "gerencia_control";
 $route['gerencia/b'] = "gerencia_control/filtarRegistros";
 $route['gerencia/b/(:num)'] = "gerencia_control/filtarRegistros";
 
+$route['grade_comissionamento'] = "grade_comissionamento_control";
+$route['grade_comissionamento/salvar'] = "grade_comissionamento_control/salvar";
+$route['grade_comissionamento/editar'] = "grade_comissionamento_control/editar";
+$route['grade_comissionamento/ativar'] = "grade_comissionamento_control/ativar";
+$route['grade_comissionamento/filtarRegistros'] = "grade_comissionamento_control/filtarRegistros";
+$route['grade_comissionamento/p'] = "grade_comissionamento_control";
+$route['grade_comissionamento/p/(:num)'] = "grade_comissionamento_control";
+$route['grade_comissionamento/b'] = "grade_comissionamento_control/filtarRegistros";
+$route['grade_comissionamento/b/(:num)'] = "grade_comissionamento_control/filtarRegistros";
+
 
 
 $route['configuracao'] = "configuracao_control";

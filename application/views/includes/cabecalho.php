@@ -65,6 +65,16 @@
                         </li>
                         
                         
+                          <li>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user-times" aria-hidden="true"></i> &nbsp;Comissões<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href=""><i class="fa fa-key" aria-hidden="true"></i> &nbsp;Grade Empresa</a></li>
+                                <li><a href="<?= base_url('grade_comissionamento') ?>"><i class="fa fa-key" aria-hidden="true"></i> &nbsp;Grade Comissionamentos</a></li>
+                            </ul>
+                        </li>
+                        
+                        
                         
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

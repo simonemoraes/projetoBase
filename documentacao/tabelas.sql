@@ -16,6 +16,48 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comissionamentos`
+--
+
+DROP TABLE IF EXISTS `comissionamentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comissionamentos` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `grade_ukey` varchar(20) DEFAULT NULL,
+  `seguradora_ukey` varchar(20) DEFAULT NULL,
+  `produto_ukey` varchar(20) DEFAULT NULL,
+  `condicao_ukey` varchar(20) DEFAULT NULL,
+  `inicio_vigencia` date DEFAULT NULL,
+  `fim_vigencia` date DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `fk_grade_comiss_idx` (`grade_ukey`),
+  KEY `fk_seguradora_comiss_idx` (`seguradora_ukey`),
+  KEY `fk_produto_comiss_idx` (`produto_ukey`),
+  KEY `fk_cond_comiss_idx` (`condicao_ukey`),
+  KEY `idx_inicio_comiss` (`inicio_vigencia`),
+  KEY `idx_fim_comiss` (`fim_vigencia`),
+  CONSTRAINT `fk_grade_comiss` FOREIGN KEY (`grade_ukey`) REFERENCES `grade_comissoes` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_seguradora_comiss` FOREIGN KEY (`seguradora_ukey`) REFERENCES `seguradoras` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_produto_comiss` FOREIGN KEY (`produto_ukey`) REFERENCES `produtos` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cond_comiss` FOREIGN KEY (`condicao_ukey`) REFERENCES `condicao_comissionamentos` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comissionamentos`
+--
+
+LOCK TABLES `comissionamentos` WRITE;
+/*!40000 ALTER TABLE `comissionamentos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comissionamentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `condicao_comissionamentos`
 --
 
@@ -192,7 +234,7 @@ CREATE TABLE `equipes` (
   KEY `idx_codigo` (`codigo`),
   KEY `idx_nome` (`nome`),
   KEY `idx_descricao` (`descricao`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,8 +243,42 @@ CREATE TABLE `equipes` (
 
 LOCK TABLES `equipes` WRITE;
 /*!40000 ALTER TABLE `equipes` DISABLE KEYS */;
-INSERT INTO `equipes` VALUES ('20160823EB25552A12A8','A4FE','2016-08-23 17:58:14',NULL,1,1,'Equipe Aguia','Equipe Aguia');
+INSERT INTO `equipes` VALUES ('20160823EB25552A12A8','A4FE','2016-08-23 17:58:14',NULL,1,1,'Equipe Aguia','Equipe Aguia'),('20160826EB25BCC7088F','A4FE','2016-08-26 01:34:48',NULL,1,2,'Equipe Lua','teste');
 /*!40000 ALTER TABLE `equipes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gerencia`
+--
+
+DROP TABLE IF EXISTS `gerencia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gerencia` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT '1',
+  `data_inicio` date DEFAULT NULL,
+  `data_fim` date DEFAULT NULL,
+  `equipe_ukey` varchar(20) DEFAULT NULL,
+  `gerente_ukey` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `fk_gerente_idx` (`gerente_ukey`),
+  KEY `fk_equipe_idx` (`equipe_ukey`),
+  CONSTRAINT `fk_equipe_gerente` FOREIGN KEY (`equipe_ukey`) REFERENCES `equipes` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_gerente` FOREIGN KEY (`gerente_ukey`) REFERENCES `gerentes` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gerencia`
+--
+
+LOCK TABLES `gerencia` WRITE;
+/*!40000 ALTER TABLE `gerencia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gerencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -234,7 +310,7 @@ CREATE TABLE `gerentes` (
   KEY `idx_codigo` (`codigo`),
   KEY `idx_nome` (`nome`),
   KEY `idx_descricao` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +319,7 @@ CREATE TABLE `gerentes` (
 
 LOCK TABLES `gerentes` WRITE;
 /*!40000 ALTER TABLE `gerentes` DISABLE KEYS */;
-INSERT INTO `gerentes` VALUES ('20160823EB2592E8ED4B','A4FE','2016-08-23 17:19:49',NULL,1,1,'Gerente 1','44455566677','gerente@teste.com','99999999','88888888','25561161','Comendador Teles 235','teste','São João de Meriti','RJ','Vilar dos Teles');
+INSERT INTO `gerentes` VALUES ('20160823EB2592E8ED4B','A4FE','2016-08-23 17:19:49',NULL,1,1,'Gerente 1','44455566677','gerente@teste.com','99999999','88888888','25561161','Comendador Teles 235','teste','São João de Meriti','RJ','Vilar dos Teles'),('20160826EB252AAD74DC','A4FE','2016-08-26 01:19:41',NULL,1,2,'Rui','999','teste@teste.com','7777','7777','21360090','Ladeira Buriti','','Rio de Janeiro','RJ','Madureira');
 /*!40000 ALTER TABLE `gerentes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,7 +444,7 @@ CREATE TABLE `supervisao` (
   KEY `fk_supervisor_idx` (`supervisor_ukey`),
   KEY `idx_dt_inicio` (`data_inicio`),
   KEY `idx_dt_fim` (`data_fim`),
-  CONSTRAINT `fk_equipe` FOREIGN KEY (`equipe_ukey`) REFERENCES `equipes` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_equipe_supervisor` FOREIGN KEY (`equipe_ukey`) REFERENCES `equipes` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_supervisor` FOREIGN KEY (`supervisor_ukey`) REFERENCES `supervisores` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -379,7 +455,7 @@ CREATE TABLE `supervisao` (
 
 LOCK TABLES `supervisao` WRITE;
 /*!40000 ALTER TABLE `supervisao` DISABLE KEYS */;
-INSERT INTO `supervisao` VALUES ('2016082598C2','A4FE','2016-08-25 03:02:51','',1,'2016-08-01','2016-08-01','20160823EB25552A12A8','20160823EB2578F03F7C');
+INSERT INTO `supervisao` VALUES ('201608263343','A4FE','2016-08-26 01:50:38',NULL,1,'2016-07-01','0000-00-00','20160826EB25BCC7088F','20160823EB2578F03F7C'),('2016082683CC','A4FE','2016-08-26 01:49:11',NULL,1,'2016-08-08','2016-08-08','20160823EB25552A12A8','20160823EB2578F03F7C'),('20160826B031','A4FE','2016-08-26 01:57:17',NULL,1,'2016-09-15','0000-00-00','20160823EB25552A12A8','20160823EB2578F03F7C'),('20160826E019','A4FE','2016-08-26 01:49:49',NULL,1,'2016-08-01','2016-08-31','20160823EB25552A12A8','20160823EB2578F03F7C'),('20160826E05B','A4FE','2016-08-26 01:53:46',NULL,1,'2016-10-01','2016-10-01','20160823EB25552A12A8','20160823EB2578F03F7C');
 /*!40000 ALTER TABLE `supervisao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,7 +488,7 @@ CREATE TABLE `supervisores` (
   KEY `idx_codigo` (`codigo`),
   KEY `idx_nome` (`nome`),
   KEY `idx_descricao` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -421,7 +497,7 @@ CREATE TABLE `supervisores` (
 
 LOCK TABLES `supervisores` WRITE;
 /*!40000 ALTER TABLE `supervisores` DISABLE KEYS */;
-INSERT INTO `supervisores` VALUES ('20160823EB2578F03F7C','A4FE','2016-08-23 17:09:31',NULL,1,1,'Carlos Alberto Parreira','00099988877','teste@teste.com','99887766','99887766','25561162','Avenida Comendador Teles 1758','lote 03 qd 06','São João de Meriti','RJ','Vilar dos Teles');
+INSERT INTO `supervisores` VALUES ('20160823EB2578F03F7C','A4FE','2016-08-23 17:09:31',NULL,1,1,'Carlos Alberto Parreira','00099988877','teste@teste.com','99887766','99887766','25561162','Avenida Comendador Teles 1758','lote 03 qd 06','São João de Meriti','RJ','Vilar dos Teles'),('20160826EB256AA66CB4','A4FE','2016-08-26 01:34:27',NULL,1,2,'Simone','888','teste@teste.com','333','444','21350090','Rua Cândida Bastos','','Rio de Janeiro','RJ','Cascadura');
 /*!40000 ALTER TABLE `supervisores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -467,4 +543,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-25 17:20:01
+-- Dump completed on 2016-08-26 14:47:41
