@@ -16,48 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `comissionamentos`
---
-
-DROP TABLE IF EXISTS `comissionamentos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `comissionamentos` (
-  `ukey` varchar(20) NOT NULL,
-  `cia_ukey` varchar(45) DEFAULT NULL,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `sql_cmd` varchar(255) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `grade_ukey` varchar(20) DEFAULT NULL,
-  `seguradora_ukey` varchar(20) DEFAULT NULL,
-  `produto_ukey` varchar(20) DEFAULT NULL,
-  `condicao_ukey` varchar(20) DEFAULT NULL,
-  `inicio_vigencia` date DEFAULT NULL,
-  `fim_vigencia` date DEFAULT NULL,
-  PRIMARY KEY (`ukey`),
-  KEY `fk_grade_comiss_idx` (`grade_ukey`),
-  KEY `fk_seguradora_comiss_idx` (`seguradora_ukey`),
-  KEY `fk_produto_comiss_idx` (`produto_ukey`),
-  KEY `fk_cond_comiss_idx` (`condicao_ukey`),
-  KEY `idx_inicio_comiss` (`inicio_vigencia`),
-  KEY `idx_fim_comiss` (`fim_vigencia`),
-  CONSTRAINT `fk_grade_comiss` FOREIGN KEY (`grade_ukey`) REFERENCES `grade_comissoes` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_seguradora_comiss` FOREIGN KEY (`seguradora_ukey`) REFERENCES `seguradoras` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_produto_comiss` FOREIGN KEY (`produto_ukey`) REFERENCES `produtos` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cond_comiss` FOREIGN KEY (`condicao_ukey`) REFERENCES `condicao_comissionamentos` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `comissionamentos`
---
-
-LOCK TABLES `comissionamentos` WRITE;
-/*!40000 ALTER TABLE `comissionamentos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comissionamentos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `condicao_comissionamentos`
 --
 
@@ -324,6 +282,45 @@ INSERT INTO `gerentes` VALUES ('20160823EB2592E8ED4B','A4FE','2016-08-23 17:19:4
 UNLOCK TABLES;
 
 --
+-- Table structure for table `grade_comissionamentos`
+--
+
+DROP TABLE IF EXISTS `grade_comissionamentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `grade_comissionamentos` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `grade_ukey` varchar(20) DEFAULT NULL,
+  `seguradora_ukey` varchar(20) DEFAULT NULL,
+  `produto_ukey` varchar(20) DEFAULT NULL,
+  `condicao_ukey` varchar(20) DEFAULT NULL,
+  `inicio_vigencia` date DEFAULT NULL,
+  `fim_vigencia` date DEFAULT NULL,
+  `parent_ukey` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `fk_grade_comiss_idx` (`grade_ukey`),
+  KEY `fk_seguradora_comiss_idx` (`seguradora_ukey`),
+  KEY `fk_produto_comiss_idx` (`produto_ukey`),
+  KEY `fk_cond_comiss_idx` (`condicao_ukey`),
+  KEY `idx_inicio_comiss` (`inicio_vigencia`),
+  KEY `idx_fim_comiss` (`fim_vigencia`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `grade_comissionamentos`
+--
+
+LOCK TABLES `grade_comissionamentos` WRITE;
+/*!40000 ALTER TABLE `grade_comissionamentos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `grade_comissionamentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `grade_comissoes`
 --
 
@@ -343,7 +340,7 @@ CREATE TABLE `grade_comissoes` (
   KEY `idx_codigo` (`codigo`),
   KEY `idx_nome` (`nome`),
   KEY `idx_descricao` (`descricao`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,6 +351,40 @@ LOCK TABLES `grade_comissoes` WRITE;
 /*!40000 ALTER TABLE `grade_comissoes` DISABLE KEYS */;
 INSERT INTO `grade_comissoes` VALUES ('20160822EB256AF1B428','A4FE','2016-08-22 21:17:12',NULL,1,3,'Free-Lancers','Free-Lancers'),('20160822EB25D7294B30','A4FE','2016-08-22 21:16:56',NULL,1,2,'Repasses','Repasses'),('20160822EB25EF3450B9','A4FE','2016-08-22 21:16:25',NULL,1,1,'Internos','Internos');
 /*!40000 ALTER TABLE `grade_comissoes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `parcelas_comissionamento`
+--
+
+DROP TABLE IF EXISTS `parcelas_comissionamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `parcelas_comissionamento` (
+  `ukey` varchar(20) NOT NULL,
+  `cia_ukey` varchar(45) DEFAULT NULL,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `sql_cmd` varchar(255) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `parent` varchar(45) DEFAULT NULL,
+  `parcela` int(11) DEFAULT NULL,
+  `percentual` decimal(8,2) DEFAULT NULL,
+  `parcela_vitalicio` int(11) DEFAULT NULL,
+  `percentual_vitalicio` decimal(8,2) DEFAULT NULL,
+  `comissionamento_ukey` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ukey`),
+  KEY `fk_comissionamento_parcela_idx` (`comissionamento_ukey`),
+  CONSTRAINT `fk_comissionamento_parcela` FOREIGN KEY (`comissionamento_ukey`) REFERENCES `grade_comissionamentos` (`ukey`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `parcelas_comissionamento`
+--
+
+LOCK TABLES `parcelas_comissionamento` WRITE;
+/*!40000 ALTER TABLE `parcelas_comissionamento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `parcelas_comissionamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -418,7 +449,7 @@ CREATE TABLE `seguradoras` (
 
 LOCK TABLES `seguradoras` WRITE;
 /*!40000 ALTER TABLE `seguradoras` DISABLE KEYS */;
-INSERT INTO `seguradoras` VALUES ('20160813EB25325C3F39',NULL,'2016-08-12 22:29:49',NULL,1,1,'Amil','Amil'),('20160813EB2593A118A2','A4FE','2016-08-12 22:37:02',NULL,1,2,'Unimed','Unimed Planos de saude'),('20160813EB25D0BF622D','A4FE','2016-08-12 23:22:07',NULL,0,3,'Golden Cross','Golden Cross'),('20160816EB2552FFE786','A4FE','2016-08-16 21:16:13',NULL,1,5,'Golden','Golden'),('20160816EB2582433805','A4FE','2016-08-17 00:47:27',NULL,0,7,'Cemeru','Cemeru Saude'),('20160816EB25AB700285','A4FE','2016-08-16 21:07:23',NULL,1,4,'Dix','Dix Saúde'),('20160817EB25C3432561','A4FE','2016-08-17 00:40:57',NULL,1,6,'Samoc','Samoc Saude'),('20160822EB2572DCA453','A4FE','2016-08-22 18:07:37',NULL,1,8,'Amil','Amil Assistência Médica Internacional'),('20160822EB25F3CC6944','A4FE','2016-08-22 18:08:43',NULL,1,9,'Amil Dental','Amil Dental');
+INSERT INTO `seguradoras` VALUES ('20160813EB25325C3F39',NULL,'2016-08-12 22:29:49',NULL,1,1,'Amil','Amil'),('20160813EB2593A118A2','A4FE','2016-08-12 22:37:02',NULL,1,2,'Unimed','Unimed Planos de saude'),('20160813EB25D0BF622D','A4FE','2016-08-12 23:22:07',NULL,0,3,'Golden Cross','Golden Cross'),('20160816EB2552FFE786','A4FE','2016-08-16 21:16:13',NULL,0,5,'Golden','Golden'),('20160816EB2582433805','A4FE','2016-08-17 00:47:27',NULL,0,7,'Cemeru','Cemeru Saude'),('20160816EB25AB700285','A4FE','2016-08-16 21:07:23',NULL,1,4,'Dix','Dix Saúde'),('20160817EB25C3432561','A4FE','2016-08-17 00:40:57',NULL,1,6,'Samoc','Samoc Saude'),('20160822EB2572DCA453','A4FE','2016-08-22 18:07:37',NULL,1,8,'Amil','Amil Assistência Médica Internacional'),('20160822EB25F3CC6944','A4FE','2016-08-22 18:08:43',NULL,1,9,'Amil Dental','Amil Dental');
 /*!40000 ALTER TABLE `seguradoras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -543,4 +574,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-26 14:47:41
+-- Dump completed on 2016-08-30 20:55:31
