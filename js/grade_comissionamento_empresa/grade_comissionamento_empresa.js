@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     $('#tbl_grade_comissionamento_empresa').delegate('tr', 'click', function () {
 
-      
+
         $(this).find('td').each(function (i) {
 
             switch (i) {
@@ -28,7 +28,7 @@ $(document).ready(function () {
                     if ($(this).html() > 0) {
 
                         $('#parcela').val($(this).html());
-                         $('#vitalicio').val("");
+                        $('#vitalicio').val("");
                         $('#parcela').removeAttr('disabled');
                         $('#percentual_vt').attr('disabled', "disabled");
 
@@ -58,7 +58,7 @@ $(document).ready(function () {
                 case 3:
                     if ($(this).html() > 0) {
                         $('#vitalicio').val($(this).html());
-                         $('#parcela').val("");
+                        $('#parcela').val("");
                         $('#vitalicio').removeAttr('disabled');
                         $('#percentual').attr('disabled', "disabled");
 
@@ -69,7 +69,7 @@ $(document).ready(function () {
 
                     if ($(this).html() > 0) {
                         $('#percentual_vt').val($(this).html());
-                         $('#percentual').val("");
+                        $('#percentual').val("");
                         $('#percentual_vt').removeAttr('disabled');
 
                     }
@@ -191,6 +191,8 @@ $(document).ready(function () {
 
     // Esse enevento faz uma chamada para função assincrona para gravar usuario 
     $("#btn_modal_salvar").click(function () {
+        
+        // pegando url para chamar o metodo salvar
         var url = $(this).attr("itemid");
 
         var obj = new Object();
@@ -247,7 +249,7 @@ $(document).ready(function () {
 
         var jsonObjs = JSON.stringify(obj);
 
-        alert(jsonObjs);
+        salvarGradeComissao_empresa(url, jsonObjs);
 
 
     });
@@ -408,20 +410,16 @@ function  preencherObjetoGrupo(data) {
 }
 
 
-function  salvarGradeComissao(url) {
+function  salvarGradeComissao_empresa(url, objetoJson) {
     var chave = 'NOVO'
 
     if ($('#ukey').val() !== '') {
         chave = $('#ukey').val();
     }
 
-    var nome = $("#nome").val();
-    var descricao = $("#descricao").val();
-
     $.post(url, {
         ukey: chave,
-        nome: nome,
-        descricao: descricao
+        objeto: objetoJson
 
     },
             function (data, status) {
