@@ -221,7 +221,7 @@ $(document).ready(function () {
         
         var jsonObjs = JSON.stringify(obj);
         
-        alert(jsonObjs);
+        //alert(jsonObjs);
 
 
     });

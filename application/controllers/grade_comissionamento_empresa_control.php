@@ -91,41 +91,40 @@ class Grade_comissionamento_empresa_control extends CI_Controller {
         $retorno = FALSE;
 
         $ukey = $this->input->post('ukey');
-        $nome = $this->input->post('nome');
-        $descricao = $this->input->post('descricao');
-        $cia_ukey = $this->obj_gen->getCiaUkey();
+        $objeto = $this->input->post('objeto');
+      
 
-        if ($ukey === 'NOVO') {
-            $ukey = $this->obj_gen->criaChaveprimaria();
-
-            $grade_comissionamento_empresa = array(
-                'ukey' => $ukey,
-                'cia_ukey' => $cia_ukey,
-                'nome' => $nome,
-                'descricao' => $descricao,
-                'status' => 1
-            );
-
-            $retorno = $this->grade_comissionamento_empresa_model->inserir($this->tabela, $grade_comissionamento_empresa);
-        }
-        
-        if ($acao == 'EDITAR') {
-            // Preenchendo o objeto grade_comissionamento_empresa com dados que vieram no post para alteração
-            $usuario = array(
-                'ukey' => $chave,
-                'nome' => $this->input->post('nome'),
-                'descricao' => $this->input->post('descricao')
-               
-            );
-            $retorno = $this->grade_comissionamento_empresa_model->editar($this->tabela, $usuario);
-        }
-
-
-        if ($retorno) {
-            echo 'sucesso';
-        } else {
-            echo 'error';
-        }
+//        if ($ukey === 'NOVO') {
+//            $ukey = $this->obj_gen->criaChaveprimaria();
+//
+//            $grade_comissionamento_empresa = array(
+//                'ukey' => $ukey,
+//                'cia_ukey' => $cia_ukey,
+//                'nome' => $nome,
+//                'descricao' => $descricao,
+//                'status' => 1
+//            );
+//
+//            $retorno = $this->grade_comissionamento_empresa_model->inserir($this->tabela, $grade_comissionamento_empresa);
+//        }
+//        
+//        if ($acao == 'EDITAR') {
+//            // Preenchendo o objeto grade_comissionamento_empresa com dados que vieram no post para alteração
+//            $usuario = array(
+//                'ukey' => $chave,
+//                'nome' => $this->input->post('nome'),
+//                'descricao' => $this->input->post('descricao')
+//               
+//            );
+//            $retorno = $this->grade_comissionamento_empresa_model->editar($this->tabela, $usuario);
+//        }
+//
+//
+//        if ($retorno) {
+//            echo 'sucesso';
+//        } else {
+//            echo 'error';
+//        }
     }
 
     public function ativar() {
