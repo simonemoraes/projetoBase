@@ -247,7 +247,7 @@ $(document).ready(function () {
 
         var jsonObjs = JSON.stringify(obj);
 
-        alert(jsonObjs);
+        salvarGradeComissaoEmpresa(url, jsonObjs);
 
 
     });
@@ -408,20 +408,18 @@ function  preencherObjetoGrupo(data) {
 }
 
 
-function  salvarGradeComissao(url) {
+function  salvarGradeComissaoEmpresa(url, objetoJson) {
     var chave = 'NOVO'
 
     if ($('#ukey').val() !== '') {
         chave = $('#ukey').val();
     }
 
-    var nome = $("#nome").val();
-    var descricao = $("#descricao").val();
-
+   
     $.post(url, {
         ukey: chave,
-        nome: nome,
-        descricao: descricao
+        objeto: objetoJson
+       
 
     },
             function (data, status) {
