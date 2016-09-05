@@ -94,17 +94,11 @@
                 </div>
 
                 <div style="display: none" id="msg_error" class="alert alert-danger  alert-dismissable" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <p><strong>Erro ao gravar registro... tente novamente</strong></p>
+                       <!--<p><strong>Erro ao gravar registro... tente novamente</strong></p>-->
                 </div>
 
                 <div style="display: none" id="msg_sucesso" class="alert alert-success alert-dismissable" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <p><strong>Registro salvo com sucesso</h2></strong></p>
+<!--                   <p><strong>Registro salvo com sucesso</h2></strong></p>-->
                 </div>
                 <?php echo $modal['formulario']; ?>
             </div>

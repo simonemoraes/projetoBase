@@ -40,6 +40,11 @@ $(document).ready(function () {
 });
 //-------------- Final da função de carregamento do DOM
 
+function removeMsg() {
+    $("#msg_sucesso").hide();
+    $("#msg_error").hide();
+}
+
 //Função para limpar formulários -> parametro id do form
 function limparFormularios(form_id) {
 

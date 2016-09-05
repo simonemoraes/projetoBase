@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    
+    $("#nome").blur(function(){
+        removeMsg();
+    });
 
     // Esse evento faz a abertura do formulario de cadastro
     $("#btn_painel_novo").click(function () {
@@ -119,8 +123,12 @@ function  salvarSeguradora(url) {
                 if (data === "sucesso") {
                     limparForm();
                     $("#msg_sucesso").show();
+                    $("#msg_sucesso").html("<p>Seguradora salva com sucesso!</p>");
+                    $("#nome").focus();
                 } else {
                     $("#msg_error").show();
+                    $("#msg_error").html("<p>Erro gravando seguradota, tente novamente!</p>");
+                    $("#nome").focus();
                 }
 
             });

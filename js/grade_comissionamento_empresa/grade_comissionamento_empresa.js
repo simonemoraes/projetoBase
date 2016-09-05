@@ -5,6 +5,10 @@ $(document).ready(function () {
         abrirCadastro();
 
     });
+    
+    $("#select_condicao").blur(function(){
+        removeMsg();
+    });
 
 
     $('#tbl_grade_comissionamento_empresa').delegate('a', 'click', function () {
@@ -20,7 +24,7 @@ $(document).ready(function () {
 
     $('#tbl_grade_comissionamento_empresa').delegate('tr', 'click', function () {
 
-      
+
         $(this).find('td').each(function (i) {
 
             switch (i) {
@@ -28,7 +32,7 @@ $(document).ready(function () {
                     if ($(this).html() > 0) {
 
                         $('#parcela').val($(this).html());
-                         $('#vitalicio').val("");
+                        $('#vitalicio').val("");
                         $('#parcela').removeAttr('disabled');
                         $('#percentual_vt').attr('disabled', "disabled");
 
@@ -58,7 +62,7 @@ $(document).ready(function () {
                 case 3:
                     if ($(this).html() > 0) {
                         $('#vitalicio').val($(this).html());
-                         $('#parcela').val("");
+                        $('#parcela').val("");
                         $('#vitalicio').removeAttr('disabled');
                         $('#percentual').attr('disabled', "disabled");
 
@@ -69,7 +73,7 @@ $(document).ready(function () {
 
                     if ($(this).html() > 0) {
                         $('#percentual_vt').val($(this).html());
-                         $('#percentual').val("");
+                        $('#percentual').val("");
                         $('#percentual_vt').removeAttr('disabled');
 
                     }
@@ -191,16 +195,20 @@ $(document).ready(function () {
 
     // Esse enevento faz uma chamada para função assincrona para gravar usuario 
     $("#btn_modal_salvar").click(function () {
+
+        //pegando url
         var url = $(this).attr("itemid");
 
         var obj = new Object();
 
         var lista_de_parcelas = [];
 
-        obj.ukey_grade = $("#select_grade option:selected").val();
-        obj.ukey_condicao = $("#select_condicao option:selected").val();
-        obj.ukey_seguradora = $("#select_seguradora option:selected").val();
-        obj.ukey_produto = $("#select_produto option:selected").val();
+        obj.ukey = $("#ukey").val();
+        obj.cia_ukey = "";
+        obj.empresa_ukey = "";
+        obj.condicao_ukey = $("#select_condicao option:selected").val();
+        obj.seguradora_ukey = $("#select_seguradora option:selected").val();
+        obj.produto_ukey = $("#select_produto option:selected").val();
         obj.inicio_vigencia = $('#inicio_vigencia').val();
         obj.fim_vigencia = $('#fim_vigencia').val();
 
@@ -222,32 +230,41 @@ $(document).ready(function () {
 
 
                     case 2:
-                        parcela.colaborador = $(this).html();
+                        parcela.parent = $(this).html();
                         break;
 
                     case 3:
-                        parcela.vitalicio = $(this).html();
+                        parcela.parcela_vitalicio = $(this).html();
 
                         break;
 
                     case 4:
-                        parcela.percentual_vt = $(this).html();
+                        parcela.percentual_vitalicio = $(this).html();
 
                         break;
                 }
 
             });
 
+            parcela.ukey = "";
+            parcela.cia_ukey = "";
+            parcela.comissionamento_ukey = "";
+
             lista_de_parcelas.push(parcela);
 
         });
 
+        if (lista_de_parcelas.length !== 0) {
+            obj.parcelas = lista_de_parcelas;
 
-        obj.parcelas = lista_de_parcelas;
+            var jsonObjs = JSON.stringify(obj);
 
-        var jsonObjs = JSON.stringify(obj);
+            salvarGradeComissaoEmpresa(url, jsonObjs);
+        } else {
+            $("#msg").html("Não é possivel salvar sem nenhuma parcela!");
+        }
 
-        salvarGradeComissaoEmpresa(url, jsonObjs);
+
 
 
     });
@@ -415,11 +432,11 @@ function  salvarGradeComissaoEmpresa(url, objetoJson) {
         chave = $('#ukey').val();
     }
 
-   
+
     $.post(url, {
         ukey: chave,
         objeto: objetoJson
-       
+
 
     },
             function (data, status) {
@@ -429,9 +446,13 @@ function  salvarGradeComissaoEmpresa(url, objetoJson) {
 
                 if (data === "sucesso") {
                     limparForm();
+                    $('.grade_parcelas').remove();
                     $("#msg_sucesso").show();
+                    $("#msg_sucesso").html("<p> Grade inserida com sucesso!</p>");
+
                 } else {
                     $("#msg_error").show();
+                    $("#msg_error").html("<p> Erro inserido grade, tente novamente!</p>");
                 }
 
             });
@@ -444,5 +465,5 @@ function limparForm() {
 
 // Essa função trata a seleção unica dos checkbox da tela
 // Essa fução está no JS_base.
-var botoes_habilitar = ['#btn_painel_editar', "#btn_painel_inativar"]
+var botoes_habilitar = ['#btn_painel_editar', "#btn_painel_inativar"];
 controlaCheckbox('.esp_chk', botoes_habilitar);

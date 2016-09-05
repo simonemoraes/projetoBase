@@ -11,6 +11,7 @@ class Grade_comissionamento_empresa_control extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model("grade_comissionamento_empresa_model");
+        $this->load->model("parcela_model");
         $this->cia_ukey = $this->session->userdata("empresa_logada")['ukey'];
     }
 
@@ -25,7 +26,7 @@ class Grade_comissionamento_empresa_control extends CI_Controller {
         $data = $this->obj_gen->paginacao($endereco_paginacao, $total_registros);
 
         $grade_comissionamento_empresa['lista_grade_comissionamento_empresa'] = $this->grade_comissionamento_empresa_model->retornaTodos($this->tabela, $this->cia_ukey, 'codigo', 'asc', $data['resultado_por_pg'], $data['offset']);
-        
+
         $grade_comissionamento_empresa['lista_grade_empresa'] = $this->grade_comissionamento_empresa_model->retornaEmpresa("empresa", $this->cia_ukey);
         $grade_comissionamento_empresa['lista_condicao_comissao'] = $this->grade_comissionamento_empresa_model->retornaCondicaoComissao("condicao_comissionamentos", $this->cia_ukey);
         $grade_comissionamento_empresa['lista_seguradora'] = $this->grade_comissionamento_empresa_model->retornaSeguradora("seguradoras", $this->cia_ukey);
@@ -80,19 +81,71 @@ class Grade_comissionamento_empresa_control extends CI_Controller {
     public function salvar() {
 
         $acao = "EDITAR";
-
+        $retorno = FALSE;
         $chave = $this->input->post('ukey');
 
+        $objeto = $this->input->post('objeto');
+        $gradeComissao_empresa = json_decode($objeto, true);
+        $parcelasGravar = $gradeComissao_empresa['parcelas'];
+
+        unset($gradeComissao_empresa['parcelas']);
+
         if ($this->input->post('ukey') == "NOVO") {
-            $chave = $this->obj_gen->criaChaveprimaria("U");
+
+            $chave = $this->obj_gen->criaChaveprimaria();
+            $gradeComissao_empresa['ukey'] = $chave;
+            $gradeComissao_empresa['cia_ukey'] = $this->cia_ukey;
+            $gradeComissao_empresa['empresa_ukey'] = $this->cia_ukey;
+            $gradeComissao_empresa['parent_ukey'] = "EMPRESA";
+            $gradeComissao_empresa['fim_vigencia'] = "0000-00-00";
+
+            for ($i = 0; $i < sizeof($parcelasGravar); $i++) {
+
+                $chave_parcela = $this->obj_gen->criaChaveprimaria();
+                $parcelasGravar[$i]['ukey'] = $chave_parcela;
+                $parcelasGravar[$i]['comissionamento_ukey'] = $chave;
+                $parcelasGravar[$i]['cia_ukey'] = $this->cia_ukey;
+
+                $parcelasGravar[$i]['parcela'] = (int) $parcelasGravar[$i]['parcela'];
+                $parcelasGravar[$i]['percentual'] = (double) $parcelasGravar[$i]['percentual'];
+                $parcelasGravar[$i]['parcela_vitalicio'] = (int) $parcelasGravar[$i]['parcela_vitalicio'];
+                $parcelasGravar[$i]['percentual_vitalicio'] = (double) $parcelasGravar[$i]['percentual_vitalicio'];
+            }
+
             $acao = 'INSERIR';
+        } else {
+            $ukey = $this->input->post('ukey');
         }
 
-        $retorno = FALSE;
 
-        $ukey = $this->input->post('ukey');
-        $objeto = $this->input->post('objeto');
-       
+        if ($acao === 'INSERIR') {
+            $retorno = $this->grade_comissionamento_empresa_model->inserir($this->tabela, $gradeComissao_empresa);
+
+            if ($retorno) {
+
+                $retorno = $this->parcela_model->inserirParcela("parcelas_comissionamento_empresa", $parcelasGravar);
+
+                if ($retorno) {
+                    echo 'sucesso';
+                }else{
+                    echo 'error';
+                }
+
+                
+            } else {
+                echo 'error';
+            }
+        } else {
+            
+        }
+
+
+
+
+
+
+
+
 
 //        if ($ukey === 'NOVO') {
 //            $ukey = $this->obj_gen->criaChaveprimaria();
@@ -170,8 +223,7 @@ class Grade_comissionamento_empresa_control extends CI_Controller {
 
         echo json_encode($retorno);
     }
-    
-    
+
     public function filtarRegistros() {
 
         if ($this->input->post('filtro')) {
