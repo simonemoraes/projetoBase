@@ -199,7 +199,7 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
-require_once $application_folder . '/libraries/autoload';
+require_once $application_folder . '/libraries/autoload.php';
 require_once BASEPATH.'core/CodeIgniter.php';
 
 
